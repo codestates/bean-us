@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      beanInfo.hasMany(
+        models.userBean,
+        {
+          sourceKey: 'beanId',
+          foreignKey: 'beanId',
+        }
+      );
     }
   }
   beanInfo.init(
@@ -21,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       sweetness: DataTypes.INTEGER,
       bitterness: DataTypes.INTEGER,
       body: DataTypes.INTEGER,
+      description: DataTypes.STRING,
       beanImage: DataTypes.STRING,
     },
     {

@@ -11,6 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // userBean.belongsTo(
+      //   models.beanInfo,
+      //   {
+      //     targetKey: 'beanId',
+      //     foreignKey: 'beanId',
+      //   }
+      // );
     }
   };
   userBean.init({
