@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { beanInfo } = require('../models');
 const { generateAccessToken, sendAccessToken } = require('./functions');
 
@@ -59,4 +61,6 @@ module.exports = {
   logout: (res) => {
     res.clearCookie('accessToken').send('로그아웃 되었습니다');
   },
+
+  oauth: (req, res) => {},
 };
