@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   userBean.init({
     userId: DataTypes.STRING,
-    beanId: DataTypes.STRING
+    beanId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'userBean',

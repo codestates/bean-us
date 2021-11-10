@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       beanId: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
