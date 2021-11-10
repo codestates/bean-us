@@ -12,9 +12,7 @@ const port = process.env.HTTP_PORT || 80;
 // Router 연결
 const beanRouter = require('./router/beanRouter');
 const myPageRouter = require('./router/myPageRouter');
-
-// postRouter -> postsRouter 로 변경
-const postRouter = require('./router/postsRouter');
+const postsRouter = require('./router/postsRouter');
 
 // Login, Signup, Logout 에만 바로 controller 와 연결.
 const signController = require('./controller/signController');
@@ -30,6 +28,10 @@ app.use(
 );
 
 app.use(cookieParser());
+
+app.use('/bean', beanRouter);
+app.use('/my-page', myPageRouter);
+app.use('/posts', postsRouter);
 
 app.post('/login', signController.login);
 app.post('/signup/check-id', signController.signupCheck);
