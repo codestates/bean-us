@@ -10,7 +10,6 @@ const MainHeader = styled.header`
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    background-color: #c8aa9b;
     z-index:999
 `;
 const Nav = styled.nav`
@@ -33,8 +32,8 @@ const Header = () => {
     }
     const linkStyle = {
         textDecoration: "none",
-        color: "black",
-        fontWeight: "500",
+        color: "#d9480f",
+        fontWeight: "600",
     }
     const iconstyle = {
         verticalAlign: "bottom"
