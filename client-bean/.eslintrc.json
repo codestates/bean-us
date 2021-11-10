@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "react-app",
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["react-app", "eslint:recommended", "plugin:react/recommended"],
   "rules": { "react/prop-types": ["off"] }
 }
+
