@@ -33,6 +33,11 @@ app.post('/signup/check-id', signController.signupCheck);
 app.post('/signup', signController.signup);
 app.post('/logout', signController.logout);
 
+// 웹화면에서 Hello bean-us 표시
+app.get('/hello-bean-us', (req, res) => {
+  res.status(200).send('Hello bean-us');
+});
+
 app.listen(port, () => {
   console.log(`          server listening on ${port}`);
 });
