@@ -6,12 +6,15 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const app = express();
 
-const port = process.env.HTTP_PORT || 4000;
+// port 80으로 변경
+const port = process.env.HTTP_PORT || 80;
 
 // Router 연결
 const beanRouter = require('./router/beanRouter');
 const myPageRouter = require('./router/myPageRouter');
-const postRouter = require('./router/postRouter');
+
+// postRouter -> postsRouter 로 변경
+const postRouter = require('./router/postsRouter');
 
 // Login, Signup, Logout 에만 바로 controller 와 연결.
 const signController = require('./controller/signController');
