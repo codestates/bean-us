@@ -2,9 +2,6 @@ import axios from 'axios';
 
 const http = process.env.REACT_APP_HTTPURL;
 
-// export function signup(userId, email, password) {
-// return axios.post(http, { userId, email, password }, { 'Content-Type': 'application/json', withCredentials: true });
-
 //TODO REST API 추가 필요
 //* cookie에 담긴 accessToken을 기반으로 user를 알아내고, 해당 유저가 좋아하는(like) 표시된 사항을 보내주어야 한다.
 export function getAllBeans() {

@@ -2,9 +2,21 @@ import React, { useEffect, useState } from 'react';
 import BeanCards from '../components/beans/BeanCards';
 import BeanSearch from '../components/beans/BeanSearch';
 import { getAllBeans } from '../network/http';
+import styled from 'styled-components';
 
 //db
 import { Beandb } from '../db/beandb';
+
+const BeanContainer = styled.div`
+  width: 1100px;
+  margin: auto;
+
+  & .title {
+    padding: 1rem 0;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+`;
 
 const Beans = (props) => {
   const [beans, setBeans] = useState([]);
@@ -30,10 +42,11 @@ const Beans = (props) => {
   };
 
   return (
-    <>
+    <BeanContainer>
+      <div className="title">원두</div>
       <BeanSearch getBeanCards={getBeanCards} beanName={beanName} />
       <BeanCards beans={beans} />
-    </>
+    </BeanContainer>
   );
 };
 export default Beans;
