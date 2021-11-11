@@ -33,6 +33,7 @@ const ringPurse = keyframes`
     transform: scale(1.8)
 	}
 `;
+
 const Map = styled.div`
   width: 50vw;
   height: 100vh;

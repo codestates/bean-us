@@ -5,6 +5,7 @@ import Section2 from '../components/MainPage/Section/Section2';
 import Section3 from '../components/MainPage/Section/Section3';
 import styled from 'styled-components';
 import Footer from '../components/MainPage/Footer/Footer';
+import SignModal from '../components/signModal/SignModal';
 
 const MainContainer = styled.div`
   display: flex;
