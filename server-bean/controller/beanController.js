@@ -71,4 +71,8 @@ module.exports = {
       });
     });
   },
+
+  findBeanPost: (req, res) => {
+
+  },
 };
