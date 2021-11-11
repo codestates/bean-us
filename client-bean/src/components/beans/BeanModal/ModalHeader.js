@@ -11,7 +11,7 @@ const ModalHead = styled.div`
   font-weight: bold;
 
   & .closeIcon {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     color: rgba(0, 0, 0, 0.3);
     margin-bottom: 1rem;
     transition: all 0.2s;

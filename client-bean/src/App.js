@@ -16,10 +16,10 @@ function App() {
       {location.pathname === '/' ? null : <TopBar />}
       {location.pathname === '/' ? null : <NavBar />}
       <Routes>
-        <Route exact path="/" element={<Main />} />
-        <Route path="/posts" element={<Posts />} />
-        <Route path="/beans" element={<Beans />} />
-        <Route path="/myPage" element={<MyPage />} />
+        <Route exact path='/' element={<Main />} />
+        <Route path='/posts/:role/:id' element={<Posts />} />
+        <Route path='/beans' element={<Beans />} />
+        <Route path='/myPage' element={<MyPage />} />
       </Routes>
     </>
   );

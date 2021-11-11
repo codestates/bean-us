@@ -1,36 +1,71 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { BeanPostdb } from '../../../db/beanPostdb';
+import { FaChevronCircleDown } from 'react-icons/fa';
+import ModalPostingLi from './ModalPostingLi';
 
-//[{postId, title, beans: [beanName, beanName, beanName], userId(작성자), createAt}]
-// 최신순으로 정렬
+//db
+import { BeanPostdb } from '../../../db/beanPostdb';
 
 const BeanPostWrap = styled.div`
   display: inline-block;
   width: 100%;
-  height: 500px;
+  overflow: hidden;
 
   & header {
+    display: flex;
+    justify-content: space-between;
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 2rem;
   }
+
+  & .down {
+    font-size: 2rem;
+    color: #799369;
+    transition: all 0.2s;
+    transform: ${({ isPost }) => (isPost === true ? 'rotate(180deg)' : null)};
+  }
+
+  & .down:hover {
+    cursor: pointer;
+  }
+
+  & ul {
+    border-bottom: 2px solid rgba(95, 107, 95, 0.7);
+    height: 550px;
+    overflow: scroll;
+    overflow-x: auto;
+    -ms-overflow-style: none; // IE에서 스크롤바 감춤
+    &::-webkit-scrollbar {
+      display: none; // 윈도우 크롬 등
+    }
+  }
 `;
 
-function ModalPosting(props) {
+function ModalPosting({ cardPostInfo }) {
+  const [isPost, setIsPost] = useState(false);
+
+  let downRef = useRef(null);
+
+  const postScroll = () => {
+    if (!isPost) {
+      downRef.current.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      downRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+    setIsPost(!isPost);
+  };
+
   return (
-    <BeanPostWrap>
-      <header>게시글</header>
+    <BeanPostWrap isPost={isPost}>
+      <header>
+        <div ref={downRef}>게시글</div>
+        <FaChevronCircleDown className='down' onClick={postScroll} />
+      </header>
       <ul>
+        {/* TODO 실제 서버 통신 시 / BeanPostdb => cardPostInfo */}
         {BeanPostdb.map((res) => (
-          <li key={res.postId}>
-            <div>{res.title}</div>
-            {res.beans.map((name) => (
-              <div key={name}>{name}</div>
-            ))}
-            <div>{res.userId}</div>
-            <div>{res.createAt}</div>
-          </li>
+          <ModalPostingLi key={res.postId} res={res} />
         ))}
       </ul>
     </BeanPostWrap>

@@ -1,3 +1,5 @@
+/*eslint-disable no-unused-vars*/
+
 import React from 'react';
 // import {useLocation} from 'react-router-dom';
 import Section1 from '../components/MainPage/Section/Section1';
@@ -14,14 +16,13 @@ const MainContainer = styled.div`
   cursor: default;
 `;
 
-export default function Main () {
+export default function Main() {
   return (
     <MainContainer>
-        <Section1 />
-        <Section2 />
-        <Section3 />
-        <Footer />
+      <Section1 />
+      <Section2 />
+      <Section3 />
+      <Footer />
     </MainContainer>
-  )
+  );
 }
-
