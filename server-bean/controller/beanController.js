@@ -1,4 +1,4 @@
-const {beanInfo, userBean, sequelize} = require('./../models')
+const {beanInfo, userBean} = require('./../models')
 const {Op, fn, col} = require('sequelize');
 
 module.exports = {
