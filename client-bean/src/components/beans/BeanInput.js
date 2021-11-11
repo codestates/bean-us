@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { getBeanName } from '../../network/http';
+import { getBeanName } from '../../network/beans/http';
 
 const SearchContainer = styled.div`
   & form {
@@ -62,7 +62,7 @@ const DropText = styled.ul`
   }
 `;
 
-const BeanInput = ({ beanName, getBeanCards }) => {
+export default function BeanInput({ beanName, getBeanCards }) {
   const [inputName, setInputName] = useState('');
   const [filterName, setFilterName] = useState([]);
   const [onInputFocus, setOnInputFocus] = useState(false);
@@ -72,9 +72,10 @@ const BeanInput = ({ beanName, getBeanCards }) => {
   const nameSubmit = (e) => {
     e.preventDefault();
     //TODO GET 요청
-    let res = getBeanName(inputName);
+    getBeanName(inputName).then((res) => {
+      getBeanCards(res);
+    });
 
-    getBeanCards(res);
     setFilterName([]);
     // inpuRef.current.focus();
   };
@@ -115,6 +116,4 @@ const BeanInput = ({ beanName, getBeanCards }) => {
       </form>
     </SearchContainer>
   );
-};
-
-export default BeanInput;
+}
