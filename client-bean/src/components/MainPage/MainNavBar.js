@@ -10,19 +10,18 @@ const MainHeader = styled.header`
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    background-color: #c8aa9b;
     z-index:999
 `;
 const Nav = styled.nav`
-  width: 20vw;
-  height: 10vh;
-  display: flex;
-  align-items: center;
-  font-size: 1.2rem;
-  justify-content: space-around;
-  position: absolute;
-  right: 0;
-  margin-right: 1vw;
+    width: 20vw;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    justify-content: space-around;
+    position: absolute;
+    right: 0;
+    margin-right: 1vw;
 `;
 
 const Header = () => {
@@ -33,8 +32,8 @@ const Header = () => {
     }
     const linkStyle = {
         textDecoration: "none",
-        color: "black",
-        fontWeight: "500",
+        color: "#d9480f",
+        fontWeight: "600",
     }
     const iconstyle = {
         verticalAlign: "bottom"

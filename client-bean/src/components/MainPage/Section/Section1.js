@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import backgroundimg from '../../../backgroundimg.jpg';
+import MainNavBar from '../MainNavBar';
 
 const MainSection1 = styled.section`
     width: 100vw;
-    height: 90vh;
+    height: 100vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${backgroundimg});
-    background-size: 100vw;
+    min-height: 100%;
+    background-size: cover;
     background-attachment: fixed;
 `;
 
@@ -38,6 +40,7 @@ const SectionIntroCnt = styled.div`
 const Section1 = () => {
     return (
         <MainSection1>
+            <MainNavBar />
             <SectionIntroCnt>
                 <img src="img/logowhite.png" alt="" className="logoimg"/>
                 <img src="img/coffeebeans.png" alt="" className="beanimg"/>
