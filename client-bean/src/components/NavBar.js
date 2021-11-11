@@ -14,15 +14,15 @@ const MainHeader = styled.header`
     z-index:999
 `;
 const Nav = styled.nav`
-    width: 20vw;
-    height: 10vh;
-    display: flex;
-    align-items: center;
-    font-size: 1.2rem;
-    justify-content: space-around;
-    position: absolute;
-    right: 0;
-    margin-right: 1vw;
+  width: 20vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  justify-content: space-around;
+  position: absolute;
+  right: 0;
+  margin-right: 1vw;
 `;
 
 const Header = () => {

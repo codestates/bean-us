@@ -36,7 +36,7 @@ app.use('/posts', postsRouter);
 app.post('/login', signController.login);
 app.post('/signup/check-id', signController.signupCheck);
 app.post('/signup', signController.signup);
-app.post('/logout', signController.logout);
+app.get('/logout', signController.logout);
 
 // 웹화면에서 Hello bean-us 표시
 app.get('/hello-bean-us', (req, res) => {
