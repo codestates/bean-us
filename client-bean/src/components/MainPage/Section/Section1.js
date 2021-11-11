@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import backgroundimg from '../../../backgroundimg.jpg';
 import MainNavBar from '../MainNavBar';
+import MainTopBar from '../MainTopBar';
 
 const MainSection1 = styled.section`
     width: 100vw;
@@ -40,6 +41,7 @@ const SectionIntroCnt = styled.div`
 const Section1 = () => {
     return (
         <MainSection1>
+            <MainTopBar />
             <MainNavBar />
             <SectionIntroCnt>
                 <img src="asset/mainpage/logowhite.png" alt="" className="logoimg"/>

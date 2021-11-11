@@ -10,9 +10,10 @@ const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: default;
 `;
 
-const Main = (props) => {
+const Main = () => {
     return (
         <MainContainer>
             <Section1 />

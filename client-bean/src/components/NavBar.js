@@ -4,54 +4,52 @@ import {Link}  from 'react-router-dom';
 import { MdHomeFilled } from "react-icons/md";
 
 const MainHeader = styled.header`
-    width: 100vw;
-    height: 10vh;
-    display: flex;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    background-color: #c8aa9b;
-    z-index:999
+  width: 100vw;
+  height: 7vh;
+  display: flex;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #c8aa9b;
+  z-index:999;
+  > .link {
+    > img {
+      width: 100px;
+      margin-left: 2vw;
+    }
+  }
 `;
 const Nav = styled.nav`
   width: 20vw;
   height: 10vh;
   display: flex;
-  align-items: center;
   font-size: 1.2rem;
   justify-content: space-around;
   position: absolute;
   right: 0;
   margin-right: 1vw;
+  > .link {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    .navicon {
+      vertical-align: bottom;
+    }
+  }
 `;
 
 const Header = () => {
-    const logostyle = {
-        width: "100px",
-        marginTop: "2vh",
-        marginLeft: "2vw"
-    }
-    const linkStyle = {
-        textDecoration: "none",
-        color: "black",
-        fontWeight: "500",
-    }
-    const iconstyle = {
-        verticalAlign: "bottom"
-    }
-
-    return (
-        <MainHeader>
-            <Link to='/'><img src='asset/mainpage/logo.png' alt='logo' style={logostyle}/></Link>
-            <Nav>
-                <Link to='/' style={linkStyle}><MdHomeFilled style={iconstyle}/></Link>
-                <Link to='/posts' style={linkStyle}>post</Link>
-                <Link to='beans' style={linkStyle}>beans</Link>
-                <Link to='myPage' style={linkStyle}>mypage</Link>
-            </Nav>
-        </MainHeader>
-    )
-
+  return (
+      <MainHeader>
+          <Link to='/' className="link"><img src='asset/mainpage/logo.png' alt='logo'/></Link>
+          <Nav>
+              <Link to='/' className="link"><MdHomeFilled className="navicon"/></Link>
+              <Link to='/posts' className="link">post</Link>
+              <Link to='beans' className="link">beans</Link>
+              <Link to='myPage' className="link">mypage</Link>
+          </Nav>
+      </MainHeader>
+  )
 }
 
 export default Header;
