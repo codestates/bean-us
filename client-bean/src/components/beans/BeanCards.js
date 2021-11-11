@@ -1,5 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+// import { getBeanPost } from '../../network/beans/http';
+
+const CardWrap = styled.div`
+  & .noCard {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding-top: 1rem;
+  }
+`;
 
 const CardsUL = styled.ul`
   display: grid;
@@ -55,26 +66,39 @@ const ContentUL = styled.ul`
   }
 `;
 
-const BeanCards = ({ beans }) => {
-  return (
-    <CardsUL>
-      {beans.map((bean) => (
-        <li key={bean.beanId}>
-          <div className="contentWrap">
-            <div className="imgWrap">
-              <img src={bean.beanImage} alt="beanImg" />
-            </div>
-            <ContentUL>
-              <li className="beanName">{bean.beanName}</li>
-              <li>{bean.origin}</li>
-              <li>{bean.likeCount}</li>
-              <li>{bean.like ? '하트' : '하트아님'}</li>
-            </ContentUL>
-          </div>
-        </li>
-      ))}
-    </CardsUL>
-  );
-};
+export default function BeanCards({ beans, beanModal }) {
+  const cardClick = (beanId) => {
+    //TODO GET /bean?beanId=beanId 해당 원두와 관련된 게시글 요청
+    // getBeanPost(beanId).then((res) => {
+    //   console.log(res);
+    //   beanModal(beanId, 'get 통신 결과 bean과 관련된 post 정보');
+    // });
+    beanModal(beanId, 'get 통신 결과 bean과 관련된 post 정보');
+  };
 
-export default BeanCards;
+  return (
+    <CardWrap>
+      {beans.length ? (
+        <CardsUL>
+          {beans.map((bean) => (
+            <li key={bean.beanId} onClick={() => cardClick(bean.beanId)}>
+              <div className='contentWrap'>
+                <div className='imgWrap'>
+                  <img src={bean.beanImage} alt='beanImg' />
+                </div>
+                <ContentUL>
+                  <li className='beanName'>{bean.beanName}</li>
+                  <li>{bean.origin}</li>
+                  <li>{bean.likeCount}</li>
+                  <li>{bean.like ? '하트' : '하트아님'}</li>
+                </ContentUL>
+              </div>
+            </li>
+          ))}
+        </CardsUL>
+      ) : (
+        <div className='noCard'>해당하는 원두가 없습니다</div>
+      )}
+    </CardWrap>
+  );
+}

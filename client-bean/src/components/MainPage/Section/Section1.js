@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import backgroundimg from '../../../backgroundimg.jpg';
 import MainNavBar from '../MainNavBar';
+import MainTopBar from '../MainTopBar';
 
 const MainSection1 = styled.section`
     width: 100vw;
@@ -37,13 +38,14 @@ const SectionIntroCnt = styled.div`
     }
 `;
 
-const Section1 = () => {
+export default function Section1 () {
     return (
         <MainSection1>
+            <MainTopBar />
             <MainNavBar />
             <SectionIntroCnt>
-                <img src="img/logowhite.png" alt="" className="logoimg"/>
-                <img src="img/coffeebeans.png" alt="" className="beanimg"/>
+                <img src="asset/mainpage/logowhite.png" alt="" className="logoimg"/>
+                <img src="asset/mainpage/coffeebeans.png" alt="" className="beanimg"/>
                 <span className="introMain">Special coffee beans</span>
                 <span>In our website you can find sepecial flavor coffee beans,</span>
                 <span>and you can share your own recipe with other people!</span>
@@ -54,4 +56,3 @@ const Section1 = () => {
 
 }
 
-export default Section1;  

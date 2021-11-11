@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getFilterBeans } from '../../network/http';
+import { getFilterBeans } from '../../network/beans/http';
 
 const num = [1, 2, 3, 4, 5];
 const content = ['Fragrance', 'Acidity', 'Sweetness', 'Bitterness', 'Body'];
@@ -49,16 +49,22 @@ const FilterUL = styled.ul`
   }
 `;
 
-const BeanFilter = ({ getBeanCards }) => {
+export default function BeanFilter({ getBeanCards }) {
   const [filtering, setFiltering] = useState({ fragrance: [], acidity: [], sweetness: [], bitterness: [], body: [] });
 
   //TODO useState 동기처리 다른 방법 없나.. 너무 리랜더링이 많이 된다.
   // filtering의 최신값을 가져오기 위함
   // 이후 필터링 개선 필요(불필요한 로직 개선 필요)
+  // useCallback ?? //
   useEffect(() => {
     // TODO GET 요청
-    let res = getFilterBeans(filtering);
-    getBeanCards(res);
+    let filteringObj = { ...filtering };
+    for (let key in filteringObj) {
+      filteringObj[key] = filteringObj[key].join(',');
+    }
+    getFilterBeans(filteringObj).then((res) => {
+      getBeanCards(res);
+    });
   }, [filtering]);
 
   //TODO 이후 필터링 개선 필요(불필요한 로직 개선 필요)
@@ -94,6 +100,4 @@ const BeanFilter = ({ getBeanCards }) => {
       </FilterUL>
     </FilterContainer>
   );
-};
-
-export default BeanFilter;
+}
