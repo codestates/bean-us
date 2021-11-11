@@ -37,6 +37,7 @@ export default function InputLine({
   checkId,
   signup,
   checkDuplicate,
+  blurHandler,
 }) {
   return (
     <Wrapper marginTop={marginTop}>
@@ -47,6 +48,7 @@ export default function InputLine({
         defaultValue=''
         onChange={inputHandler}
         checkId={checkId}
+        onBlur={blurHandler}
       ></Input>
       {checkId ? <CheckIdBtn onClick={checkDuplicate}>중복 확인</CheckIdBtn> : null}
     </Wrapper>
