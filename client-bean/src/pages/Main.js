@@ -5,7 +5,7 @@ import Section2 from '../components/MainPage/Section/Section2';
 import Section3 from '../components/MainPage/Section/Section3';
 import styled from 'styled-components';
 import Footer from '../components/MainPage/Footer/Footer';
-import SignModal from '../components/signModal/SignModal';
+import useScroll from '../components/MainPage/useScroll';
 
 const MainContainer = styled.div`
   display: flex;
@@ -15,11 +15,12 @@ const MainContainer = styled.div`
 `;
 
 export default function Main () {
+  const {scrollY} = useScroll();
   return (
     <MainContainer>
-        <Section1 />
-        <Section2 />
-        <Section3 />
+        <Section1 scrollY={scrollY}/>
+        <Section2 scrollY={scrollY}/>
+        <Section3 scrollY={scrollY}/>
         <Footer />
     </MainContainer>
   )

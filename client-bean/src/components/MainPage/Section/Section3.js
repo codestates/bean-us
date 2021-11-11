@@ -1,25 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-const MainSection3 = styled.section`
-  width: 100vw;
-  height: 100vh;
-  background-color: #eae7dd;
-  position: relative;
-	display: flex;
-	justify-content: center;
-`;
-const MainSectionDesc = styled.div`
-	width: 300px;
-	height: 100vh;
-	padding-top: 160px;
-		> h1 {
-			text-align: center;
-		}
-		> div {
-			text-align: center;
-		}
-`;
 const ringPurse = keyframes`
   0% {
     opacity: 1;
@@ -34,6 +15,37 @@ const ringPurse = keyframes`
 	}
 `;
 
+const MainSection3 = styled.section`
+  width: 100vw;
+  height: 100vh;
+  background-color: #eae7dd;
+  position: relative;
+	display: flex;
+	justify-content: center;
+`;
+
+const MainSectionDesc = styled.div`
+	width: 350px;
+	height: 100vh;
+	padding-top: 200px;
+	flex: none;
+		> h1 {
+			text-align: center;
+			color: #41352f;
+		}
+		> div {
+			padding-left: 16px;
+			text-align: center;
+			font-size: 1.1rem;
+			font-weight: 600;
+			color: #725e53;
+		}
+		> p {
+			padding-left: 30px;
+			font-weight: 500;
+		}
+`;
+
 const Map = styled.div`
   width: 50vw;
   height: 100vh;
@@ -41,6 +53,7 @@ const Map = styled.div`
   justify-content: center;
 	flex-direction: column;
 	position: relative;
+	flex: none;
 		> .coffee-spot {
 			> .label {
 				display: none;
@@ -69,7 +82,7 @@ const Map = styled.div`
 			height: 28px;
 			border-radius: 50%;
 			border: 1px solid #c8aa9b;
-			animation: ${ringPurse} 5s 1s infinite;
+			animation: ${ringPurse} 3s 1s infinite;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -111,6 +124,13 @@ const MexicoSpot = styled.div`
 	position: absolute;
 	top: 45%;
 	left: 7%;
+`;
+const IndoSpot = styled.div`
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: 48%;
+	left: 67%;
 `;
 
 export default function Section3 () {
@@ -154,10 +174,24 @@ export default function Section3 () {
 						<p>Mexico coffee description</p>
 					</div>
 				</MexicoSpot>
+				<IndoSpot className="coffee-spot">
+					<div className="ring">
+						<button className="ring-btn"/>
+					</div>
+					<div className="indo-label label">
+						<h4>Indo-Monsooned Malabar</h4>
+						<p>Indo coffee description</p>
+					</div>
+				</IndoSpot>
 		</Map>
 		<MainSectionDesc>
 			<h1>World Coffee Bean Map</h1>
-			<div>ildan ammooguna jukja!</div>
+			<div> 마우스를 올려 원산지를 지도로 확인해보세요</div>
+			<p>원두는 주로 중남미, 아프리카, 아시아 지역에서 생산됩니다.<br/><br/>
+				적도를 기준으로 북위 25도에서 남위 25도 사이, 일명 커피벨트에 속한 나라들이 그 주인공입니다.<br/><br/>
+				하지만 비슷한 지역이라도 기후 조건이 다르고 가공 방법도 달라 커피 향도 다 다릅니다.<br/><br/>
+				마우스를 올리면 대표 지역 커피의 특징을 볼 수 있습니다.
+			</p>
 		</MainSectionDesc>
   </MainSection3>);
 

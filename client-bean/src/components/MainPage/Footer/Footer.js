@@ -22,17 +22,22 @@ const FooterConatier = styled.div`
 `;
 
 const FooterLogo = styled.div`
+  flex: none;
   > img {
     width: 200px;
   }
 `;
 
 const ServiceDesc = styled.ul`
+  flex: none;
   list-style: none;
     > div {
       > .service-title {
         font-size: 1.2rem;
         font-weight: 800;
+      }
+      > span {
+        font-weight: 500;
       }
       > .footer-link {
         font-size: 1.2rem;
@@ -47,6 +52,7 @@ const ServiceDesc = styled.ul`
 `;
 
 const Contact = styled.div`
+  flex: none;
   > ul {
     > li {
         margin-bottom: 5px;
@@ -56,6 +62,7 @@ const Contact = styled.div`
         font-size: 1.2rem;
         > .giticon {
         font-size: 1.5rem;
+        font-weight: 500;
         vertical-align: bottom;
         padding-bottom: 3px;
         }

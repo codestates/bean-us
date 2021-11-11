@@ -13,6 +13,7 @@ const MainHeader = styled.header`
   background-color: #c8aa9b;
   z-index:999;
   > .link {
+    flex: none;
     > img {
       width: 100px;
       margin-left: 2vw;
@@ -29,6 +30,9 @@ const Nav = styled.nav`
   right: 0;
   margin-right: 1vw;
   > .link {
+    height: 30px;
+    width: 90px;
+    flex: none;
     text-decoration: none;
     color: black;
     font-weight: 500;
