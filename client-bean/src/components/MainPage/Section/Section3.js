@@ -18,7 +18,7 @@ const Footer = () => {
 
     return (
     <MainSection3>
-        <Map><img src="img/world-map.png" alt="world-map"/></Map>
+        <Map><img src="asset/mainpage/world-map.png" alt="world-map"/></Map>
     </MainSection3>);
 
 }

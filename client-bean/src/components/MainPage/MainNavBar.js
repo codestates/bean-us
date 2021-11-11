@@ -41,7 +41,7 @@ const Header = () => {
 
     return (
         <MainHeader>
-            <Link to='/'><img src='img/logo.png' alt='logo' style={logostyle}/></Link>
+            <Link to='/'><img src='asset/mainpage/logo.png' alt='logo' style={logostyle}/></Link>
             <Nav>
                 <Link to='/' style={linkStyle}><MdHomeFilled style={iconstyle}/></Link>
                 <Link to='/posts' style={linkStyle}>post</Link>

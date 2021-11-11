@@ -53,26 +53,26 @@ const Section2 = () => {
     return (
     <MainSection2>
         <DescContainer>
-            <img src="img/coffeebeanimg.png" alt='coffee'/>
+            <img src="asset/mainpage/coffeebeanimg.png" alt='coffee'/>
             <Description>
                 <DescTitle>About Bean-us</DescTitle>
                 <ul>
                     <li>
-                        <img src="img/coffee.png" alt="" className="coffee-icon"/>
+                        <img src="asset/mainpage/coffee.png" alt="" className="coffee-icon"/>
                         <p>
                             <span>Share your recipe</span><br />
                             원두 꿀 조합을 공유해주세요! 게시글을 작성할 때 원두 꿀 조합 선택이 가능합니다.
                         </p>
                     </li>
                     <li>
-                        <img src="img/coffee-mug.png" alt="" className="coffee-icon"/>
+                        <img src="asset/mainpage/coffee-mug.png" alt="" className="coffee-icon"/>
                         <p>
                             <span>Find sepcial coffee beans</span><br />
                             나는 어떤 커피 취향일까? 세세하고 보기쉬운 필터링 기능을 통해 커피의 세계를 탐험해보세요!
                         </p>
                     </li>
                     <li>
-                        <img src="img/coffee-machine.png" alt="" className="coffee-icon"/>
+                        <img src="asset/mainpage/coffee-machine.png" alt="" className="coffee-icon"/>
                         <p>
                             <span>Comment your opinion</span><br />
                             내 글에는 어떤 반응일지, 게시글을 열어 댓글창을 확인해볼까요? 

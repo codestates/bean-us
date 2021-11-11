@@ -42,8 +42,8 @@ const Section1 = () => {
         <MainSection1>
             <MainNavBar />
             <SectionIntroCnt>
-                <img src="img/logowhite.png" alt="" className="logoimg"/>
-                <img src="img/coffeebeans.png" alt="" className="beanimg"/>
+                <img src="asset/mainpage/logowhite.png" alt="" className="logoimg"/>
+                <img src="asset/mainpage/coffeebeans.png" alt="" className="beanimg"/>
                 <span className="introMain">Special coffee beans</span>
                 <span>In our website you can find sepecial flavor coffee beans,</span>
                 <span>and you can share your own recipe with other people!</span>
