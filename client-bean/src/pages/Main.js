@@ -20,7 +20,6 @@ const Main = (props) => {
       <Section2 />
       <Section3 />
       <Footer />
-      <SignModal />
     </MainContainer>
   );
 };
