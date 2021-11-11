@@ -9,36 +9,35 @@ const TopBar = styled.div`
   background-color: #c8aa9b;
 `;
 const LoginBtn = styled.button`
-  width: 50px;
+  width: 110px;
   height: 20px;
   background: none;
   border: none;
   cursor: pointer;
   font-weight: 500;
+  &:hover {
+    cursor: pointer;
+  }
 `;
-const SignUpBtn = styled.button`
+const LogoutBtn = styled.button`
   width: 60px;
   height: 20px;
   background: none;
   border: none;
   cursor: pointer;
-  font-weight: 500;
-`;
-const LogoutBtn = styled.button`
-  width: 50px;
-  height: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
-export default function MainTopBar(props) {
+export default function MainTopBar({ isLogin, modalHandler }) {
   return (
     <TopBar>
-      <LoginBtn>로그인</LoginBtn>
-      <SignUpBtn>회원가입</SignUpBtn>
-      <LogoutBtn>로그아웃</LogoutBtn>
+      {isLogin ? (
+        <LogoutBtn onClick={modalHandler}>로그아웃</LogoutBtn>
+      ) : (
+        <LoginBtn onClick={modalHandler}>로그인/회원가입</LoginBtn>
+      )}
     </TopBar>
-  )
+  );
 }
