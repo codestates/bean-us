@@ -33,7 +33,7 @@ const LogoutBtn = styled.button`
   display: none;
 `;
 
-const MainTopBar = (props) => {
+export default function MainTopBar(props) {
   return (
     <TopBar>
       <LoginBtn>로그인</LoginBtn>
@@ -42,5 +42,3 @@ const MainTopBar = (props) => {
     </TopBar>
   )
 }
-
-export default MainTopBar;

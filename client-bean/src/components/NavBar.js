@@ -38,7 +38,7 @@ const Nav = styled.nav`
   }
 `;
 
-const Header = () => {
+export default function Header () {
   return (
       <MainHeader>
           <Link to='/' className="link"><img src='asset/mainpage/logo.png' alt='logo'/></Link>
@@ -51,5 +51,3 @@ const Header = () => {
       </MainHeader>
   )
 }
-
-export default Header;

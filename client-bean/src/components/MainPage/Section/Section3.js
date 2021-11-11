@@ -31,6 +31,8 @@ const Map = styled.div`
 		> .coffee-spot {
 			> .label {
 				display: none;
+				position: absolute;
+				left: -100%;
 				> h4 {
 					background-color: rgba(0,0,0,0.5);
 					width: 200px;

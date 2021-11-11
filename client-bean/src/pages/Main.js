@@ -7,22 +7,20 @@ import styled from 'styled-components';
 import Footer from '../components/MainPage/Footer/Footer';
 
 const MainContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
 `;
 
-const Main = () => {
-    return (
-        <MainContainer>
-            <Section1 />
-            <Section2 />
-            <Section3 />
-            <Footer />
-        </MainContainer>
-    )
-
+export default function Main () {
+  return (
+    <MainContainer>
+        <Section1 />
+        <Section2 />
+        <Section3 />
+        <Footer />
+    </MainContainer>
+  )
 }
 
-export default Main;

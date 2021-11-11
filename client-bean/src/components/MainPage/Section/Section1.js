@@ -38,7 +38,7 @@ const SectionIntroCnt = styled.div`
     }
 `;
 
-const Section1 = () => {
+export default function Section1 () {
     return (
         <MainSection1>
             <MainTopBar />
@@ -56,4 +56,3 @@ const Section1 = () => {
 
 }
 
-export default Section1;  

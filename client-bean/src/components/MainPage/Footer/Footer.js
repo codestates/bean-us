@@ -72,7 +72,7 @@ const Contact = styled.div`
 
 
 
-const Footer = () => {
+export default function Footer () {
 
   return (
   <MainFooter>
@@ -109,5 +109,3 @@ const Footer = () => {
   </MainFooter>);
 
 }
-
-export default Footer;  
