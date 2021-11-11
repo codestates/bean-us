@@ -6,6 +6,19 @@ const MainSection3 = styled.section`
   height: 100vh;
   background-color: #eae7dd;
   position: relative;
+	display: flex;
+	justify-content: center;
+`;
+const MainSectionDesc = styled.div`
+	width: 300px;
+	height: 100vh;
+	padding-top: 160px;
+		> h1 {
+			text-align: center;
+		}
+		> div {
+			text-align: center;
+		}
 `;
 const ringPurse = keyframes`
   0% {
@@ -23,7 +36,6 @@ const ringPurse = keyframes`
 const Map = styled.div`
   width: 50vw;
   height: 100vh;
-  margin: 0 auto;
   display: flex;
   justify-content: center;
 	flex-direction: column;
@@ -142,6 +154,10 @@ export default function Section3 () {
 					</div>
 				</MexicoSpot>
 		</Map>
+		<MainSectionDesc>
+			<h1>World Coffee Bean Map</h1>
+			<div>ildan ammooguna jukja!</div>
+		</MainSectionDesc>
   </MainSection3>);
 
 }
