@@ -17,13 +17,11 @@ const BeanFilterContainer = styled.div`
   }
 `;
 
-const BeanSearch = ({ getBeanCards, beanName }) => {
+export default function BeanSearch({ getBeanCards, beanName }) {
   return (
     <BeanFilterContainer>
       <BeanFilter getBeanCards={getBeanCards} />
       <BeanInput beanName={beanName} getBeanCards={getBeanCards} />
     </BeanFilterContainer>
   );
-};
-
-export default BeanSearch;
+}
