@@ -10,17 +10,17 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: default;
 `;
 
-const Main = (props) => {
+export default function Main () {
   return (
     <MainContainer>
-      <Section1 />
-      <Section2 />
-      <Section3 />
-      <Footer />
+        <Section1 />
+        <Section2 />
+        <Section3 />
+        <Footer />
     </MainContainer>
-  );
-};
+  )
+}
 
-export default Main;
