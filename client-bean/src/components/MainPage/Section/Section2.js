@@ -43,8 +43,9 @@ const Description = styled.div`
     flex: none;
     width: 470px;
     font-weight: 500;
+    font-size : 1.4rem;
     padding: 20px;
-    line-height: 1.4rem;
+    line-height: 2rem;
     border-radius: 2px;
     background-color: rgba(255,255,255,0.5);  
   }
@@ -64,14 +65,16 @@ const Description = styled.div`
           > .coffee-icon {
               max-width: 80px;
               max-height: 80px;
-              vertical-align: center;
+              vertical-align: bottom;
           }
           > p {
               flex: none;
               padding-left: 10px;
               font-weight: 500;
+              font-size: 1.1rem;
+              line-height: 1.2rem;
               > span {
-                  font-size: 1.3rem;
+                  font-size: 1.4rem;
                   font-weight: 500;
                   color: #94673f;
               }
@@ -98,11 +101,10 @@ export default function Section2 (props) {
       <Description scrollY={scrollY}>
         <DescTitle>About Bean-us</DescTitle>
         <p>
-          커피없인 못살아! 현대인의 필수품 커피, <br />
-          조금 더 맛있게 취향대로 즐기는 방법이 없을까?<br/>
-          Bean-us에서 취향에 맞는 커피를 찾고싶은 분들을 위한<br/>
-          서비스를 제공합니다! <br />
-          나에게 맞는 원두를 클릭 몇번으로 찾아주는 필터링 기능을 이용해보세요
+          Bean-us는 취향에 맞는 커피를 찾고싶은<br/> 
+          분들을 위한 서비스를 제공합니다! <br/>
+          나에게 맞는 원두를 클릭 몇번으로 찾아주는<br /> 
+          필터링 기능을 이용해보세요
         </p>
         <ul>
           <li>
