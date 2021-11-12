@@ -10,6 +10,7 @@ import SignButton, { Button } from '../../../styles/signs/SignButton';
 
 // functions
 import { loginReq } from '../../../network/sign/signApi';
+import axios from 'axios';
 
 const ErrorMessage = styled.p`
   margin-left: 15px;
@@ -88,6 +89,8 @@ export default function Login({ loginHandler, modalHandler, renderSignupHandler 
       }
     });
   };
+
+  const kakaoOAuthHandler = () => {};
 
   return (
     <>
