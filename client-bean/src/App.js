@@ -38,7 +38,7 @@ function App() {
             />
           }
         />
-        <Route path='/posts/:role/:id' element={<Posts />} />
+        <Route path='/posts' element={<Posts />} />
         <Route path='/beans' element={<Beans />} />
         <Route path='/myPage' element={<MyPage />} />
       </Routes>
