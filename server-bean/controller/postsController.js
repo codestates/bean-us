@@ -108,5 +108,11 @@ module.exports = {
     res.status(200).json({
       message: 'success',
     });
-  }
+  },
+
+  findByParams: (req, res) => {
+    res.status(200).json({
+      message: 'success'
+    });
+  },
 };

@@ -84,6 +84,41 @@ module.exports = {
           beanId: 15,
           createdAt: new Date(),
           updatedAt: new Date(),
+        }, {
+          userId: 'test3',
+          beanId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, {
+          userId: 'test3',
+          beanId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, {
+          userId: 'test3',
+          beanId: 5,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, {
+          userId: 'test3',
+          beanId: 6,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, {
+          userId: 'test3',
+          beanId: 8,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, {
+          userId: 'test3',
+          beanId: 14,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, {
+          userId: 'test3',
+          beanId: 16,
+          createdAt: new Date(),
+          updatedAt: new Date(),
         }, 
       ]
     );
