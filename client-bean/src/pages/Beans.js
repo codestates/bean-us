@@ -1,24 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import BeanCards from '../components/beans/BeanCards';
+import BeanCards from '../components/beans/beanCards/BeanCards';
 import BeanSearch from '../components/beans/BeanSearch';
-import BeanCardModal from '../components/beans/BeanModal/BeanCardModal';
+import BeanCardModal from '../components/beans/beanModal/BeanCardModal';
 import { getAllBeans } from '../network/beans/http';
+import { TopFrame } from '../styles/basicFrame/TopFrame';
 
 //db
 // import { Beandb } from '../db/beandb';
-
-const BeanContainer = styled.div`
-  position: relative;
-  width: 1100px;
-  margin: auto;
-
-  & .title {
-    padding: 1rem 0;
-    font-size: 2rem;
-    font-weight: bold;
-  }
-`;
 
 export default function Beans(props) {
   const [beans, setBeans] = useState([]);
@@ -60,11 +48,17 @@ export default function Beans(props) {
   };
 
   return (
-    <BeanContainer>
+    <TopFrame>
       <div className='title'>원두</div>
       <BeanSearch getBeanCards={getBeanCards} beanName={beanName} />
       <BeanCards beans={beans} beanModal={beanModal} />
-      {openModal && <BeanCardModal cardPostInfo={cardPostInfo} cardBeanInfo={cardBeanInfo} closeModal={closeModal} />}
-    </BeanContainer>
+      {openModal && (
+        <BeanCardModal
+          cardPostInfo={cardPostInfo}
+          cardBeanInfo={cardBeanInfo}
+          closeModal={closeModal}
+        />
+      )}
+    </TopFrame>
   );
 }

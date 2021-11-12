@@ -35,10 +35,20 @@ const SignWrapper = styled.section`
       `;
     }
   }}
+  display: flex;
   position: relative;
   background: #eee;
-  padding: 3px 30px;
   box-sizing: border-box;
+`;
+
+const LoginWrapper = styled.div`
+  padding: 15px 0 0 25px;
+`;
+
+const LoginImg = styled.img`
+  margin-left: 30px;
+  width: 360px;
+  height: 450px;
 `;
 
 const SignModal = ({ isLogin, loginHandler, modalHandler }) => {
@@ -54,7 +64,7 @@ const SignModal = ({ isLogin, loginHandler, modalHandler }) => {
         {isLogin ? (
           <Logout loginHandler={loginHandler} modalHandler={modalHandler} />
         ) : (
-          <div>
+          <LoginWrapper>
             {renderSignup ? (
               <Signup modalHandler={modalHandler} renderSignupHandler={renderSignupHandler} />
             ) : (
@@ -64,9 +74,9 @@ const SignModal = ({ isLogin, loginHandler, modalHandler }) => {
                 renderSignupHandler={renderSignupHandler}
               />
             )}
-          </div>
+          </LoginWrapper>
         )}
-        <div></div>
+        <LoginImg src='asset/logins/signImg.jpg'></LoginImg>
       </SignWrapper>
     </Background>
   );

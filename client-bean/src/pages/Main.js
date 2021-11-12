@@ -1,5 +1,3 @@
-// eslint-disable no-unused-vars
-
 import React from 'react';
 // import {useLocation} from 'react-router-dom';
 import SideBar from '../components/MainPage/SideBar';
@@ -19,17 +17,17 @@ const MainContainer = styled.div`
 `;
 
 export default function Main({ isLogin, loginHandler, renderModal, modalHandler }) {
-  const {scrollY} = useScroll();
+  const { scrollY } = useScroll();
   return (
     <MainContainer>
-        <SideBar scrollY={scrollY} />
-        <Section1 scrollY={scrollY} isLogin={isLogin} modalHandler={modalHandler}/>
-        <Section2 scrollY={scrollY}/>
-        <Section3 scrollY={scrollY}/>
-        <Footer />
-        {renderModal ? (
-          <SignModal isLogin={isLogin} loginHandler={loginHandler} modalHandler={modalHandler} />
-        ) : null}
+      <SideBar scrollY={scrollY} />
+      <Section1 scrollY={scrollY} isLogin={isLogin} modalHandler={modalHandler} />
+      <Section2 scrollY={scrollY} />
+      <Section3 scrollY={scrollY} />
+      <Footer />
+      {renderModal ? (
+        <SignModal isLogin={isLogin} loginHandler={loginHandler} modalHandler={modalHandler} />
+      ) : null}
     </MainContainer>
   );
 }

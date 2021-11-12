@@ -62,9 +62,19 @@ const BeanInfoWrap = styled.section`
 `;
 
 // li 태그 반복 개선 필요
-
 function ModalBeanInfo({ cardBeanInfo }) {
-  let { acidity, beanImage, beanName, bitterness, body, desc, fragrance, likeCount, origin, sweetness } = cardBeanInfo[0];
+  let {
+    acidity,
+    beanImage,
+    beanName,
+    bitterness,
+    body,
+    desc,
+    fragrance,
+    likeCount,
+    origin,
+    sweetness,
+  } = cardBeanInfo[0];
 
   const circleList = (repeat) => {
     let liTag = [];
@@ -72,6 +82,15 @@ function ModalBeanInfo({ cardBeanInfo }) {
       liTag.push(<FaCircle className='circleIcon' />);
     }
     return liTag;
+  };
+
+  const categoryLi = (category, num) => {
+    return (
+      <li>
+        <span>{category}</span>
+        {circleList(num)}
+      </li>
+    );
   };
 
   return (
@@ -85,26 +104,11 @@ function ModalBeanInfo({ cardBeanInfo }) {
           <li className='Orign'>Orign : {origin}</li>
           <li className='like'>Like : {likeCount}</li>
           <ul>
-            <li>
-              <span>Fragrance</span>
-              {circleList(fragrance)}
-            </li>
-            <li>
-              <span>Acidity</span>
-              {circleList(acidity)}
-            </li>
-            <li>
-              <span>Sweetness</span>
-              {circleList(sweetness)}
-            </li>
-            <li>
-              <span>Bitterness</span>
-              {circleList(bitterness)}
-            </li>
-            <li>
-              <span>Body</span>
-              {circleList(body)}
-            </li>
+            {categoryLi('Fragrance', fragrance)}
+            {categoryLi('Acidity', acidity)}
+            {categoryLi('Sweetness', sweetness)}
+            {categoryLi('Bitterness', bitterness)}
+            {categoryLi('Body', body)}
           </ul>
         </ul>
       </div>
