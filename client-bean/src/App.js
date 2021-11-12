@@ -24,10 +24,11 @@ function App() {
   };
 
   const location = useLocation();
-  console.log(location.pathname);
   return (
     <>
-      {location.pathname === '/' || location.pathname === '/posts/create' ? null : <TopBar isLogin={isLogin} modalHandler={modalHandler} />}
+      {location.pathname === '/' || location.pathname === '/posts/create' ? null : (
+        <TopBar isLogin={isLogin} modalHandler={modalHandler} />
+      )}
       {location.pathname === '/' || location.pathname === '/posts/create' ? null : <NavBar />}
       <Routes>
         <Route
@@ -44,9 +45,39 @@ function App() {
         <Route path='/posts/view/:id' element={<PostsView />} />
         <Route path='/posts/create' element={<PostsCreate />} />
         <Route path='/posts/edit/:id' element={<PostsCreate />} />
-        <Route path='/posts' element={<Posts />} />
-        <Route path='/beans' element={<Beans />} />
-        <Route path='/myPage' element={<MyPage />} />
+        <Route
+          path='/posts'
+          element={
+            <Posts
+              isLogin={isLogin}
+              loginHandler={loginHandler}
+              renderModal={renderModal}
+              modalHandler={modalHandler}
+            />
+          }
+        />
+        <Route
+          path='/beans'
+          element={
+            <Beans
+              isLogin={isLogin}
+              loginHandler={loginHandler}
+              renderModal={renderModal}
+              modalHandler={modalHandler}
+            />
+          }
+        />
+        <Route
+          path='/myPage'
+          element={
+            <MyPage
+              isLogin={isLogin}
+              loginHandler={loginHandler}
+              renderModal={renderModal}
+              modalHandler={modalHandler}
+            />
+          }
+        />
       </Routes>
     </>
   );

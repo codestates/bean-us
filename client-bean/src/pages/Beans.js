@@ -4,11 +4,12 @@ import BeanSearch from '../components/beans/BeanSearch';
 import BeanCardModal from '../components/beans/beanModal/BeanCardModal';
 import { getAllBeans } from '../network/beans/http';
 import { TopFrame } from '../styles/basicFrame/TopFrame';
+import SignModal from '../components/signModal/SignModal';
 
 //db
 // import { Beandb } from '../db/beandb';
 
-export default function Beans(props) {
+export default function Beans({ isLogin, loginHandler, renderModal, modalHandler }) {
   const [beans, setBeans] = useState([]);
   const [beanName, setBeanName] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -59,6 +60,9 @@ export default function Beans(props) {
           closeModal={closeModal}
         />
       )}
+      {renderModal ? (
+        <SignModal isLogin={isLogin} loginHandler={loginHandler} modalHandler={modalHandler} />
+      ) : null}
     </TopFrame>
   );
 }

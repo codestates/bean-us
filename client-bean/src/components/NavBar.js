@@ -11,7 +11,7 @@ const MainHeader = styled.header`
   position: sticky;
   top: 0;
   background-color: #c8aa9b;
-  z-index: 999;
+  z-index: 5;
   > .link {
     flex: none;
     > img {

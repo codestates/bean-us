@@ -17,6 +17,50 @@ const ErrorMessage = styled.p`
   color: #95673d;
 `;
 
+const KakaoButton = styled.button`
+  margin-left: 27px;
+  width: 300px;
+  height: 50px;
+  background: url('/asset/logins/kakaoButton.png');
+  border: none;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.4);
+  }
+`;
+
+const GithubButton = styled.button`
+  display: flex;
+  margin-top: 12px;
+  margin-left: 27px;
+  width: 300px;
+  height: 50px;
+  border: none;
+  background-color: #444;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.8);
+  }
+`;
+
+const GuthubImg = styled.img`
+  margin-left: 3px;
+  width: 30px;
+`;
+
+const GithubP = styled.p`
+  margin-left: 78px;
+  color: #fff;
+  font-size: 15px;
+`;
+
 export default function Login({ loginHandler, modalHandler, renderSignupHandler }) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
@@ -57,8 +101,13 @@ export default function Login({ loginHandler, modalHandler, renderSignupHandler 
         leftBtnHandler={renderSignupHandler}
         rightBtnHandler={btnLoginClick}
         marginTop='30px'
-        marginBottom='40px'
+        marginBottom='30px'
       />
+      <KakaoButton></KakaoButton>
+      <GithubButton>
+        <GuthubImg src='/asset/logins/githubButton.png' alt='Github' />
+        <GithubP>Gihub 로그인</GithubP>
+      </GithubButton>
     </>
   );
 }
