@@ -51,6 +51,7 @@ export const postBeanLike = async (beanId, beanLike) => {
     { beanId, beanLike },
     { 'Content-Type': 'application/json' }
   );
+  console.log(res);
   return res.status;
 };
 

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaHeart } from 'react-icons/fa';
-import { postBeanLike, statusCode } from '../../../network/beans/http';
+import { getBeanPost, postBeanLike, statusCode } from '../../../network/beans/http';
 
 const CardLI = styled.li`
   position: relative;
@@ -72,20 +72,21 @@ const ContentUL = styled.ul`
 `;
 
 export default function BeanCard({ bean, beanModal }) {
-  const { beanId, beanImage, beanName, origin, likeCount } = bean;
+  const { beanId, beanImage, beanName, origin, likeCount, like } = bean;
 
   //! 이후 bean에서 실제 데이터를 받아온다.
-  let like = false;
+  // let like = false;
   const [beanlike, setBeanLike] = useState(like);
   const [likeNum, setLikeNum] = useState(likeCount);
 
   const cardClick = (e, beanId) => {
     let { tagName } = e.target;
     if (tagName === 'svg' || tagName === 'path') return;
-
     //! TODO GET /bean?beanId=beanId 해당 원두와 관련된 게시글 요청
+
     // getBeanPost(beanId).then((res) => {
-    //   beanModal(beanId, 'get 통신 결과 bean과 관련된 post 정보');
+    //   console.log(res);
+    //   beanModal(beanId, res);
     // });
 
     beanModal(beanId, 'get 통신 결과 bean과 관련된 post 정보');

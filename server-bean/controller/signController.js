@@ -24,7 +24,7 @@ module.exports = {
 
   signupCheck: (req, res) => {
     const { userId } = req.body;
-    console.log(userId);
+
     if (!userId) return res.send('아이디를 반드시 보내주세요');
 
     userInfo
