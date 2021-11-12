@@ -101,12 +101,7 @@ module.exports = {
 
     beanInfo.findAll({
       raw: true,
-      attributes: [
-        'beanId', 'beanName', 'origin', 'fragrance',
-        'acidity', 'sweetness', 'bitterness', 'body',
-        'beanImage', ['description', 'desc'],
-        [literal(`CASE WHEN userBeans.userId = 'test1' THEN true ELSE false END`), 'like']
-      ],
+      attributes: attributes,
       include: [
         {
           model: userBean,
