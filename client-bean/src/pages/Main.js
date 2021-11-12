@@ -1,4 +1,4 @@
-/*eslint-disable no-unused-vars*/
+// eslint-disable no-unused-vars
 
 import React from 'react';
 // import {useLocation} from 'react-router-dom';
@@ -9,6 +9,7 @@ import Section3 from '../components/MainPage/Section/Section3';
 import styled from 'styled-components';
 import Footer from '../components/MainPage/Footer/Footer';
 import useScroll from '../components/MainPage/useScroll';
+import SignModal from '../components/signModal/SignModal';
 
 const MainContainer = styled.div`
   display: flex;
