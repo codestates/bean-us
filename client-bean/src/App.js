@@ -8,6 +8,7 @@ import Main from './pages/Main';
 import Posts from './pages/Posts';
 import Beans from './pages/Beans';
 import MyPage from './pages/MyPage';
+import PostsView from './pages/PostsView';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -38,7 +39,8 @@ function App() {
             />
           }
         />
-        <Route path='/posts/:role/:id' element={<Posts />} />
+        <Route path='/posts/view/1' element={<PostsView />} />
+        <Route path='/posts' element={<Posts />} />
         <Route path='/beans' element={<Beans />} />
         <Route path='/myPage' element={<MyPage />} />
       </Routes>

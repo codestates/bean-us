@@ -1,27 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
+import { InnerFrame } from '../../styles/basicFrame/InnerFrame';
 import BeanFilter from './BeanFilter';
 import BeanInput from './BeanInput';
 
-const BeanFilterContainer = styled.div`
-  border: 1px solid rgba(44, 42, 40, 0.3);
-  border-radius: 5px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-
-  & .subtitle {
-    padding-bottom: 1.5rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border-bottom: 1px solid rgba(44, 42, 40, 0.3);
-  }
-`;
-
 export default function BeanSearch({ getBeanCards, beanName }) {
   return (
-    <BeanFilterContainer>
+    <InnerFrame>
       <BeanFilter getBeanCards={getBeanCards} />
       <BeanInput beanName={beanName} getBeanCards={getBeanCards} />
-    </BeanFilterContainer>
+    </InnerFrame>
   );
 }

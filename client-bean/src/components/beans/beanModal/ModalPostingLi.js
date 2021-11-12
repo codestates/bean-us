@@ -67,7 +67,7 @@ function ModalPostingLi({ res }) {
         <div>
           <StyledLink
             to={{
-              pathname: `/posts/post/${res.postId}`,
+              pathname: `/posts/view/${res.postId}`,
             }}
           >
             <div className='postTitle'>{res.title}</div>
