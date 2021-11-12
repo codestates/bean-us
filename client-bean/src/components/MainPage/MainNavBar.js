@@ -28,8 +28,9 @@ const Nav = styled.nav`
   right: 0;
   margin-right: 1.4vw;
   > .link {
+    flex: none;
     text-decoration: none;
-    color: #e67700;
+    color: #dad1c9;
     font-weight: 500;
     height: 30px;
     width: 90px;
