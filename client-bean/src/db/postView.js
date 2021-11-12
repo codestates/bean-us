@@ -12,7 +12,7 @@
 
 export const postView = {
   postCotents: {
-    title: 'this is title',
+    title: 'this is titlethis is titlethis is title',
     imageUrl: '/asset/beans/bean10.jpg',
     beans: ['자바', '케냐', '케냐AA'], // 없어도 되려나??
     beanRatio: { 자바: 4, 케냐: 2, 케냐AA: 4 },

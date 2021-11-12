@@ -1,7 +1,5 @@
 import React from 'react';
 
-function PostSection(props) {
+export default function PostSection(props) {
   return <div></div>;
 }
-
-export default PostSection;
