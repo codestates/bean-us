@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Wrapper } from './InputLine';
 
-const Button = styled.button`
+export const Button = styled.button`
   width: 150px;
   height: 40px;
   margin-left: ${({ marginLeft }) => marginLeft};
@@ -16,9 +16,17 @@ const Button = styled.button`
   }
 `;
 
-export default function SignButton({ leftBtn, rightBtn, leftBtnHandler, rightBtnHandler }) {
+export default function SignButton({
+  leftBtn,
+  rightBtn,
+  leftBtnHandler,
+  rightBtnHandler,
+  marginTop,
+  marginBottom,
+  marginLeft,
+}) {
   return (
-    <Wrapper marginTop='30px'>
+    <Wrapper marginTop={marginTop} marginBottom={marginBottom} marginLeft={marginLeft}>
       <Button onClick={leftBtnHandler}>{leftBtn}</Button>
       <Button marginLeft='25px' onClick={rightBtnHandler}>
         {rightBtn}
