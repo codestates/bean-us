@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import BeanCards from '../components/beans/BeanCards';
+import BeanCards from '../components/beans/beanCards/BeanCards';
 import BeanSearch from '../components/beans/BeanSearch';
-import BeanCardModal from '../components/beans/BeanModal/BeanCardModal';
+import BeanCardModal from '../components/beans/beanModal/BeanCardModal';
 import { getAllBeans } from '../network/beans/http';
 
 //db
@@ -64,7 +64,13 @@ export default function Beans(props) {
       <div className='title'>원두</div>
       <BeanSearch getBeanCards={getBeanCards} beanName={beanName} />
       <BeanCards beans={beans} beanModal={beanModal} />
-      {openModal && <BeanCardModal cardPostInfo={cardPostInfo} cardBeanInfo={cardBeanInfo} closeModal={closeModal} />}
+      {openModal && (
+        <BeanCardModal
+          cardPostInfo={cardPostInfo}
+          cardBeanInfo={cardBeanInfo}
+          closeModal={closeModal}
+        />
+      )}
     </BeanContainer>
   );
 }

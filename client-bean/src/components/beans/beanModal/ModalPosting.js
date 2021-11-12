@@ -63,7 +63,7 @@ function ModalPosting({ cardPostInfo }) {
         <FaChevronCircleDown className='down' onClick={postScroll} />
       </header>
       <ul>
-        {/* TODO 실제 서버 통신 시 / BeanPostdb => cardPostInfo */}
+        {/* //! TODO 실제 서버 통신 시 / BeanPostdb => cardPostInfo */}
         {BeanPostdb.map((res) => (
           <ModalPostingLi key={res.postId} res={res} />
         ))}
