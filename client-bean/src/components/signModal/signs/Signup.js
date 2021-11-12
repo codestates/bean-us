@@ -115,8 +115,8 @@ export default function Signup({ renderSignupHandler }) {
         title='아이디'
         marginTop='40px'
         inputHandler={inputHandler}
-        signup={true}
-        checkId={true}
+        signup='true'
+        checkId='true'
         checkDuplicate={checkDuplicate}
       />
       <ValidMessage>{isValidId}</ValidMessage>
@@ -125,7 +125,7 @@ export default function Signup({ renderSignupHandler }) {
         title='비밀번호'
         type='password'
         inputHandler={inputHandler}
-        signup={true}
+        signup='true'
       />
       <ValidMessage>{isValidPassword}</ValidMessage>
       <InputLine
@@ -133,7 +133,7 @@ export default function Signup({ renderSignupHandler }) {
         title='비밀번호 확인'
         type='password'
         inputHandler={inputHandler}
-        signup={true}
+        signup='true'
         blurHandler={blurHandler}
       />
       <ValidMessage>{nowValidPassword}</ValidMessage>
@@ -141,7 +141,7 @@ export default function Signup({ renderSignupHandler }) {
         name='email'
         title='이메일'
         inputHandler={inputHandler}
-        signup={true}
+        signup='true'
         blurHandler={blurHandler}
       />
       <ValidMessage>{isValidEmail}</ValidMessage>

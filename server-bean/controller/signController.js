@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const { userInfo } = require('../models');
-const { generateAccessToken, sendAccessToken } = require('./functions');
+const { generateAccessToken, sendAccessToken, isAuthorized } = require('./functions');
 
 module.exports = {
   login: (req, res) => {
@@ -28,7 +28,7 @@ module.exports = {
     if (!userId) return res.send('아이디를 반드시 보내주세요');
 
     userInfo
-      .findOne({ where: { userId } })
+      .findOne({ where: { userId, social: 'beanus' } })
       .then((data) => {
         if (!data) return res.json({ data: true, message: '사용할 수 있는 아이디입니다' });
         else return res.json({ data: false, message: '이미 등록된 아이디입니다' });
@@ -44,7 +44,7 @@ module.exports = {
     userInfo
       .findOrCreate({
         where: { userId },
-        defaults: { password, email },
+        defaults: { password, email, social: 'beanus' },
       })
       .then(([data, created]) => {
         if (!created) {
@@ -61,5 +61,10 @@ module.exports = {
     res.clearCookie('accessToken').send('로그아웃 되었습니다');
   },
 
-  oauth: (req, res) => {},
+  checkToken: (req, res) => {
+    const accessToken = isAuthorized(req);
+
+    if (!accessToken) return res.json({ data: false, message: '로그아웃 상태입니다' });
+    res.json({ data: true, message: '로그인 상태입니다' });
+  },
 };

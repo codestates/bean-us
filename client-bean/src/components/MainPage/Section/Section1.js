@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import backgroundimg from '../../../backgroundimg.jpg';
 import MainNavBar from '../MainNavBar';
-import MainTopBar from '../MainTopBar';
+// import MainTopBar from '../MainTopBar';
+import TopBar from '../../TopBar';
 
 const MainSection1 = styled.section`
   width: 100vw;
@@ -38,10 +39,15 @@ const SectionIntroCnt = styled.div`
   }
 `;
 
-export default function Section1({ isLogin, modalHandler }) {
+export default function Section1({ isLogin, loginHandler, modalHandler }) {
   return (
     <MainSection1>
-      <MainTopBar isLogin={isLogin} modalHandler={modalHandler} />
+      <TopBar
+        isLogin={isLogin}
+        modalHandler={modalHandler}
+        loginHandler={loginHandler}
+        main='main'
+      />
       <MainNavBar />
       <SectionIntroCnt>
         <img src='asset/mainpage/logowhite.png' alt='' className='logoimg' />

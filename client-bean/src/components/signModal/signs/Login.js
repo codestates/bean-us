@@ -10,7 +10,6 @@ import SignButton, { Button } from '../../../styles/signs/SignButton';
 
 // functions
 import { loginReq } from '../../../network/sign/signApi';
-import axios from 'axios';
 
 const ErrorMessage = styled.p`
   margin-left: 15px;
@@ -77,7 +76,6 @@ export default function Login({ loginHandler, modalHandler, renderSignupHandler 
 
   const btnLoginClick = () => {
     loginReq(userId, password).then((res) => {
-      console.log(res);
       if (res.data.data) {
         loginHandler();
         setUserId('');
@@ -90,7 +88,10 @@ export default function Login({ loginHandler, modalHandler, renderSignupHandler 
     });
   };
 
-  const kakaoOAuthHandler = () => {};
+  const kakaoOAuthHandler = () => {
+    const http = process.env.REACT_APP_HTTPURL;
+    window.location.href = `${http}/auth/kakao`;
+  };
 
   return (
     <>
@@ -106,7 +107,7 @@ export default function Login({ loginHandler, modalHandler, renderSignupHandler 
         marginTop='30px'
         marginBottom='30px'
       />
-      <KakaoButton></KakaoButton>
+      <KakaoButton onClick={kakaoOAuthHandler}></KakaoButton>
       <GithubButton>
         <GuthubImg src='/asset/logins/githubButton.png' alt='Github' />
         <GithubP>Gihub 로그인</GithubP>

@@ -10,13 +10,15 @@ import Beans from './pages/Beans';
 import MyPage from './pages/MyPage';
 import PostsView from './pages/PostsView';
 import PostsCreate from './pages/PostsCreate';
+import KakaoCallback from './pages/KakaoCallback';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [renderModal, setRenderModal] = useState(false);
 
-  const loginHandler = () => {
-    setIsLogin(!isLogin);
+  const loginHandler = (data) => {
+    if (data === null) setIsLogin(!isLogin);
+    setIsLogin(data);
   };
 
   const modalHandler = () => {
@@ -27,7 +29,7 @@ function App() {
   return (
     <>
       {location.pathname === '/' || location.pathname === '/posts/create' ? null : (
-        <TopBar isLogin={isLogin} modalHandler={modalHandler} />
+        <TopBar isLogin={isLogin} modalHandler={modalHandler} loginHandler={loginHandler} />
       )}
       {location.pathname === '/' || location.pathname === '/posts/create' ? null : <NavBar />}
       <Routes>
@@ -77,6 +79,10 @@ function App() {
               modalHandler={modalHandler}
             />
           }
+        />
+        <Route
+          path='/auth/kakao-callback'
+          element={<KakaoCallback isLogin={isLogin} loginHandler={loginHandler} />}
         />
       </Routes>
     </>
