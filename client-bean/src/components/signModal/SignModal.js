@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import Login from './signs/Login';
+import Logout from './signs/Logout';
 import Signup from './signs/Signup';
 
 const Background = styled.div`
@@ -17,23 +18,54 @@ const Background = styled.div`
 `;
 
 const SignWrapper = styled.section`
-  width: 700px;
-  height: 400px;
+  ${({ isLogin, renderSignup }) => {
+    if (isLogin) {
+      return css`
+        width: 450px;
+        height: 240px;
+      `;
+    } else if (renderSignup) {
+      return css`
+        width: 450px;
+      `;
+    } else {
+      return css`
+        width: 750px;
+        height: 450px;
+      `;
+    }
+  }}
+  position: relative;
   background: #eee;
   padding: 3px 30px;
   box-sizing: border-box;
 `;
 
-const SignModal = () => {
+const SignModal = ({ isLogin, loginHandler, modalHandler }) => {
   const [renderSignup, setRenderSignup] = useState(false);
 
-  const renderSignupHanlder = () => {
-    setRenderSignup(true);
+  const renderSignupHandler = () => {
+    setRenderSignup(!renderSignup);
   };
+
   return (
     <Background>
-      <SignWrapper>
-        <div>{renderSignup ? <Signup /> : <Login renderSignupHanlder={renderSignupHanlder} />}</div>
+      <SignWrapper isLogin={isLogin} renderSignup={renderSignup}>
+        {isLogin ? (
+          <Logout loginHandler={loginHandler} modalHandler={modalHandler} />
+        ) : (
+          <div>
+            {renderSignup ? (
+              <Signup modalHandler={modalHandler} renderSignupHandler={renderSignupHandler} />
+            ) : (
+              <Login
+                loginHandler={loginHandler}
+                modalHandler={modalHandler}
+                renderSignupHandler={renderSignupHandler}
+              />
+            )}
+          </div>
+        )}
         <div></div>
       </SignWrapper>
     </Background>

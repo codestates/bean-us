@@ -16,13 +16,16 @@ const MainContainer = styled.div`
   cursor: default;
 `;
 
-export default function Main() {
+export default function Main({ isLogin, loginHandler, renderModal, modalHandler }) {
   return (
     <MainContainer>
-      <Section1 />
+      <Section1 isLogin={isLogin} modalHandler={modalHandler} />
       <Section2 />
       <Section3 />
       <Footer />
+      {renderModal ? (
+        <SignModal isLogin={isLogin} loginHandler={loginHandler} modalHandler={modalHandler} />
+      ) : null}
     </MainContainer>
   );
 }
