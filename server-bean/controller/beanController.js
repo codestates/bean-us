@@ -1,45 +1,77 @@
-const {beanInfo, userBean} = require('./../models')
-const {Op, fn, col} = require('sequelize');
+const {beanInfo, userBean} = require('./../models');
+const {Op, fn, col, literal} = require('sequelize');
+const {isAuthorized} = require('./functions/index.js');
 
 module.exports = {
-  allBeans:  (req, res) => {
+  allBeans: (req, res) => {
+    const userBeanWhere = {[Op.or]:[{userId: null}]}
+    const accessTokenInfo = isAuthorized(req);
+    
+    if(accessTokenInfo !== null){
+      userBeanWhere[Op.or].push({userId: accessTokenInfo.userId});
+    }
+
     beanInfo.findAll({
-      subQuery: false,
       raw: true,
       attributes: [
         'beanId', 'beanName', 'origin', 'fragrance',
         'acidity', 'sweetness', 'bitterness', 'body',
         'beanImage', ['description', 'desc'],
-        [fn('COUNT', col('userBeans.userId')), 'likeCount']
+        [literal(`CASE WHEN userBeans.userId = 'test1' THEN true ELSE false END`), 'like']
       ],
       include: [
-        {model: userBean, required: false, attributes: []}
-      ],
-      group: [
-        'beanId', 'beanName', 'origin', 'fragrance',
-        'acidity', 'sweetness', 'bitterness', 'body',
-        'beanImage', 'desc'
+        {
+          model: userBean,
+          required: false,
+          attributes: [],
+          where: userBeanWhere
+        },
       ],
       order: [['beanId', 'asc']],
-
     }).then(result => {
-      res.status(200).json({
-        message: 'success',
-        beanList: result,
+      const beanInfoList = [...result];
+
+      userBean.findAll({
+        raw: true,
+        attributes: ['beanId', [fn('COUNT', col('userId')), 'likeCount']],
+        group: ['beanId'],
+        order: ['beanId']
+      }).then(result => {
+        for(let i in beanInfoList){
+          for(let j in result){
+            if(beanInfoList[i].beanId === result[j].beanId){
+              beanInfoList[i]['likeCount'] = result[j]['likeCount'];
+              break;
+            }else{
+              beanInfoList[i]['likeCount'] = 0;
+            }
+          }
+        }
+
+        res.status(200).json({
+          message: 'success',
+          beanList: beanInfoList,
+        });
       });
     });
   },
 
   filterBeans: (req, res) => {
     const params = req.query;
-    const where = {};
+    const beanInfoWhere = {};
+    const userBeanWhere = {[Op.or]:[{userId: null}]}
+    const accessTokenInfo = isAuthorized(req);
+    
+    if(accessTokenInfo !== null){
+      userBeanWhere[Op.or].push({userId: accessTokenInfo.userId});
+    }
 
     for(let param in params){
       if(param === 'bean' && params['bean'] !== ''){
-        where['beanName'] = {[Op.like] : `%${params[param]}%`}
+        beanInfoWhere['beanName'] = {[Op.like] : `%${params[param]}%`}
       }else{
         if(params[param] !== ''){
-            where[param] = {
+          beanInfoWhere[param] = {
               [Op.or]: params[param].split(',').map(item => {
                 return Number(item)
               })
@@ -49,25 +81,47 @@ module.exports = {
     }
 
     beanInfo.findAll({
-      subQuery: false,
       raw: true,
       attributes: [
         'beanId', 'beanName', 'origin', 'fragrance',
         'acidity', 'sweetness', 'bitterness', 'body',
         'beanImage', ['description', 'desc'],
-        [fn('COUNT', col('userBeans.userId')), 'likeCount']
+        [literal(`CASE WHEN userBeans.userId = 'test1' THEN true ELSE false END`), 'like']
       ],
       include: [
-        {model: userBean, required: false, attributes: []}
+        {
+          model: userBean,
+          required: false,
+          attributes: [],
+          where: userBeanWhere
+        },
       ],
-      where: where,
-      group: ['beanId', 'beanName', 'origin', 'fragrance', 'acidity', 'sweetness', 'bitterness', 'body', 'beanImage', 'desc'],
+      where: beanInfoWhere,
       order: [['beanId', 'asc']],
-
     }).then(result => {
-      res.status(200).json({
-        message: 'success',
-        beanList: result,
+      const beanInfoList = [...result];
+
+      userBean.findAll({
+        raw: true,
+        attributes: ['beanId', [fn('COUNT', col('userId')), 'likeCount']],
+        group: ['beanId'],
+        order: ['beanId']
+      }).then(result => {
+        for(let i in beanInfoList){
+          for(let j in result){
+            if(beanInfoList[i].beanId === result[j].beanId){
+              beanInfoList[i]['likeCount'] = result[j]['likeCount'];
+              break;
+            }else{
+              beanInfoList[i]['likeCount'] = 0;
+            }
+          }
+        }
+
+        res.status(200).json({
+          message: 'success',
+          beanList: beanInfoList,
+        });
       });
     });
   },

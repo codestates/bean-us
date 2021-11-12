@@ -1,4 +1,4 @@
-const {post, postBean} = require('./../models');
+const {post, postBean, beanInfo} = require('./../models');
 
 module.exports = {
   createPost: async (req, res) => {
@@ -75,14 +75,9 @@ module.exports = {
         });
       });
     });
-
-    // res.status(201).json({
-    //   message: '게시글이 수정되었습니다.',
-    // });
   },
 
   deletePost: async (req, res) => {
-    console.log(req.params);
     const {postId} = req.params
 
     await post.destroy({
@@ -99,14 +94,44 @@ module.exports = {
   },
 
   findAll: (req, res) => {
-    res.status(200).json({
-      message: 'success',
+    post.findAll({
+      attributes: ['postId', 'title', 'userId'],
+      include: [
+        {
+          raw: true,
+          model: postBean,
+          attributes: ['beanId'],
+          include : [
+            {
+              raw: true,
+              model: beanInfo,
+              attributes: ['beanName']
+            }
+          ]
+        },
+      ],
+    }).then(result => {
+      console.log(result);
+      res.status(200).json({
+        message: 'success',
+        postList: result,
+      });
     });
+
+    // res.status(200).json({
+    //   message: 'success',
+    // });
   },
 
   findById: (req, res) => {
     res.status(200).json({
       message: 'success',
     });
-  }
+  },
+
+  findByParams: (req, res) => {
+    res.status(200).json({
+      message: 'success'
+    });
+  },
 };
