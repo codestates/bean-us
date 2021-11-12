@@ -38,13 +38,14 @@ const SearchContainer = styled.div`
   }
 `;
 
-function PostInput() {
+function PostInput(props) {
+  const {handleInputChange, handleClick} = props;
 	return(
 		<SearchContainer>
 			<div className="subtitle">게시글 검색</div>
       <form >
-        <input  />
-        <button>click</button>
+        <input onChange={handleInputChange}/>
+        <button onClick={handleClick}>click</button>
       </form>
 		</SearchContainer>
 	);

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import PostSearch from '../components/postspage/PostSearch';
 import PostCards from '../components/postspage/PostCards';
-import postCarddb from '../db/postCarddb';
 import { MdPostAdd } from "react-icons/md";
+import getAllPosts from '../network/postspage/http';
+import getFilterdPost from '../network/postspage/http';
 
 const PostsContainer = styled.div`
   position: relative;
@@ -34,12 +35,30 @@ const CreatePost = styled.button`
 `;
 
 export default function Posts() {
-  const posts = postCarddb;
-  console.log(posts)
+  const [posts, setPosts] = useState([]);
+  const [value, setValue] = useState('');
+  useEffect(() => {
+    getAllPosts().then((res) => {
+      setPosts(res);
+    })
+  },[])
+
+  const handleInputChange = (e) => {
+    console.log(e.target.value);
+    setValue(e.target.value);
+  }
+  const handleClick = () => {
+    getFilterdPost(value).then((res) => {
+      setPosts(res);
+    })
+  }
+
+
+
 	return (
 		<PostsContainer>
 				<div className='title'>게시글</div>
-				<PostSearch />
+				<PostSearch handleClick={handleClick} handleInputChange={handleInputChange} posts={posts}/>
         <CreatePost>
           <MdPostAdd className="postIcon"/>
         </CreatePost>

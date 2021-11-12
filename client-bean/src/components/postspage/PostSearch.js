@@ -16,10 +16,11 @@ const PostSearchContainer = styled.div`
   }
 `;
 
-function PostSearch() {
+function PostSearch(props) {
+  const {handleInputChange, handleClick} = props;
 	return(
 		<PostSearchContainer>
-			<PostInput />
+			<PostInput handleInputChange={handleInputChange} handleClick={handleClick}/>
 		</PostSearchContainer>
 	);
 }

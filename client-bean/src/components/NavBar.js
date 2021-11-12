@@ -45,7 +45,7 @@ const Nav = styled.nav`
 export default function Header () {
   return (
       <MainHeader>
-          <Link to='/' className="link"><img src='asset/mainpage/logo.png' alt='logo'/></Link>
+          <Link to='/' className="link"><img src='/asset/mainpage/logo.png' alt='logo'/></Link>
           <Nav>
               <Link to='/' className="link"><MdHomeFilled className="navicon"/></Link>
               <Link to='/posts' className="link">post</Link>

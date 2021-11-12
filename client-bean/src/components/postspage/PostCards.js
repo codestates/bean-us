@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const CardWrap = styled.div`
   & .noCard {
@@ -17,6 +18,10 @@ const CardsUL = styled.ul`
   justify-content: space-between;
   grid-gap: 30px;
   margin-bottom: 1rem;
+  & .postlink {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 const CardsLi = styled.li`
@@ -85,22 +90,22 @@ const CardsLi = styled.li`
 
 function PostCards(props) {
   const {posts} = props;
-  console.log(posts)
   return(
     <CardWrap>
       {posts.length ? 
       <CardsUL>
         {posts.map((post) => (
-        <CardsLi key={post.id}>
+        <Link to={{pathname:'/posts/post', search:`?postId=${post.postId}`}} key={post.postId} className='postlink'>
+        <CardsLi key={post.postId} >
           <div className='contentWrap'>
             <div className='imgWrap'>
-              <img src={post.image ? post.image : '/asset/postspage/post-no-img.jpg'} alt='postImg' />
+              <img src={post.imageUrl ? post.imageUrl : '/asset/postspage/post-no-img.jpg'} alt='postImg' />
             </div>
             <div className='contentTitle'>
               {post.title.length > 12 ? post.title.slice(0,13) + '...' : post.title}
             </div>
             <div className="beanInfo">
-              {post.bean.map((bean) => <div key="" className="beanLabel">#{bean}</div>)}
+              {post.beans.map((bean) => <div key="" className="beanLabel">#{bean}</div>)}
             </div>
             <div className="userInfo">
               작성자: {post.userName}
@@ -109,7 +114,9 @@ function PostCards(props) {
               {post.createdAt}
             </div>
           </div>
-        </CardsLi>))}
+        </CardsLi>
+        </Link>
+        ))}
       </CardsUL> 
       : 
       <div className="noCard">해당하는 게시글이 없습니다.</div>

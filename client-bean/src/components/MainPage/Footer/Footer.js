@@ -102,7 +102,7 @@ export default function Footer () {
         </div>
       </ServiceDesc>
       <FooterLogo>
-        <img src="asset/mainpage/logowhite.png" alt="logo"/>
+        <img src="/asset/mainpage/logowhite.png" alt="logo"/>
       </FooterLogo>
       <Contact>
         <ul>
