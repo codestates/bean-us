@@ -24,10 +24,11 @@ function App() {
   };
 
   const location = useLocation();
+  console.log(location.pathname);
   return (
     <>
-      {location.pathname === '/' ? null : <TopBar isLogin={isLogin} modalHandler={modalHandler} />}
-      {location.pathname === '/' ? null : <NavBar />}
+      {location.pathname === '/' || location.pathname === '/posts/create' ? null : <TopBar isLogin={isLogin} modalHandler={modalHandler} />}
+      {location.pathname === '/' || location.pathname === '/posts/create' ? null : <NavBar />}
       <Routes>
         <Route
           path='/'
