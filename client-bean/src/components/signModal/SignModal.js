@@ -15,6 +15,7 @@ const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9;
 `;
 
 const SignWrapper = styled.section`
@@ -35,7 +36,6 @@ const SignWrapper = styled.section`
       `;
     }
   }}
-  display: flex;
   position: relative;
   background: #eee;
   box-sizing: border-box;
@@ -45,15 +45,22 @@ const LoginWrapper = styled.div`
   padding: 15px 0 0 25px;
 `;
 
+const LogoutWrapper = styled.div`
+  padding: 3px 30px;
+`;
+
 const LoginImg = styled.img`
   margin-left: 30px;
-  width: 360px;
+  width: 330px;
   height: 450px;
+`;
+
+const FlexWrapper = styled.div`
+  display: flex;
 `;
 
 const SignModal = ({ isLogin, loginHandler, modalHandler }) => {
   const [renderSignup, setRenderSignup] = useState(false);
-
   const renderSignupHandler = () => {
     setRenderSignup(!renderSignup);
   };
@@ -62,21 +69,29 @@ const SignModal = ({ isLogin, loginHandler, modalHandler }) => {
     <Background>
       <SignWrapper isLogin={isLogin} renderSignup={renderSignup}>
         {isLogin ? (
-          <Logout loginHandler={loginHandler} modalHandler={modalHandler} />
+          <LogoutWrapper>
+            <Logout loginHandler={loginHandler} modalHandler={modalHandler} />
+          </LogoutWrapper>
         ) : (
-          <LoginWrapper>
+          <div>
             {renderSignup ? (
-              <Signup modalHandler={modalHandler} renderSignupHandler={renderSignupHandler} />
+              <LoginWrapper>
+                <Signup modalHandler={modalHandler} renderSignupHandler={renderSignupHandler} />
+              </LoginWrapper>
             ) : (
-              <Login
-                loginHandler={loginHandler}
-                modalHandler={modalHandler}
-                renderSignupHandler={renderSignupHandler}
-              />
+              <FlexWrapper>
+                <LoginWrapper>
+                  <Login
+                    loginHandler={loginHandler}
+                    modalHandler={modalHandler}
+                    renderSignupHandler={renderSignupHandler}
+                  />
+                </LoginWrapper>
+                <LoginImg src='asset/logins/signImg.jpg'></LoginImg>
+              </FlexWrapper>
             )}
-          </LoginWrapper>
+          </div>
         )}
-        <LoginImg src='asset/logins/signImg.jpg'></LoginImg>
       </SignWrapper>
     </Background>
   );

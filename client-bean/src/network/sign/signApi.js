@@ -6,7 +6,15 @@ const http = process.env.REACT_APP_HTTPURL;
 
 // Login 요청
 export function loginReq(userId, password) {
-  return axios.post(`${http}/login`, { userId, password }, { 'Content-Type': 'application/json' });
+  return axios
+    .post(`${http}/login`, { userId, password }, { 'Content-Type': 'application/json' })
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err.response);
+      return err.response;
+    });
 }
 
 // logout 요청

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Link}  from 'react-router-dom';
-import { MdHomeFilled } from "react-icons/md";
+import { Link } from 'react-router-dom';
+import { MdHomeFilled } from 'react-icons/md';
 
 const MainHeader = styled.header`
   width: 100vw;
@@ -10,7 +10,7 @@ const MainHeader = styled.header`
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index:999;
+  z-index: 5;
   > .link {
     > img {
       width: 100px;
@@ -38,23 +38,32 @@ const Nav = styled.nav`
     &:hover {
       background-color: grey;
     }
-  > .navicon {
-    vertical-align: bottom;
+    > .navicon {
+      vertical-align: bottom;
+    }
   }
-}
 `;
 
-export default function Header () {
+export default function Header() {
   return (
-      <MainHeader>
-          <Link to='/' className="link"><img src='/asset/mainpage/logo.png' alt='logo'/></Link>
-          <Nav>
-              <Link to='/' className="link"><MdHomeFilled className="navicon"/></Link>
-              <Link to='/posts' className="link">post</Link>
-              <Link to='beans' className="link">beans</Link>
-              <Link to='myPage' className="link">mypage</Link>
-          </Nav>
-      </MainHeader>
-  )
-
+    <MainHeader>
+      <Link to='/' className='link'>
+        <img src='/asset/mainpage/logo.png' alt='logo' />
+      </Link>
+      <Nav>
+        <Link to='/' className='link'>
+          <MdHomeFilled className='navicon' />
+        </Link>
+        <Link to='/posts' className='link'>
+          post
+        </Link>
+        <Link to='beans' className='link'>
+          beans
+        </Link>
+        <Link to='myPage' className='link'>
+          mypage
+        </Link>
+      </Nav>
+    </MainHeader>
+  );
 }

@@ -15,7 +15,7 @@ const LoginBtn = styled.button`
   cursor: pointer;
   font-weight: 500;
   color: #fff;
-  z-index: 1;
+  z-index: 10;
   &:hover {
     cursor: pointer;
   }
@@ -27,7 +27,7 @@ const LogoutBtn = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 1;
+  z-index: 10;
   color: #fff;
   &:hover {
     cursor: pointer;

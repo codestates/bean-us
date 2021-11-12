@@ -19,7 +19,7 @@ export default function Logout({ loginHandler, modalHandler }) {
   `;
 
   const FlexWrapper = styled.div`
-    margin-top: 65px;
+    margin-top: 70px;
     display: flex;
     justify-content: center;
   `;
