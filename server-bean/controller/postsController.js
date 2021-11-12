@@ -93,29 +93,15 @@ module.exports = {
     });
   },
 
-  findAll: (req, res) => {
-    post.findAll({
-      attributes: ['postId', 'title', 'userId'],
-      include: [
-        {
-          raw: true,
-          model: postBean,
-          attributes: ['beanId'],
-          include : [
-            {
-              raw: true,
-              model: beanInfo,
-              attributes: ['beanName']
-            }
-          ]
-        },
-      ],
-    }).then(result => {
-      console.log(result);
-      res.status(200).json({
-        message: 'success',
-        postList: result,
-      });
+  findAll: async (req, res) => {
+    const postList = await post.findAll();
+
+    const postbeanList = await postBean.findAll({
+      attributes: ['postId', 'beanId']
+    });
+
+    const beanList = await beanInfo.findAll({
+      attributes: ['beanId', 'beanName']
     });
 
     // res.status(200).json({
