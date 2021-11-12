@@ -16,6 +16,14 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'beanId',
         }
       );
+
+      beanInfo.hasMany(
+        models.postBean,
+        {
+          sourceKey: 'beanId',
+          foreignKey: 'beanId',
+        }
+      );
     }
   }
   beanInfo.init(

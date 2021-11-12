@@ -3,37 +3,37 @@
 export const BeanPostdb = [
   {
     postId: 1,
-    title: '쓴맛 속에 스며든 약간의 신맛과 단맛이 특징',
+    title: '쓴맛 속에 스며든 약간의 신맛과 단맛이 특맛과 단맛이 특맛과 단맛이 특맛과 단맛이 특징',
     beans: ['자바', '만델링'],
-    userId: 4,
+    userId: 'hihi',
     createAt: '2020-12-20',
   },
   {
     postId: 2,
     title: '쓴맛 속에 스며든 약간의 신맛과 단맛이 특징',
     beans: ['자바', '말라위 AAA+'],
-    userId: 2,
+    userId: 'nana',
     createAt: '2020-12-20',
   },
   {
     postId: 3,
     title: '쓴맛 속에 스며든 약간의 신맛과 단맛이 특징',
     beans: ['케냐 AA', '만델링'],
-    userId: 4,
+    userId: 'nana',
     createAt: '2020-12-20',
   },
   {
     postId: 4,
     title: '쓴맛 속에 스며든 약간의 신맛과 단맛이 특징',
     beans: ['케냐 AA', '자바'],
-    userId: 4,
+    userId: 'gugu',
     createAt: '2020-12-20',
   },
   {
     postId: 5,
     title: '쓴맛 속에 스며든 약간의 신맛과 단맛이 특징',
     beans: ['케냐 AA', '만델링'],
-    userId: 4,
+    userId: 'gugu',
     createAt: '2020-12-20',
   },
 ];
