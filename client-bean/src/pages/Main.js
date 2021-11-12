@@ -1,3 +1,5 @@
+/*eslint-disable no-unused-vars*/
+
 import React from 'react';
 // import {useLocation} from 'react-router-dom';
 import Section1 from '../components/MainPage/Section/Section1';

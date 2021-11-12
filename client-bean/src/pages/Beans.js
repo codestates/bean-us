@@ -31,7 +31,6 @@ export default function Beans(props) {
   useEffect(() => {
     // TODO GET 요청
     getAllBeans().then((res) => {
-      console.log(res);
       let name = res.beanList.map((v) => v.beanName);
       setBeans([...res.beanList]);
       setBeanName([...name]);
@@ -46,7 +45,6 @@ export default function Beans(props) {
   const getBeanCards = (res) => {
     //TODO res에 따른 setBeans 설정
     setBeans([...res.beanList]);
-
     // console.log(res);
   };
 
