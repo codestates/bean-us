@@ -28,9 +28,8 @@ const Nav = styled.nav`
   right: 0;
   margin-right: 1.4vw;
   > .link {
-    flex: none;
     text-decoration: none;
-    color: #dad1c9;
+    color: #e67700;
     font-weight: 500;
     height: 30px;
     width: 90px;
@@ -48,7 +47,7 @@ const Nav = styled.nav`
 export default function Header () {
   return (
       <MainHeader>
-          <Link to='/' className="link"><img src='asset/mainpage/logo.png' alt='logo'/></Link>
+          <Link to='/' className="link"><img src='/asset/mainpage/logo.png' alt='logo'/></Link>
           <Nav>
               <Link to='/' className="link"><MdHomeFilled className="navicon"/></Link>
               <Link to='/posts' className="link">post</Link>

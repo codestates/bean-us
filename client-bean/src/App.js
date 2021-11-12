@@ -9,6 +9,7 @@ import Posts from './pages/Posts';
 import Beans from './pages/Beans';
 import MyPage from './pages/MyPage';
 import PostsView from './pages/PostsView';
+import PostsCreate from './pages/PostsCreate';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -23,10 +24,11 @@ function App() {
   };
 
   const location = useLocation();
+  console.log(location.pathname);
   return (
     <>
-      {location.pathname === '/' ? null : <TopBar isLogin={isLogin} modalHandler={modalHandler} />}
-      {location.pathname === '/' ? null : <NavBar />}
+      {location.pathname === '/' || location.pathname === '/posts/create' ? null : <TopBar isLogin={isLogin} modalHandler={modalHandler} />}
+      {location.pathname === '/' || location.pathname === '/posts/create' ? null : <NavBar />}
       <Routes>
         <Route
           path='/'
@@ -39,7 +41,9 @@ function App() {
             />
           }
         />
-        <Route path='/posts/view/1' element={<PostsView />} />
+        <Route path='/posts/view/:id' element={<PostsView />} />
+        <Route path='/posts/create' element={<PostsCreate />} />
+        <Route path='/posts/edit/:id' element={<PostsCreate />} />
         <Route path='/posts' element={<Posts />} />
         <Route path='/beans' element={<Beans />} />
         <Route path='/myPage' element={<MyPage />} />
