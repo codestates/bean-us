@@ -11,6 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      postBean.hasOne(
+        models.beanInfo,
+        {
+          sourceKey: 'beanId',
+          foreignKey: 'beanId',
+        }
+      );
     }
   };
   postBean.init({
