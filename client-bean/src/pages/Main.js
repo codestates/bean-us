@@ -14,6 +14,7 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   cursor: default;
+  overflow: auto;
 `;
 
 export default function Main({ isLogin, loginHandler, renderModal, modalHandler }) {
