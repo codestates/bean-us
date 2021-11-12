@@ -20,7 +20,7 @@ module.exports = {
       );
     }else{
       attributes.push(
-        [fn('COALESCE', col('userBeans.userId'), Number(1)), 'like']
+        [fn('COALESCE', col('userBeans.userId'), String(1)), 'like']
       );
     }
 
@@ -85,7 +85,7 @@ module.exports = {
       );
     }else{
       attributes.push(
-        [fn('COALESCE', col('userBeans.userId'), Number(1)), 'like']
+        [fn('COALESCE', col('userBeans.userId'), String(1)), 'like']
       );
     }
 
