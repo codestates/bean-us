@@ -6,19 +6,26 @@ module.exports = {
   allBeans: (req, res) => {
     const userBeanWhere = {[Op.or]:[{userId: null}]}
     const accessTokenInfo = isAuthorized(req);
-    
+    const attributes = [
+      'beanId', 'beanName', 'origin', 'fragrance',
+      'acidity', 'sweetness', 'bitterness', 'body',
+      'beanImage', ['description', 'desc']
+    ];
+
     if(accessTokenInfo !== null){
       userBeanWhere[Op.or].push({userId: accessTokenInfo.userId});
+      attributes.push(
+        [literal(`CASE WHEN userBeans.userId = '${accessTokenInfo.userId}' THEN true ELSE false END`), 'like']
+      );
+    }else{
+      attributes.push(
+        [fn('COALESCE', col('userBeans.userId'), 0), 'like']
+      );
     }
 
     beanInfo.findAll({
       raw: true,
-      attributes: [
-        'beanId', 'beanName', 'origin', 'fragrance',
-        'acidity', 'sweetness', 'bitterness', 'body',
-        'beanImage', ['description', 'desc'],
-        [literal(`CASE WHEN userBeans.userId = 'test1' THEN true ELSE false END`), 'like']
-      ],
+      attributes: attributes,
       include: [
         {
           model: userBean,
@@ -61,9 +68,21 @@ module.exports = {
     const beanInfoWhere = {};
     const userBeanWhere = {[Op.or]:[{userId: null}]}
     const accessTokenInfo = isAuthorized(req);
+    const attributes = [
+      'beanId', 'beanName', 'origin', 'fragrance',
+      'acidity', 'sweetness', 'bitterness', 'body',
+      'beanImage', ['description', 'desc']
+    ];
     
     if(accessTokenInfo !== null){
       userBeanWhere[Op.or].push({userId: accessTokenInfo.userId});
+      attributes.push(
+        [literal(`CASE WHEN userBeans.userId = '${accessTokenInfo.userId}' THEN true ELSE false END`), 'like']
+      );
+    }else{
+      attributes.push(
+        [fn('COALESCE', col('userBeans.userId'), 0), 'like']
+      );
     }
 
     for(let param in params){
@@ -128,5 +147,36 @@ module.exports = {
 
   findBeanPost: (req, res) => {
 
+  },
+
+  beanLike: (req, res) => {
+    const accessTokenInfo = isAuthorized(req);
+    if(!accessTokenInfo){
+      res.status(400).json({
+        message: '로그인이 되어 있지 않습니다.'
+      });
+    }
+
+    if(req.body.beanLike){
+      userBean.create({
+        userId: accessTokenInfo.userId,
+        beanId: req.body.beanId
+      }).then(() => {
+        res.status(200).json({
+          message: 'success'
+        });
+      });
+    }else{
+      userBean.destroy({
+        where: {
+          userId: accessTokenInfo.userId,
+          beanId: req.body.beanId
+        }
+      }).then(() => {
+        res.status(200).json({
+          message: 'success'
+        });
+      });
+    }
   },
 };
