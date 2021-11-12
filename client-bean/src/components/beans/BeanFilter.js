@@ -50,7 +50,13 @@ const FilterUL = styled.ul`
 `;
 
 export default function BeanFilter({ getBeanCards }) {
-  const [filtering, setFiltering] = useState({ fragrance: [], acidity: [], sweetness: [], bitterness: [], body: [] });
+  const [filtering, setFiltering] = useState({
+    fragrance: [],
+    acidity: [],
+    sweetness: [],
+    bitterness: [],
+    body: [],
+  });
 
   //TODO useState 동기처리 다른 방법 없나.. 너무 리랜더링이 많이 된다.
   // filtering의 최신값을 가져오기 위함
@@ -84,14 +90,14 @@ export default function BeanFilter({ getBeanCards }) {
 
   return (
     <FilterContainer>
-      <div className="subtitle">분류 보기</div>
+      <div className='subtitle'>분류 보기</div>
       <FilterUL>
         {content.map((value, i) => (
           <li key={i}>
-            <span className="filterContent">{value}</span>
+            <span className='filterContent'>{value}</span>
             {num.map((v, i) => (
-              <span className="checkbox" key={i}>
-                <input type="checkbox" id={value + v} name={value} value={v} onClick={checkClick} />
+              <span className='checkbox' key={i}>
+                <input type='checkbox' id={value + v} name={value} value={v} onClick={checkClick} />
                 <label htmlFor={value + v}>{v}</label>
               </span>
             ))}
