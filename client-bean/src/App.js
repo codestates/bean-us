@@ -24,7 +24,6 @@ function App() {
   };
 
   const location = useLocation();
-  console.log(location.pathname);
   return (
     <>
       {location.pathname === '/' || location.pathname === '/posts/create' ? null : <TopBar isLogin={isLogin} modalHandler={modalHandler} />}

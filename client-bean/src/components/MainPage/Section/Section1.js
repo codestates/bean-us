@@ -38,10 +38,10 @@ const SectionIntroCnt = styled.div`
 	}
 `;
 
-export default function Section1 () {
+export default function Section1 ({modalHandler}) {
     return (
         <MainSection1>
-            <MainTopBar />
+            <MainTopBar modalHandler={modalHandler}/>
             <MainNavBar />
             <SectionIntroCnt>
                 <img src="asset/mainpage/logowhite.png" alt="" className="logoimg"/>
