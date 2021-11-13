@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ContentWrap } from '../../../../styles/basicFrame/ContentWrap';
 import ImgFrame from '../../../../styles/basicFrame/ImgFrame';
 import { TagFrame } from '../../../../styles/basicFrame/TagFrame';
+import BeanChart from './BeanChart';
 
 const BeanWrap = styled.div`
   display: flex;
@@ -37,6 +38,7 @@ export default function PostSectionBean({ postCotents }) {
               {bean}
             </TagFrame>
           ))}
+          <BeanChart beanRatio={beanRatio} />
         </ContentInnerContainer>
         <ContentInnerContainer>
           <div className='subtitle'>물</div>
