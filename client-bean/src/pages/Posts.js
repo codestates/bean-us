@@ -6,18 +6,24 @@ import { MdPostAdd } from 'react-icons/md';
 import getAllPosts from '../network/postspage/http';
 import getFilterdPost from '../network/postspage/http';
 import SignModal from '../components/signModal/SignModal';
+import {Link} from 'react-router-dom';
 
 const PostsContainer = styled.div`
   position: relative;
   width: 1100px;
   margin: auto;
   cursor: default;
+  overflow: auto;
 
   & .title {
     padding: 1rem 0;
     font-size: 2rem;
     font-weight: bold;
   }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
 
 const CreatePost = styled.button`
@@ -58,9 +64,11 @@ export default function Posts({ isLogin, renderModal, modalHandler }) {
     <PostsContainer>
       <div className='title'>게시글</div>
       <PostSearch handleClick={handleClick} handleInputChange={handleInputChange} posts={posts} />
-      <CreatePost>
-        <MdPostAdd className='postIcon' />
-      </CreatePost>
+      <StyledLink to='/posts/create'>
+        <CreatePost>
+          <MdPostAdd className='postIcon' />
+        </CreatePost>
+      </StyledLink>
       <PostCards posts={posts} />
       {renderModal ? <SignModal isLogin={isLogin} modalHandler={modalHandler} /> : null}
     </PostsContainer>

@@ -13,7 +13,6 @@ const MainHeader = styled.header`
   background-color: #c8aa9b;
   z-index: 5;
   > .link {
-    flex: none;
     > img {
       width: 100px;
       margin-left: 2vw;
@@ -28,7 +27,7 @@ const Nav = styled.nav`
   justify-content: space-around;
   position: absolute;
   right: 0;
-  margin-right: 1vw;
+  margin-right: 3.3vw;
   > .link {
     height: 30px;
     width: 90px;
@@ -36,6 +35,12 @@ const Nav = styled.nav`
     text-decoration: none;
     color: black;
     font-weight: 500;
+    box-sizing: border-box;
+    text-align: center;
+    &:hover {
+      background-color: #877158;
+      color: white;
+    }
     .navicon {
       vertical-align: bottom;
     }
