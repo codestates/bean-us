@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-const TopBar = styled.div`
+import { checkToken } from '../network/sign/checkToken';
+
+const TopBarDiv = styled.div`
   width: 100vw;
   display: flex;
   justify-content: flex-end;
   padding-right: 21px;
-  background-color: #c8aa9b;
+  background-color: ${({ main }) => (main === 'main' ? 'none' : '#c8aa9b')};
 `;
 const LoginBtn = styled.button`
   width: 110px;
@@ -15,6 +17,7 @@ const LoginBtn = styled.button`
   border: none;
   cursor: pointer;
   font-weight: 500;
+  color: ${({ main }) => (main === 'main' ? '#fff' : '#000')};
   z-index: 10;
   &:hover {
     cursor: pointer;
@@ -27,19 +30,29 @@ const LogoutBtn = styled.button`
   border: none;
   cursor: pointer;
   z-index: 10;
+  color: ${({ main }) => (main === 'main' ? '#fff' : '#000')};
   &:hover {
     cursor: pointer;
   }
 `;
 
-export default function MainTopBar({ isLogin, modalHandler }) {
+export default function TopBar({ isLogin, modalHandler, loginHandler, main }) {
+  useEffect(() => {
+    checkToken().then((res) => {
+      loginHandler(res.data.data);
+    });
+  });
   return (
-    <TopBar>
+    <TopBarDiv main={main}>
       {isLogin ? (
-        <LogoutBtn onClick={modalHandler}>로그아웃</LogoutBtn>
+        <LogoutBtn main={main} onClick={modalHandler}>
+          로그아웃
+        </LogoutBtn>
       ) : (
-        <LoginBtn onClick={modalHandler}>로그인/회원가입</LoginBtn>
+        <LoginBtn main={main} onClick={modalHandler}>
+          로그인/회원가입
+        </LoginBtn>
       )}
-    </TopBar>
+    </TopBarDiv>
   );
 }

@@ -10,10 +10,10 @@ import SignButton, { Button } from '../../../styles/signs/SignButton';
 
 // functions
 import { loginReq } from '../../../network/sign/signApi';
-import axios from 'axios';
 
 const ErrorMessage = styled.p`
-  margin-left: 15px;
+  text-align: center;
+  margin: 3px 0 0 0;
   font-size: 13px;
   color: #95673d;
 `;
@@ -37,6 +37,7 @@ const GithubButton = styled.button`
   display: flex;
   margin-top: 12px;
   margin-left: 27px;
+  margin-bottom: 12px;
   width: 300px;
   height: 50px;
   border: none;
@@ -62,7 +63,7 @@ const GithubP = styled.p`
   font-size: 15px;
 `;
 
-export default function Login({ loginHandler, modalHandler, renderSignupHandler }) {
+export default function Login({ modalHandler, renderSignupHandler }) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -77,9 +78,7 @@ export default function Login({ loginHandler, modalHandler, renderSignupHandler 
 
   const btnLoginClick = () => {
     loginReq(userId, password).then((res) => {
-      console.log(res);
       if (res.data.data) {
-        loginHandler();
         setUserId('');
         setPassword('');
         setLoginError('');
@@ -90,7 +89,15 @@ export default function Login({ loginHandler, modalHandler, renderSignupHandler 
     });
   };
 
-  const kakaoOAuthHandler = () => {};
+  const kakaoOAuthHandler = () => {
+    const http = process.env.REACT_APP_HTTPURL;
+    window.location.href = `${http}/auth/kakao`;
+  };
+
+  const githubOAuthHandler = () => {
+    const http = process.env.REACT_APP_HTTPURL;
+    window.location.href = `${http}/auth/github`;
+  };
 
   return (
     <>
@@ -103,11 +110,11 @@ export default function Login({ loginHandler, modalHandler, renderSignupHandler 
         rightBtn='로그인'
         leftBtnHandler={renderSignupHandler}
         rightBtnHandler={btnLoginClick}
-        marginTop='30px'
+        marginTop='20px'
         marginBottom='30px'
       />
-      <KakaoButton></KakaoButton>
-      <GithubButton>
+      <KakaoButton onClick={kakaoOAuthHandler}></KakaoButton>
+      <GithubButton onClick={githubOAuthHandler}>
         <GuthubImg src='/asset/logins/githubButton.png' alt='Github' />
         <GithubP>Gihub 로그인</GithubP>
       </GithubButton>

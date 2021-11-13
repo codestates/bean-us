@@ -21,13 +21,16 @@ export default function Main({ isLogin, loginHandler, renderModal, modalHandler 
   return (
     <MainContainer>
       <SideBar scrollY={scrollY} />
-      <Section1 scrollY={scrollY} isLogin={isLogin} modalHandler={modalHandler} />
+      <Section1
+        scrollY={scrollY}
+        isLogin={isLogin}
+        modalHandler={modalHandler}
+        loginHandler={loginHandler}
+      />
       <Section2 scrollY={scrollY} />
       <Section3 scrollY={scrollY} />
       <Footer />
-      {renderModal ? (
-        <SignModal isLogin={isLogin} loginHandler={loginHandler} modalHandler={modalHandler} />
-      ) : null}
+      {renderModal ? <SignModal isLogin={isLogin} modalHandler={modalHandler} /> : null}
     </MainContainer>
   );
 }

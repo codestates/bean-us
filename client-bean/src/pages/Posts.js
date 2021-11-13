@@ -35,7 +35,7 @@ const CreatePost = styled.button`
   }
 `;
 
-export default function Posts({ isLogin, loginHandler, renderModal, modalHandler }) {
+export default function Posts({ isLogin, renderModal, modalHandler }) {
   const [posts, setPosts] = useState([]);
   const [value, setValue] = useState('');
   useEffect(() => {
@@ -62,9 +62,7 @@ export default function Posts({ isLogin, loginHandler, renderModal, modalHandler
         <MdPostAdd className='postIcon' />
       </CreatePost>
       <PostCards posts={posts} />
-      {renderModal ? (
-        <SignModal isLogin={isLogin} loginHandler={loginHandler} modalHandler={modalHandler} />
-      ) : null}
+      {renderModal ? <SignModal isLogin={isLogin} modalHandler={modalHandler} /> : null}
     </PostsContainer>
   );
 }

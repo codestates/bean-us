@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Input = styled.input`
-  width: ${({ checkId }) => (checkId ? '170px' : '250px')};
+  width: ${({ checkId }) => (checkId === 'true' ? '170px' : '250px')};
   height: 30px;
 `;
 
@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
 
 const P = styled.p`
   margin-right: 15px;
-  width: ${({ signup }) => (signup ? '100px' : '60px')};
+  width: ${({ signup }) => (signup === 'true' ? '100px' : '60px')};
   font-size: 16px;
 `;
 
@@ -54,3 +54,8 @@ export default function InputLine({
     </Wrapper>
   );
 }
+
+Input.defaultProps = {
+  signup: 'false',
+  checkId: 'false',
+};

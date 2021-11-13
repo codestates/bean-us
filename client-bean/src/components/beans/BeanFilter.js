@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps*/
+
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getFilterBeans } from '../../network/beans/http';
