@@ -21,9 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   postBean.init({
-    postId: DataTypes.STRING,
-    beanId: DataTypes.STRING,
-    rate: DataTypes.STRING
+    postId: DataTypes.INTEGER,
+    beanId: DataTypes.INTEGER,
+    rate: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'postBean',
