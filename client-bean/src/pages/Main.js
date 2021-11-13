@@ -17,7 +17,14 @@ const MainContainer = styled.div`
   overflow: auto;
 `;
 
-export default function Main({ isLogin, loginHandler, renderModal, modalHandler }) {
+export default function Main({
+  isLogin,
+  loginHandler,
+  renderModal,
+  modalHandler,
+  loginId,
+  saveLoginId,
+}) {
   const { scrollY } = useScroll();
   return (
     <MainContainer>
@@ -27,6 +34,8 @@ export default function Main({ isLogin, loginHandler, renderModal, modalHandler 
         isLogin={isLogin}
         modalHandler={modalHandler}
         loginHandler={loginHandler}
+        saveLoginId={saveLoginId}
+        loginId={loginId}
       />
       <Section2 scrollY={scrollY} />
       <Section3 scrollY={scrollY} />

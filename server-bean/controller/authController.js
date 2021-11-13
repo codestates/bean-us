@@ -56,6 +56,10 @@ module.exports = {
     //   email: 'jkyyc3@daum.net'
 
     const realData = userData.data;
+    let email = realData.kakao_account.email;
+    if (!email) {
+      email = '카카오 아이디로 로그인하셨습니다.';
+    }
 
     const instance = await userInfo.findOrCreate({
       where: { id: realData.id, social: 'kakao' },
@@ -121,5 +125,26 @@ module.exports = {
     //   following: 0,
     //   created_at: '2021-04-01T07:07:52Z',
     //   updated_at: '2021-08-15T13:20:21Z'
+    let { login, email } = userData.data;
+
+    if (!email) {
+      email = '깃허브 아이디로 로그인하셨습니다.';
+    }
+
+    const instance = await userInfo.findOrCreate({
+      where: { userId: login, social: 'github' },
+      defaults: {
+        password: '',
+        email,
+      },
+    });
+
+    delete instance[0].dataValues.password;
+
+    const beanusAccessToken = generateAccessToken(instance[0].dataValues);
+
+    sendAccessToken(res, beanusAccessToken);
+
+    res.json({ data: true, message: '깃허브 아이디로 로그인에 성공하셨습니다' });
   },
 };

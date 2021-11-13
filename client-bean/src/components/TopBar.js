@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -27,6 +28,8 @@ const LogoutBtn = styled.button`
   width: 60px;
   height: 20px;
   background: none;
+  font-weight: 500;
+  padding: 4px;
   border: none;
   cursor: pointer;
   z-index: 10;
@@ -36,18 +39,40 @@ const LogoutBtn = styled.button`
   }
 `;
 
-export default function TopBar({ isLogin, modalHandler, loginHandler, main }) {
+const Greeting = styled.span`
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0 10px 0 0;
+  color: ${({ main }) => (main === 'main' ? '#fff' : '#000')};
+`;
+
+export default function TopBar({
+  isLogin,
+  modalHandler,
+  loginHandler,
+  loginId,
+  saveLoginId,
+  main,
+}) {
   useEffect(() => {
     checkToken().then((res) => {
       loginHandler(res.data.data);
-    });
+      if (res.data.data) {
+        saveLoginId(res.data.loginId);
+      }
+    }, []);
   });
   return (
     <TopBarDiv main={main}>
       {isLogin ? (
-        <LogoutBtn main={main} onClick={modalHandler}>
-          로그아웃
-        </LogoutBtn>
+        <>
+          <Greeting main={main}>{loginId}님 반가워요!</Greeting>
+          <LogoutBtn main={main} onClick={modalHandler}>
+            로그아웃
+          </LogoutBtn>
+        </>
       ) : (
         <LoginBtn main={main} onClick={modalHandler}>
           로그인/회원가입
