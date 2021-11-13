@@ -137,7 +137,45 @@ module.exports = {
     });
   },
 
-  findByParams: (req, res) => {
+  findByParams: async (req, res) => {
+    console.log(req.query);
+
+    const postList = await post.findAll({
+      raw: true
+    });
+    const postbeanList = await postBean.findAll({
+      raw: true,
+      attributes: ['postId', 'beanId']
+    });
+    const beanList = await beanInfo.findAll({
+      raw: true,
+      attributes: ['beanId', 'beanName']
+    });
+
+    for(let postIdx of postList){
+      delete postIdx.id;
+      delete postIdx.updatedAt;
+
+      const beans = [];
+      for(let postBeanIdx of postbeanList){
+        if(postIdx['postId'] === postBeanIdx['postId']){
+          for(let beanIdx of beanList){
+            if(postBeanIdx['beanId'] === beanIdx['beanId']){
+              beans.push({beanId: beanIdx['beanId'], beanName: beanIdx['beanName']});
+              break;
+            }
+          }
+        }
+      }
+
+      postIdx['beans'] = beans;
+    }
+
+    res.status(200).json({
+      message: 'success',
+      postList
+    });
+
     res.status(200).json({
       message: 'success'
     });

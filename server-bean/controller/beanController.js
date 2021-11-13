@@ -6,7 +6,6 @@ module.exports = {
   allBeans: (req, res) => {
     const userBeanWhere = {[Op.or]:[{userId: null}]}
     const accessTokenInfo = isAuthorized(req);
-    console.log(accessTokenInfo);
     const attributes = [
       'beanId', 'beanName', 'origin', 'fragrance',
       'acidity', 'sweetness', 'bitterness', 'body',
@@ -23,8 +22,6 @@ module.exports = {
         [fn('COALESCE', col('userBeans.userId'), String(1)), 'like']
       );
     }
-
-    console.log(attributes);
 
     beanInfo.findAll({
       raw: true,
@@ -88,8 +85,6 @@ module.exports = {
         [fn('COALESCE', col('userBeans.userId'), String(1)), 'like']
       );
     }
-
-    console.log(attributes);
 
     for(let param in params){
       if(param === 'bean' && params['bean'] !== ''){
