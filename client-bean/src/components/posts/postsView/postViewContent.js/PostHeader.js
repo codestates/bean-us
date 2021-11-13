@@ -52,13 +52,14 @@ const PostBtn = styled.button`
 
   &:hover {
     cursor: pointer;
-    background-color: rgba(200, 110, 131, 0.3);
+    background-color: ${({ theme }) => theme.color.heartRed};
   }
 `;
 
-export default function PostHeader({ postCotents }) {
+export default function PostHeader({ postCotents, postId }) {
   // 테스트용 loginId
   let loginId = 'meme';
+
   let { title, userId, createAt } = postCotents;
 
   let navigate = useNavigate();
@@ -67,10 +68,12 @@ export default function PostHeader({ postCotents }) {
     if (window.confirm('정말 삭제하시겠습니까?')) {
       //! TODO DELETE /posts/ 게시물 삭제 요청
       alert('삭제되었습니다');
-      // 삭제된 게시글로 되돌아가는 것을 방지
       navigate('/posts', { replace: true });
-      // navigate('/posts');
     }
+  };
+
+  const editPost = () => {
+    navigate(`/posts/edit/${postId}`);
   };
 
   return (
@@ -88,7 +91,7 @@ export default function PostHeader({ postCotents }) {
           {/* 본인 게시글인 경우만  */}
           {loginId === userId && (
             <div>
-              <PostBtn>수정</PostBtn>
+              <PostBtn onClick={editPost}>수정</PostBtn>
               <PostBtn onClick={deletePost}>삭제</PostBtn>
             </div>
           )}

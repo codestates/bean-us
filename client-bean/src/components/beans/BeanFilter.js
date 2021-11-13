@@ -24,7 +24,7 @@ const FilterUL = styled.ul`
       display: inline-block;
       height: 100%;
       width: 200px;
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: ${({ theme }) => theme.color.lightWhite};
     }
 
     .checkbox {

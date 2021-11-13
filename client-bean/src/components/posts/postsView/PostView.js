@@ -11,10 +11,9 @@ import { Navigate } from 'react-router-dom';
 import { postView } from '../../../db/postView';
 
 export default function PostView(props) {
-  const [postInfo, setPostInfo] = useState(null);
+  const [postInfo, setPostInfo] = useState({ ...postView });
 
   let { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     //! TODO GET /post?post-id=postId 요청
@@ -22,18 +21,23 @@ export default function PostView(props) {
     setPostInfo({ ...postView });
   }, []);
 
+  const nonPost = () => {
+    alert('해당 게시물이 없거나 삭제되었습니다');
+    return <Navigate to='/posts' replace />;
+  };
+
   return (
     <>
       {postInfo ? (
         <InnerFrame>
-          <PostHeader postCotents={postInfo.postCotents} />
+          <PostHeader postCotents={postInfo.postCotents} postId={id} />
           <PostSection postCotents={postInfo.postCotents} />
           <PostComment comments={postInfo.comments} />
         </InnerFrame>
       ) : (
         <>
           {/* alert('삭제되거나 없는 게시물입니다') */}
-          <Navigate to='/posts' replace />
+          {nonPost()}
         </>
       )}
     </>

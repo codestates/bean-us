@@ -2,6 +2,7 @@ import React from 'react';
 import { FaChevronRight } from 'react-icons/fa';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { TagFrame } from '../../../styles/basicFrame/TagFrame';
 
 //[{postId, title, beans: [beanName, beanName, beanName], userId(작성자), createAt}]
 // 최신순으로 정렬
@@ -31,14 +32,6 @@ const BeanPostList = styled.li`
     & .arrowIcon {
       font-size: 1.2rem;
       padding-right: 0.5rem;
-    }
-
-    & .beanName {
-      display: inline-block;
-      padding: 0 0.5rem;
-      margin-right: 0.5rem;
-      border-radius: 25px;
-      background-color: rgba(121, 147, 105, 0.5);
     }
   }
 
@@ -72,11 +65,10 @@ function ModalPostingLi({ res }) {
           >
             <div className='postTitle'>{res.title}</div>
           </StyledLink>
-
           {res.beans.map((name) => (
-            <span key={name} className='beanName'>
-              # {name}
-            </span>
+            <TagFrame key={name} color='rgba(121, 147, 105, 0.5)'>
+              #{name}
+            </TagFrame>
           ))}
         </div>
       </div>

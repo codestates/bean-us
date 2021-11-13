@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaCircle } from 'react-icons/fa';
 import styled from 'styled-components';
+import ImgFrame from '../../../styles/basicFrame/ImgFrame';
 
 const BeanInfoWrap = styled.section`
   padding: 2rem 0;
@@ -23,24 +24,6 @@ const BeanInfoWrap = styled.section`
     display: flex;
     justify-content: center;
     padding-bottom: 2rem;
-
-    & .imgWrap {
-      position: relative;
-      overflow: hidden;
-      width: 400px;
-      height: 300px;
-      margin-right: 5rem;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-
-    & img {
-      position: absolute;
-      width: 500px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
 
     & .beaninfo {
       display: flex;
@@ -96,9 +79,13 @@ function ModalBeanInfo({ cardBeanInfo }) {
   return (
     <BeanInfoWrap>
       <div className='beanInfoWrap'>
-        <div className='imgWrap'>
-          <img src={beanImage} alt='beanImg' />
-        </div>
+        <ImgFrame
+          imgUrl={beanImage}
+          alt='beanImg'
+          width='400px'
+          height='300px'
+          marginRight='5rem'
+        />
         <ul className='beaninfo'>
           <li className='name'>{beanName}</li>
           <li className='Orign'>Orign : {origin}</li>

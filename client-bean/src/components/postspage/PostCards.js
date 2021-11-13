@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const CardWrap = styled.div`
   & .noCard {
@@ -86,41 +86,46 @@ const CardsLi = styled.li`
   }
 `;
 
-
-
 function PostCards(props) {
-  const {posts} = props;
-  return(
+  const { posts } = props;
+  return (
     <CardWrap>
-      {posts.length ? 
-      <CardsUL>
-        {posts.map((post) => (
-        <Link to={{pathname:'/posts/post', search:`?postId=${post.postId}`}} key={post.postId} className='postlink'>
-        <CardsLi key={post.postId} >
-          <div className='contentWrap'>
-            <div className='imgWrap'>
-              <img src={post.imageUrl ? post.imageUrl : '/asset/postspage/post-no-img.jpg'} alt='postImg' />
-            </div>
-            <div className='contentTitle'>
-              {post.title.length > 12 ? post.title.slice(0,13) + '...' : post.title}
-            </div>
-            <div className="beanInfo">
-              {post.beans.map((bean) => <div key="" className="beanLabel">#{bean}</div>)}
-            </div>
-            <div className="userInfo">
-              작성자: {post.userName}
-            </div>
-            <div className="createdAt">
-              {post.createdAt}
-            </div>
-          </div>
-        </CardsLi>
-        </Link>
-        ))}
-      </CardsUL> 
-      : 
-      <div className="noCard">해당하는 게시글이 없습니다.</div>
-      }
+      {posts.length ? (
+        <CardsUL>
+          {posts.map((post) => (
+            <Link
+              to={{ pathname: '/posts/post', search: `?postId=${post.postId}` }}
+              key={post.postId}
+              className='postlink'
+            >
+              <CardsLi key={post.postId}>
+                <div className='contentWrap'>
+                  <div className='imgWrap'>
+                    <img
+                      src={post.imageUrl ? post.imageUrl : '/asset/postspage/post-no-img.jpg'}
+                      alt='postImg'
+                    />
+                  </div>
+                  <div className='contentTitle'>
+                    {post.title.length > 12 ? post.title.slice(0, 13) + '...' : post.title}
+                  </div>
+                  <div className='beanInfo'>
+                    {post.beans.map((bean) => (
+                      <div key='' className='beanLabel'>
+                        #{bean}
+                      </div>
+                    ))}
+                  </div>
+                  <div className='userInfo'>작성자: {post.userName}</div>
+                  <div className='createdAt'>{post.createdAt}</div>
+                </div>
+              </CardsLi>
+            </Link>
+          ))}
+        </CardsUL>
+      ) : (
+        <div className='noCard'>해당하는 게시글이 없습니다.</div>
+      )}
     </CardWrap>
   );
 }

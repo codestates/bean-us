@@ -4,37 +4,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaHeart } from 'react-icons/fa';
 import { getBeanPost, postBeanLike, statusCode } from '../../../network/beans/http';
+import { ContentWrap } from '../../../styles/basicFrame/ContentWrap';
+import ImgFrame from '../../../styles/basicFrame/ImgFrame';
 
 const CardLI = styled.li`
   position: relative;
-
-  & .contentWrap {
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 5px;
-    padding: 35px;
-  }
-
-  & .imgWrap {
-    position: relative;
-    overflow: hidden;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    border: 5px solid rgba(157, 156, 147, 0.5);
-    transition: all 0.3s;
-  }
-
-  & .imgWrap:hover {
-    transform: scale(1.05);
-  }
-
-  & img {
-    position: absolute;
-    width: 500px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
 
   &:hover {
     cursor: pointer;
@@ -133,17 +107,23 @@ export default function BeanCard({ bean, beanModal }) {
 
   return (
     <CardLI onClick={(e) => cardClick(e, beanId)}>
-      <div className='contentWrap'>
-        <div className='imgWrap'>
-          <img src={beanImage} alt='beanImg' />
-        </div>
+      <ContentWrap>
+        <ImgFrame
+          imgUrl={beanImage}
+          alt='beanImg'
+          width='180px'
+          height='180px'
+          borderRadius='50%'
+          transform='scale(1.05)'
+          border='5px solid rgba(157, 156, 147, 0.5)'
+        />
         <ContentUL beanName={beanName} beanlike={beanlike}>
           <li className='beanName'>{beanName}</li>
           <li>{origin}</li>
           <li>{likeNum}</li>
           <FaHeart className='heart' onClick={() => heartClick(beanId)} />
         </ContentUL>
-      </div>
+      </ContentWrap>
     </CardLI>
   );
 }
