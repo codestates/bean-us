@@ -133,6 +133,8 @@ module.exports = {
   },
 
   findById: (req, res) => {
+    const {postId} = req.params;
+
     res.status(200).json({
       message: 'success',
     });
