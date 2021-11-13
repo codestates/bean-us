@@ -68,7 +68,6 @@ module.exports = {
     const beanInfoWhere = {};
     const userBeanWhere = {[Op.or]:[{userId: null}]}
     const accessTokenInfo = isAuthorized(req);
-    console.log(accessTokenInfo);
     const attributes = [
       'beanId', 'beanName', 'origin', 'fragrance',
       'acidity', 'sweetness', 'bitterness', 'body',
@@ -93,7 +92,7 @@ module.exports = {
         if(params[param] !== ''){
           beanInfoWhere[param] = {
               [Op.or]: params[param].split(',').map(item => {
-                return Number(item)
+                return Number(item);
               })
             };
         }

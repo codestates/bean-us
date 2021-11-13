@@ -1,4 +1,5 @@
 const {post, postBean, beanInfo} = require('./../models');
+const {Op} = require('sequelize');
 
 module.exports = {
   createPost: async (req, res) => {
@@ -138,10 +139,11 @@ module.exports = {
   },
 
   findByParams: async (req, res) => {
-    console.log(req.query);
+    const {title} = req.query;
 
     const postList = await post.findAll({
-      raw: true
+      raw: true,
+      where: {title: {[Op.like]: `%${title}%`}},
     });
     const postbeanList = await postBean.findAll({
       raw: true,
@@ -174,10 +176,6 @@ module.exports = {
     res.status(200).json({
       message: 'success',
       postList
-    });
-
-    res.status(200).json({
-      message: 'success'
     });
   },
 };
