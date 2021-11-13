@@ -18,11 +18,6 @@ const CardModalContainer = styled.div`
 `;
 
 const ModalWrap = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
-
   padding: 3rem 5rem;
   width: 900px;
   height: 700px;
