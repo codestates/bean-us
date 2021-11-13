@@ -60,9 +60,7 @@ export default function Beans({ isLogin, loginHandler, renderModal, modalHandler
           closeModal={closeModal}
         />
       )}
-      {renderModal ? (
-        <SignModal isLogin={isLogin} loginHandler={loginHandler} modalHandler={modalHandler} />
-      ) : null}
+      {renderModal ? <SignModal isLogin={isLogin} modalHandler={modalHandler} /> : null}
     </TopFrame>
   );
 }

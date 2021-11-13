@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps*/
-
 import React, { useEffect, useState } from 'react';
 import { InnerFrame } from '../../../styles/basicFrame/InnerFrame';
 import PostHeader from './postViewContent.js/PostHeader';

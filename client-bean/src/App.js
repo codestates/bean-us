@@ -11,6 +11,7 @@ import MyPage from './pages/MyPage';
 import PostsView from './pages/PostsView';
 import PostsCreate from './pages/PostsCreate';
 import KakaoCallback from './pages/KakaoCallback';
+import GithubCallback from './pages/GithubCallback';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -83,6 +84,10 @@ function App() {
         <Route
           path='/auth/kakao-callback'
           element={<KakaoCallback isLogin={isLogin} loginHandler={loginHandler} />}
+        />
+        <Route
+          path='/auth/github-callback'
+          element={<GithubCallback isLogin={isLogin} loginHandler={loginHandler} />}
         />
       </Routes>
     </>

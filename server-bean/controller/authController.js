@@ -17,6 +17,7 @@ module.exports = {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
         },
+        withCredentials: true,
       }
     );
 
@@ -32,6 +33,7 @@ module.exports = {
 
     const userData = await axios.get('https://kapi.kakao.com/v2/user/me', {
       headers: { Authorization: `Bearer ${kakaoAccessToken.data.access_token}`, 'Content-type': 'application/x-www-form-urlencoded;charset=utf-8;' },
+      withCredentials: true,
     });
 
     // console.log(userData);
@@ -71,5 +73,53 @@ module.exports = {
     sendAccessToken(res, beanusAccessToken);
 
     res.json({ data: true, message: '카카오 아이디로 로그인에 성공하셨습니다' });
+  },
+
+  github: (req, res) => {
+    return res.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_OAUTH_CLIENT_ID}&redirect_uri=${process.env.GITHUB_OAUTH_REDIRECT_URL}`);
+  },
+
+  githubCallback: async (req, res) => {
+    const accessCode = req.query.code;
+
+    const params = {
+      client_id: process.env.GITHUB_OAUTH_CLIENT_ID,
+      client_secret: process.env.GITHUB_OAUTH_CLIENT_SECRET,
+      code: accessCode,
+    };
+
+    const githubAccessToken = await axios.post(`https://github.com/login/oauth/access_token`, params, {
+      headers: { accept: 'application/json' },
+      withCredentials: true,
+    });
+
+    const userData = await axios.get('https://api.github.com/user', {
+      headers: { Authorization: `token ${githubAccessToken.data.access_token}`, accept: 'application/json' },
+      withCredentials: true,
+    });
+
+    // console.log(userData);
+
+    // data: {
+    //   login: 'Je-chan',
+    //   id: 81739782,
+    //   node_id: 'MDQ6VXNlcjgxNzM5Nzgy',
+
+    //   type: 'User',
+    //   site_admin: false,
+    //   name: 'ye chan',
+    //   company: null,
+    //   blog: '',
+    //   location: null,
+    //   email: null,
+    //   hireable: null,
+    //   bio: null,
+    //   twitter_username: null,
+    //   public_repos: 8,
+    //   public_gists: 0,
+    //   followers: 0,
+    //   following: 0,
+    //   created_at: '2021-04-01T07:07:52Z',
+    //   updated_at: '2021-08-15T13:20:21Z'
   },
 };
