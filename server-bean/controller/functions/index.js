@@ -16,6 +16,7 @@ module.exports = {
   },
 
   isAuthorized: (req) => {
+    console.log(req.cookies.accessToken);
     const accessToken = req.cookies.accessToken;
 
     if (!accessToken) return null;
