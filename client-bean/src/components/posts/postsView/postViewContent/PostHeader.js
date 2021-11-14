@@ -73,6 +73,7 @@ export default function PostHeader({ postCotents, postId }) {
   };
 
   const editPost = () => {
+    //! TODO onClick 했을 때 서버 통신하여 데이터를 받아 보내주는 것이 나은가??
     navigate(`/posts/edit/${postId}`);
   };
 

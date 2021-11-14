@@ -45,13 +45,13 @@ const BeanPostWrap = styled.div`
 function ModalPosting({ cardPostInfo }) {
   const [isPost, setIsPost] = useState(false);
 
-  let downRef = useRef(null);
+  let postRef = useRef(null);
 
   const postScroll = () => {
     if (!isPost) {
-      downRef.current.scrollIntoView({ behavior: 'smooth' });
+      postRef.current.scrollIntoView({ behavior: 'smooth' });
     } else {
-      downRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      postRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
     setIsPost(!isPost);
   };
@@ -59,7 +59,7 @@ function ModalPosting({ cardPostInfo }) {
   return (
     <BeanPostWrap isPost={isPost}>
       <header>
-        <div ref={downRef}>게시글</div>
+        <div ref={postRef}>게시글</div>
         <FaChevronCircleDown className='down' onClick={postScroll} />
       </header>
       <ul>
