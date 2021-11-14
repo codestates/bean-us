@@ -17,4 +17,10 @@ export const InnerFrame = styled.div`
     padding: 1rem;
     line-height: 1.8rem;
   }
+
+  & .underSubTitle {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+  }
 `;

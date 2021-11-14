@@ -1,13 +1,16 @@
 import React from 'react';
+import styled from 'styled-components';
 import { InnerFrame } from '../../../../styles/basicFrame/InnerFrame';
 
-function PostSectionContent({ content }) {
-  let contentChnage = content.replace('/\n/g', '<br/>');
+const PostText = styled.div`
+  white-space: pre-line;
+`;
 
+function PostSectionContent({ content }) {
   return (
     <InnerFrame>
       <div className='subtitle'>상세설명</div>
-      <div className='content'>{contentChnage}</div>
+      <PostText className='content'>{content}</PostText>
     </InnerFrame>
   );
 }

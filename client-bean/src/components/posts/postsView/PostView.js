@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { InnerFrame } from '../../../styles/basicFrame/InnerFrame';
-import PostHeader from './postViewContent.js/PostHeader';
-import PostComment from './postViewContent.js/PostComment';
-import PostSection from './postViewContent.js/PostSection';
+import PostHeader from './postViewContent/PostHeader';
+import PostComment from './postViewComment/PostComment';
+import PostSection from './postViewContent/PostSection';
 import { useParams } from 'react-router';
 import { Navigate } from 'react-router-dom';
-// import { getPostInfo } from '../../../network/postsView/postView';
+// import { getPostInfo } from '../../../network/http/postView';
 
 //db 더미 데이
 import { postView } from '../../../db/postView';
 
-export default function PostView(props) {
+export default function PostView({ postId }) {
   const [postInfo, setPostInfo] = useState({ ...postView });
 
   let { id } = useParams();
@@ -32,7 +32,7 @@ export default function PostView(props) {
         <InnerFrame>
           <PostHeader postCotents={postInfo.postCotents} postId={id} />
           <PostSection postCotents={postInfo.postCotents} />
-          <PostComment comments={postInfo.comments} />
+          <PostComment comments={postInfo.comments} postId={postId} />
         </InnerFrame>
       ) : (
         <>

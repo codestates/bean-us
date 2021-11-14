@@ -48,8 +48,11 @@ const ContentUL = styled.ul`
 export default function BeanCard({ bean, beanModal }) {
   const { beanId, beanImage, beanName, origin, likeCount, like } = bean;
 
-  //! 이후 bean에서 실제 데이터를 받아온다.
+  //! 테스트 변수
   // let like = false;
+  let isLogin = true;
+  //!------
+
   const [beanlike, setBeanLike] = useState(like);
   const [likeNum, setLikeNum] = useState(likeCount);
 
@@ -67,41 +70,39 @@ export default function BeanCard({ bean, beanModal }) {
   };
 
   const heartClick = (id) => {
-    let isLogin = true;
-
     if (!isLogin) {
       alert('로그인 회원만 사용 가능합니다. 로그인해 주세요');
     } else {
       //! TODO POST /bean/like
-      // postBeanLike(id, !beanlike)
-      //   .then((res) => statusCode(res))
-      //   .then((result) => {
-      //     if (result === 200) {
-      //       setBeanLike(!beanlike);
-      //       let num = likeNum;
-      //       if (!beanlike) {
-      //         setLikeNum(++num);
-      //       } else {
-      //         setLikeNum(--num);
-      //       }
+      postBeanLike(id, !beanlike)
+        .then((res) => statusCode(res))
+        .then((result) => {
+          if (result === 200) {
+            setBeanLike(!beanlike);
+            let num = likeNum;
+            if (!beanlike) {
+              setLikeNum(++num);
+            } else {
+              setLikeNum(--num);
+            }
+          } else {
+            alert(result);
+          }
+        });
+
+      //   let result = statusCode(200);
+      //   if (result === 200) {
+      //     setBeanLike(!beanlike);
+
+      //     let num = likeNum;
+      //     if (!beanlike) {
+      //       setLikeNum(++num);
       //     } else {
-      //       alert(result);
+      //       setLikeNum(--num);
       //     }
-      //   });
-
-      let result = statusCode(200);
-      if (result === 200) {
-        setBeanLike(!beanlike);
-
-        let num = likeNum;
-        if (!beanlike) {
-          setLikeNum(++num);
-        } else {
-          setLikeNum(--num);
-        }
-      } else {
-        alert(result);
-      }
+      //   } else {
+      //     alert(result);
+      //   }
     }
   };
 
