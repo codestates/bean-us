@@ -62,8 +62,8 @@ export default function TopBar({
       if (res.data.data) {
         saveLoginId(res.data.loginId);
       }
-    }, []);
-  });
+    });
+  }, []);
   return (
     <TopBarDiv main={main}>
       {isLogin ? (

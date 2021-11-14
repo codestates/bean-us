@@ -21,7 +21,7 @@ function App() {
   const [loginId, setLoginId] = useState(null);
 
   const loginHandler = (data) => {
-    if (data === null) setIsLogin(!isLogin);
+    if (data === null) return setIsLogin(!isLogin);
     setIsLogin(data);
   };
 

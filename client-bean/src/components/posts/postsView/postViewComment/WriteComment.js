@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ContentWrap } from '../../../../styles/basicFrame/ContentWrap';
 import BtnFrame from '../../../../styles/basicFrame/Btn';
+import { TextAreaFrame } from '../../../../styles/basicFrame/TextareaFrame';
 
 // import PostComment from './PostComment';
 
@@ -14,34 +15,10 @@ const CommentLable = styled.label.attrs({
   htmlFor: 'comment',
 })`
   display: block;
+  font-weight: bold;
 `;
 
-const CommentBox = styled.textarea.attrs({
-  type: 'textarea',
-  id: 'comment',
-  placeholder: '댓글을 남겨보세요.',
-})`
-  width: 100%;
-  resize: none;
-  background-color: transparent;
-  border: none;
-  border-radius: 5px;
-
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
-  }
-  &:focus {
-    outline: 0;
-  }
-  &:focus::placeholder {
-    color: transparent;
-  }
-`;
-
-export default function WriteComment({ postId }) {
+export default function WriteComment({ postId, addComment }) {
   // 연습용
   let loginId = 'meme';
 
@@ -60,11 +37,18 @@ export default function WriteComment({ postId }) {
       return;
     }
     //! POST /posts/comment/posting-id
-    // PostComment(postId, commentText).then(() => {
+    // PostComment(postId, commentText).then((res) => {
+    //   addComment(res);
     //   setCommentText('');
     //   textRef.current.rows = 1;
     // });
 
+    addComment({
+      userId: loginId,
+      commentId: 8,
+      comment: commentText,
+      createAt: '2020-12-20',
+    });
     setCommentText('');
     textRef.current.rows = 1;
   };
@@ -94,7 +78,14 @@ export default function WriteComment({ postId }) {
             <CommentLable>{loginId}</CommentLable>
             <BtnFrame content='등록' />
           </CommentTop>
-          <CommentBox ref={textRef} rows={textRows} onChange={changeText} value={commentText} />
+          <TextAreaFrame
+            id='comment'
+            placeholder='댓글을 남겨보세요.'
+            ref={textRef}
+            rows={textRows}
+            onChange={changeText}
+            value={commentText}
+          />
         </form>
       </ContentWrap>
     </>
