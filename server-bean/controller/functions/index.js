@@ -1,7 +1,6 @@
 require('dotenv').config();
 const { beanInfo } = require('../../models');
 const { sign, verify } = require('jsonwebtoken');
-const { NONE } = require('sequelize');
 
 module.exports = {
   generateAccessToken: (data) => {
