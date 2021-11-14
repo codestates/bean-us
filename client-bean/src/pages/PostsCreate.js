@@ -9,6 +9,7 @@ import Slide5 from '../components/postsCreate/Slide5';
 import Slide6 from '../components/postsCreate/Slide6';
 import { Button } from '../styles/postspage/CreateBtn';
 import { BorderFrame, Wrapper } from '../styles/postspage/OuterFrame';
+import createPosts from '../network/postsCreate/https';
 
 // 페이지 크기 조정
 const PostCreateCnt = styled.div`
@@ -19,6 +20,7 @@ const PostCreateCnt = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-y: hidden;
 `;
 
 // 페이지 제목
@@ -36,7 +38,7 @@ const SlideFrame = styled.div`
   background: rgba(255,255,255,0.4);
   margin-top: 10px;
   position: relative;
-  overflow: auto;
+  overflow-y: hidden;
 `;
 
 // const StyledLink = styled(Link)`
@@ -46,18 +48,22 @@ const SlideFrame = styled.div`
 
 //state관리(title, photo, beans, ratio, water, temp)
 function PostsCreate() {
-  const [title, setTitle] = useState('');
-  const [isOpen, setOpen] = useState(false);
-  // const [slideIndex, setIndex] = useState(0);
   const slideRef = useRef([]);
+  //-----상태관리-----
+  // 모달
+  const [isOpen, setOpen] = useState(false);
+  const [inputs, setInputs] = useState({
+    title: '',
+    imgFile: null,
+    bean: '',
+    rate: 0,
+    water: 0,
+    description: ''
+  })
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  }
-
+  //-----이벤트 핸들러-----
   // 이전 위치로 가는 이벤트
   const slideScrollNext = (n) => {
-    console.log(slideRef.current[0])
     slideRef.current[n].scrollIntoView({ behavior: 'smooth' });
   }
 
@@ -66,6 +72,7 @@ function PostsCreate() {
     slideRef.current[n].scrollIntoView({ behavior: 'smooth' });
   }
 
+  //취소버튼 클릭시 모달
   const openModal = () => {
     setOpen(true)
   }
@@ -74,6 +81,27 @@ function PostsCreate() {
     setOpen(false)
   }
 
+  //게시글 생성
+  const createPost = () => {
+    createPosts(inputs)
+  }
+
+  //slide input 상태관리핸들러
+  const handleInputChange = (e) => {
+    const { value, name } = e.target;
+    setInputs({
+      ...inputs, 
+      [name]: value
+    })
+    if(e.target.files) {
+      const formData = new FormData();
+      formData.append('file', e.target.files[0]);
+      setInputs({
+        ...inputs,
+        [name] : formData
+      })
+    }
+  }
   // slide 안에 들어가야 할 input이 다 달라서... map함수를 쓸 수가 없다..
   // 정말 이게 최선인지 더 고민해볼것
   return(
@@ -85,46 +113,59 @@ function PostsCreate() {
       <SlideFrame>
         <div ref={el => (slideRef.current[0] = el)}>
           <Slide1 
-          title={title} 
-          handleTitleChange={handleTitleChange} 
+          inputs={inputs}
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
+          handleInputChange={handleInputChange}
           />
         </div>
         <div ref={el => (slideRef.current[1] = el)}>
           <Slide2
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
+          handleInputChange={handleInputChange}
           />
           <div ref={el => (slideRef.current[2] = el)}>
           <Slide3
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
+          handleInputChange={handleInputChange}
           />
         </div>
         <div ref={el => (slideRef.current[3] = el)}>
           <Slide4
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
+          handleInputChange={handleInputChange}
           />
         </div>
         <div ref={el => (slideRef.current[4] = el)}>
           <Slide5
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
+          handleInputChange={handleInputChange}
           />
         </div>
         <div ref={el => (slideRef.current[5] = el)}>
           <Slide6
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
+          handleInputChange={handleInputChange}
           />
         </div>
         </div>
       </SlideFrame>
       <Wrapper height='60px'>
         {/* 필수요소들이 채워지면 게시버튼이 생김 */}
-        <Button width='55px' height='30' margin='5px' padding='2px'>게시</Button>
+        {
+        inputs.title && 
+        inputs.bean && 
+        inputs.rate && 
+        inputs.rate && 
+        inputs.description ? 
+        <Button width='55px' height='30' margin='5px' padding='2px' onClick={createPost}>게시</Button>
+        : null
+      }
         {/* 필수요소들이 채워지기 전에는 취소버튼만 보임 */}
         <Button width='55px' height='30' margin='5px' padding='2px' onClick={openModal}>취소</Button>
       </Wrapper>

@@ -36,13 +36,26 @@ const Slide6Wrapper = styled.div`
   font-size: 2rem;
   color: #a46565;
   }
+  & textarea {
+  width: 500px;
+  height: 200px;
+  outline: none;
+  border: 1px solid #a46565;
+  border-radius: 2px;
+  background: none;
+  position: absolute;
+  top: 40%;
+  left: 18%;
+  padding: 0;
+  }
 `;
 
 export default function Slide6(props) {
-  const {slideScrollNext, slideScrollPost} = props;
+  const {handleInputChange, slideScrollNext, slideScrollPost} = props;
   return(
     <Slide6Wrapper>
       <Question>6. 간단한 설명(필수)</Question>
+      <textarea name='description' onChange={handleInputChange}></textarea>
       <button className="postBtn" onClick={() => slideScrollPost(4)}>
         <BsArrowUpCircle/>
       </button>

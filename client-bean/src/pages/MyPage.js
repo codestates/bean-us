@@ -15,7 +15,8 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   cursor: default;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 const MyPageSideBars = styled.section`
