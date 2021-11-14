@@ -6,7 +6,6 @@ const { generateAccessToken, sendAccessToken, isAuthorized } = require('./functi
 module.exports = {
   login: (req, res) => {
     const { userId, password } = req.body;
-    console.log(req.body);
     if (!(userId && password)) return res.json({ data: false, message: '아이디와 비밀번호를 모두 입력해주세요' });
 
     userInfo.findOne({ where: { userId } }).then((data) => {
@@ -63,8 +62,8 @@ module.exports = {
 
   checkToken: (req, res) => {
     const accessToken = isAuthorized(req);
-
-    if (!accessToken) return res.json({ data: false, message: '로그아웃 상태입니다' });
-    res.json({ data: true, message: '로그인 상태입니다' });
+    if (!accessToken) return res.json({ data: false, loginId: null, message: '로그아웃 상태입니다' });
+    const loginId = accessToken.userId || '';
+    res.json({ data: true, loginId: loginId, message: '로그인 상태입니다' });
   },
 };

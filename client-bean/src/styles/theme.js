@@ -5,6 +5,7 @@ export const theme = {
     lightGreen: 'rgba(166,194,152,1)',
     heartRed: 'rgba(202, 28, 50, 0.8)',
     brown: 'rgba(137, 80, 54, 1)',
+    lightBrown: 'rgba(228, 191, 167, 1)',
     lightWhite: 'rgba(255, 255, 255, 0.5)',
   },
 

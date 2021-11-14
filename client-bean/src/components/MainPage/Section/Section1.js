@@ -39,13 +39,15 @@ const SectionIntroCnt = styled.div`
   }
 `;
 
-export default function Section1({ isLogin, loginHandler, modalHandler }) {
+export default function Section1({ isLogin, loginHandler, modalHandler, loginId, saveLoginId }) {
   return (
     <MainSection1>
       <TopBar
         isLogin={isLogin}
         modalHandler={modalHandler}
         loginHandler={loginHandler}
+        loginId={loginId}
+        saveLoginId={saveLoginId}
         main='main'
       />
       <MainNavBar />

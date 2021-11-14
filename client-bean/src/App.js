@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars*/
+
 import React, { useState } from 'react';
 import './App.css';
 
@@ -16,6 +18,7 @@ import GithubCallback from './pages/GithubCallback';
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [renderModal, setRenderModal] = useState(false);
+  const [loginId, setLoginId] = useState(null);
 
   const loginHandler = (data) => {
     if (data === null) setIsLogin(!isLogin);
@@ -26,11 +29,21 @@ function App() {
     setRenderModal(!renderModal);
   };
 
+  const saveLoginId = (data) => {
+    setLoginId(data);
+  };
+
   const location = useLocation();
   return (
     <>
       {location.pathname === '/' || location.pathname === '/posts/create' ? null : (
-        <TopBar isLogin={isLogin} modalHandler={modalHandler} loginHandler={loginHandler} />
+        <TopBar
+          isLogin={isLogin}
+          modalHandler={modalHandler}
+          loginHandler={loginHandler}
+          loginId={loginId}
+          saveLoginId={saveLoginId}
+        />
       )}
       {location.pathname === '/' || location.pathname === '/posts/create' ? null : <NavBar />}
       <Routes>
@@ -42,6 +55,8 @@ function App() {
               loginHandler={loginHandler}
               renderModal={renderModal}
               modalHandler={modalHandler}
+              loginId={loginId}
+              saveLoginId={saveLoginId}
             />
           }
         />
@@ -71,14 +86,9 @@ function App() {
           }
         />
         <Route
-          path='/myPage'
+          path='/my-page/*'
           element={
-            <MyPage
-              isLogin={isLogin}
-              loginHandler={loginHandler}
-              renderModal={renderModal}
-              modalHandler={modalHandler}
-            />
+            <MyPage isLogin={isLogin} renderModal={renderModal} modalHandler={modalHandler} />
           }
         />
         <Route

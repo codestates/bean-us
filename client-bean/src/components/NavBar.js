@@ -63,7 +63,7 @@ export default function Header() {
         <Link to='beans' className='link'>
           beans
         </Link>
-        <Link to='myPage' className='link'>
+        <Link to='my-page' className='link'>
           mypage
         </Link>
       </Nav>
