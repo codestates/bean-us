@@ -182,6 +182,8 @@ module.exports = {
   },
 
   createPostComment: (req, res) => {
+    console.log(req.body);
+
     res.status(200).json({
       message: '댓글이 등록 되었습니다.',
     });
