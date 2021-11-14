@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ContentWrap } from '../../../../styles/basicFrame/ContentWrap';
 import BtnFrame from '../../../../styles/basicFrame/Btn';
@@ -20,11 +20,9 @@ const CommentBox = styled.textarea.attrs({
   type: 'textarea',
   id: 'comment',
   placeholder: '댓글을 남겨보세요.',
-  rows: '1',
 })`
   width: 100%;
   resize: none;
-  font-size: 1.1.rem;
   background-color: transparent;
   border: none;
   border-radius: 5px;
@@ -48,23 +46,43 @@ export default function WriteComment({ postId }) {
   let loginId = 'meme';
 
   const [commentText, setCommentText] = useState('');
+  const [textRows, setTextRows] = useState(1);
+
+  const textRef = useRef();
 
   const submitComment = (e) => {
     e.preventDefault();
-    if (!commentText) return;
+    let trimCommentText = commentText.trim();
+
+    if (!trimCommentText) return;
     if (e.keyCode === 13) {
       e.preventDefault();
       return;
     }
-    console.log(e);
     //! POST /posts/comment/posting-id
-    // PostComment(postId, commentText);
+    // PostComment(postId, commentText).then(() => {
+    //   setCommentText('');
+    //   textRef.current.rows = 1;
+    // });
 
     setCommentText('');
+    textRef.current.rows = 1;
+  };
+
+  const setRows = (e) => {
+    let previousRows = e.target.rows;
+    e.target.rows = 1; // reset number of rows in textarea
+
+    let boxHeight = e.target.scrollHeight;
+    let currentRows = Math.floor(boxHeight / 16);
+
+    if (currentRows === previousRows) e.target.rows = currentRows;
+    return currentRows;
   };
 
   const changeText = (e) => {
     setCommentText(e.target.value);
+    setTextRows(setRows(e));
   };
 
   return (
@@ -76,7 +94,7 @@ export default function WriteComment({ postId }) {
             <CommentLable>{loginId}</CommentLable>
             <BtnFrame content='등록' />
           </CommentTop>
-          <CommentBox onChange={changeText} value={commentText} />
+          <CommentBox ref={textRef} rows={textRows} onChange={changeText} value={commentText} />
         </form>
       </ContentWrap>
     </>
