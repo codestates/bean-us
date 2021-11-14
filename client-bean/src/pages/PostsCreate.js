@@ -10,6 +10,7 @@ import Slide6 from '../components/postsCreate/Slide6';
 import { Button } from '../styles/postspage/CreateBtn';
 import { BorderFrame, Wrapper } from '../styles/postspage/OuterFrame';
 import createPosts from '../network/postsCreate/https';
+// import {useNavigate} from 'react-router-dom';
 
 // 페이지 크기 조정
 const PostCreateCnt = styled.div`
@@ -54,11 +55,11 @@ function PostsCreate() {
   const [isOpen, setOpen] = useState(false);
   const [inputs, setInputs] = useState({
     title: '',
-    imgFile: null,
-    bean: '',
-    rate: 0,
+    content: '',
     water: 0,
-    description: ''
+    waterTemp: 0,
+    imgFile: null,
+    beanList: []
   })
 
   //-----이벤트 핸들러-----
@@ -83,7 +84,7 @@ function PostsCreate() {
 
   //게시글 생성
   const createPost = () => {
-    createPosts(inputs)
+    createPosts(inputs).then((res) => console.log(res))
   }
 
   //slide input 상태관리핸들러
@@ -101,6 +102,7 @@ function PostsCreate() {
         [name] : formData
       })
     }
+    console.log(inputs)
   }
   // slide 안에 들어가야 할 input이 다 달라서... map함수를 쓸 수가 없다..
   // 정말 이게 최선인지 더 고민해볼것

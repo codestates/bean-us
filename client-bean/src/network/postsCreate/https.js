@@ -3,10 +3,12 @@ import axios from 'axios';
 const https = process.env.REACT_APP_HTTPURL;
 
 axios.defaults.withCredentials = true;
+axios.defaults.headers.common['Content-Type'] = 'application/json';
 
-//모든포스트 가져오기
+//게시글 생성
 const createPosts = (data) => {
-  return axios.post(`${https}/posts/all-posts`, { 'Content-Type': 'application/json' }, data).then((res) => res.data);
+  return axios.post(`${https}/posts`, data)
+  .then((res) => res.data);
 }
 
 export default createPosts;

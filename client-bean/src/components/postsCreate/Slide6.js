@@ -55,7 +55,7 @@ export default function Slide6(props) {
   return(
     <Slide6Wrapper>
       <Question>6. 간단한 설명(필수)</Question>
-      <textarea name='description' onChange={handleInputChange}></textarea>
+      <textarea name='content' onChange={handleInputChange}></textarea>
       <button className="postBtn" onClick={() => slideScrollPost(4)}>
         <BsArrowUpCircle/>
       </button>
