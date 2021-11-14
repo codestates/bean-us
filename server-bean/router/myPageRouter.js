@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controller/myPageController');
+
+const controller = require('./../controller/myPageController');
 
 router.get('/my-info', controller.myInfo);
+router.get('/my-beans', controller.myBeans);
+router.get('/my-posts', controller.myPosts);
 router.post('/email', controller.email);
+
 
 module.exports = router;

@@ -1,5 +1,5 @@
-const { isAuthorized } = require('./functions');
-const { userInfo } = require('../models');
+const {isAuthorized} = require('./functions/index.js');
+const {userInfo, userBean, beanInfo, post} = require('./../models');
 
 module.exports = {
   myInfo: (req, res) => {
@@ -12,7 +12,42 @@ module.exports = {
     res.json({ data: true, informations: { userId, email, social }, message: '요청하신 정보를 보냅니다' });
   },
 
-  email: (req, res) => {
+
+  myBeans: (req, res) => {
+    // const accessTokenInfo = isAuthorized(req);
+
+    // if(!accessTokenInfo){
+    //   res.status(400).json({
+    //     message: '로그인하여 주십시오.'
+    //   });
+    // }
+
+    userBean.findAll({
+      attributes: [],
+      include: [
+        {
+          model: beanInfo,
+          attributes: ['beanId', 'beanName'],
+        }
+      ],
+      where: {userId: req.query.userId}
+    }).then(result => {
+      res.status(200).json({
+        beans: result
+      });
+    });
+  },
+
+  myPosts: (req, res) => {
+    post.findAll({
+      where: {userId: req.query.userId}
+    }).then(result => {
+      res.status(200).json({
+        posts: result
+      });
+    });
+  },
+    email: (req, res) => {
     const { userId, email } = req.body;
     console.log(userId, email);
     if (!(userId && email)) return res.send('아이디, 이메일을 제대로 보내주세요');
@@ -20,5 +55,4 @@ module.exports = {
       .update({ email }, { where: { userId } })
       .then((data) => res.send('이메일 정보를 수정했습니다'))
       .catch((err) => res.status(500).send('이메일을 수정하지 못했습니다'));
-  },
 };
