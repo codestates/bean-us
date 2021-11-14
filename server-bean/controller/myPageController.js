@@ -47,12 +47,14 @@ module.exports = {
       });
     });
   },
-    email: (req, res) => {
+  
+  email: (req, res) => {
     const { userId, email } = req.body;
     console.log(userId, email);
     if (!(userId && email)) return res.send('아이디, 이메일을 제대로 보내주세요');
     userInfo
-      .update({ email }, { where: { userId } })
-      .then((data) => res.send('이메일 정보를 수정했습니다'))
-      .catch((err) => res.status(500).send('이메일을 수정하지 못했습니다'));
+    .update({ email }, { where: { userId } })
+    .then((data) => res.send('이메일 정보를 수정했습니다'))
+    .catch((err) => res.status(500).send('이메일을 수정하지 못했습니다'));
+  }
 };
