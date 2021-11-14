@@ -50,6 +50,7 @@ module.exports = {
         });
       });
   },
+
   email: (req, res) => {
     const { userId, email } = req.body;
     console.log(userId, email);
@@ -59,4 +60,5 @@ module.exports = {
       .then((data) => res.send('이메일 정보를 수정했습니다'))
       .catch((err) => res.status(500).send('이메일을 수정하지 못했습니다'));
   },
+
 };
