@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars*/
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import { Routes, Route, useLocation } from 'react-router-dom';
@@ -15,13 +15,15 @@ import PostsCreate from './pages/PostsCreate';
 import KakaoCallback from './pages/KakaoCallback';
 import GithubCallback from './pages/GithubCallback';
 
+import { checkToken } from './network/sign/checkToken';
+
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [renderModal, setRenderModal] = useState(false);
   const [loginId, setLoginId] = useState(null);
 
   const loginHandler = (data) => {
-    if (data === null) setIsLogin(!isLogin);
+    if (data === null) return setIsLogin(!isLogin);
     setIsLogin(data);
   };
 
@@ -32,6 +34,18 @@ function App() {
   const saveLoginId = (data) => {
     setLoginId(data);
   };
+
+  useEffect(() => {
+    checkToken().then((res) => {
+      if (res.data.data) {
+        setIsLogin(true);
+        setLoginId(res.data.loginId);
+      } else {
+        setIsLogin(false);
+        setLoginId(null);
+      }
+    });
+  }, [isLogin, loginId]);
 
   const location = useLocation();
   return (
@@ -71,6 +85,8 @@ function App() {
               loginHandler={loginHandler}
               renderModal={renderModal}
               modalHandler={modalHandler}
+              loginId={loginId}
+              saveLoginId={saveLoginId}
             />
           }
         />
@@ -82,22 +98,41 @@ function App() {
               loginHandler={loginHandler}
               renderModal={renderModal}
               modalHandler={modalHandler}
+              saveLoginId={saveLoginId}
             />
           }
         />
         <Route
           path='/my-page/*'
           element={
-            <MyPage isLogin={isLogin} renderModal={renderModal} modalHandler={modalHandler} />
+            <MyPage
+              isLogin={isLogin}
+              renderModal={renderModal}
+              modalHandler={modalHandler}
+              loginHandler={loginHandler}
+              saveLoginId={saveLoginId}
+            />
           }
         />
         <Route
           path='/auth/kakao-callback'
-          element={<KakaoCallback isLogin={isLogin} loginHandler={loginHandler} />}
+          element={
+            <KakaoCallback
+              isLogin={isLogin}
+              loginHandler={loginHandler}
+              saveLoginId={saveLoginId}
+            />
+          }
         />
         <Route
           path='/auth/github-callback'
-          element={<GithubCallback isLogin={isLogin} loginHandler={loginHandler} />}
+          element={
+            <GithubCallback
+              isLogin={isLogin}
+              loginHandler={loginHandler}
+              saveLoginId={saveLoginId}
+            />
+          }
         />
       </Routes>
     </>

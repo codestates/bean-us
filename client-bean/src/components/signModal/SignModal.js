@@ -78,7 +78,7 @@ const FlexWrapper = styled.div`
   display: flex;
 `;
 
-const SignModal = ({ isLogin, modalHandler }) => {
+const SignModal = ({ isLogin, modalHandler, saveLoginId, loginHandler }) => {
   const [renderSignup, setRenderSignup] = useState(false);
   const renderSignupHandler = () => {
     setRenderSignup(!renderSignup);
@@ -89,7 +89,11 @@ const SignModal = ({ isLogin, modalHandler }) => {
       <SignWrapper isLogin={isLogin} renderSignup={renderSignup}>
         {isLogin ? (
           <LogoutWrapper>
-            <Logout modalHandler={modalHandler} />
+            <Logout
+              modalHandler={modalHandler}
+              loginHandler={loginHandler}
+              saveLoginId={saveLoginId}
+            />
           </LogoutWrapper>
         ) : (
           <div>
@@ -100,7 +104,12 @@ const SignModal = ({ isLogin, modalHandler }) => {
             ) : (
               <FlexWrapper>
                 <LoginWrapper>
-                  <Login modalHandler={modalHandler} renderSignupHandler={renderSignupHandler} />
+                  <Login
+                    modalHandler={modalHandler}
+                    renderSignupHandler={renderSignupHandler}
+                    saveLoginId={saveLoginId}
+                    loginHandler={loginHandler}
+                  />
                 </LoginWrapper>
                 <LoginImg src='asset/logins/signImg.jpg'></LoginImg>
               </FlexWrapper>

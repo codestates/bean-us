@@ -63,7 +63,7 @@ const GithubP = styled.p`
   font-size: 15px;
 `;
 
-export default function Login({ modalHandler, renderSignupHandler }) {
+export default function Login({ modalHandler, renderSignupHandler, loginHandler, saveLoginId }) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -79,9 +79,11 @@ export default function Login({ modalHandler, renderSignupHandler }) {
   const btnLoginClick = () => {
     loginReq(userId, password).then((res) => {
       if (res.data.data) {
+        saveLoginId(userId);
         setUserId('');
         setPassword('');
         setLoginError('');
+        loginHandler(true);
         modalHandler();
       } else {
         setLoginError(res.data.message);

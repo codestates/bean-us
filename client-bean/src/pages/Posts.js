@@ -6,7 +6,7 @@ import { MdPostAdd } from 'react-icons/md';
 import getAllPosts from '../network/postspage/http';
 import getFilterdPost from '../network/postspage/http';
 import SignModal from '../components/signModal/SignModal';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const PostsContainer = styled.div`
   position: relative;
@@ -41,7 +41,14 @@ const CreatePost = styled.button`
   }
 `;
 
-export default function Posts({ isLogin, renderModal, modalHandler }) {
+export default function Posts({
+  isLogin,
+  loginHandler,
+  renderModal,
+  modalHandler,
+  loginId,
+  saveLoginId,
+}) {
   const [posts, setPosts] = useState([]);
   const [value, setValue] = useState('');
   useEffect(() => {
@@ -70,7 +77,14 @@ export default function Posts({ isLogin, renderModal, modalHandler }) {
         </CreatePost>
       </StyledLink>
       <PostCards posts={posts} />
-      {renderModal ? <SignModal isLogin={isLogin} modalHandler={modalHandler} /> : null}
+      {renderModal ? (
+        <SignModal
+          isLogin={isLogin}
+          modalHandler={modalHandler}
+          saveLoginId={saveLoginId}
+          loginHandler={loginHandler}
+        />
+      ) : null}
     </PostsContainer>
   );
 }

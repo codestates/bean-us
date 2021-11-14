@@ -45,7 +45,15 @@ const MyPageSideBars = styled.section`
   }
 `;
 
-export default function Main({ isLogin, renderModal, modalHandler }) {
+export default function Main({
+  isLogin,
+  loginHandler,
+  renderModal,
+  modalHandler,
+  loginId,
+  renderSignupHandler,
+  saveLoginId,
+}) {
   const [userId, setUserId] = useState('');
   const [email, setEmail] = useState('');
   const [social, setSocial] = useState('');
@@ -58,14 +66,13 @@ export default function Main({ isLogin, renderModal, modalHandler }) {
 
   useEffect(() => {
     getMyInfos().then((res) => {
-      console.log(res.data);
       if (res.data.informations) {
         setUserId(res.data.informations.userId);
         setEmail(res.data.informations.email);
         setSocial(res.data.informations.social);
       }
     });
-  }, [isLogin]);
+  }, []);
 
   const clieckedTitle = (e) => {
     const { name } = e.target;
@@ -126,7 +133,14 @@ export default function Main({ isLogin, renderModal, modalHandler }) {
       ) : (
         <div>로그인을 해주세요!</div>
       )}
-      {renderModal ? <SignModal isLogin={isLogin} modalHandler={modalHandler} /> : null}
+      {renderModal ? (
+        <SignModal
+          isLogin={isLogin}
+          modalHandler={modalHandler}
+          saveLoginId={saveLoginId}
+          loginHandler={loginHandler}
+        />
+      ) : null}
     </>
   );
 }
