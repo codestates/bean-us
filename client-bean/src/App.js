@@ -86,7 +86,7 @@ function App() {
           }
         />
         <Route
-          path='/my-page'
+          path='/my-page/*'
           element={
             <MyPage isLogin={isLogin} renderModal={renderModal} modalHandler={modalHandler} />
           }

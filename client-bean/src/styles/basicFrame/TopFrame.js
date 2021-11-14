@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const TopFrame = styled.div`
   position: relative;
-  width: 1100px;
+  width: 1200px;
   margin: auto;
   overflow: auto;
 

@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { beanInfo } = require('../../models');
 const { sign, verify } = require('jsonwebtoken');
 
 module.exports = {

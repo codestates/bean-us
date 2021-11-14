@@ -20,70 +20,108 @@ const MainContainer = styled.div`
 
 const MyPageSideBars = styled.section`
   display: flex;
-  align-items: space-between;
+  justify-content: space-around;
   margin-top: 30px;
-  width: 1100px;
+  margin-bottom: 50px;
+  width: 450px;
   height: 60px;
-  background-color: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-`;
-
-const MyPageContents = styled.section`
-  display: flex;
-  margin-top: 30px;
-  width: 1100px;
-  height: 300px;
-`;
-
-const SideBar = styled.p`
-  height: 40px;
-  font-size: 25px;
-  text-decoration: none;
-  background-color: #fff;
-  &:hover {
-    cursor: pointer;
+  > a {
+    display: flex;
+    width: 150px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    line-height: 1.7;
+    font-weight: 600;
+    font-size: 23px;
+    color: #000;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    &:active {
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.6);
+    }
   }
 `;
 
 export default function Main({ isLogin, renderModal, modalHandler }) {
   const [userId, setUserId] = useState('');
   const [email, setEmail] = useState('');
+  const [social, setSocial] = useState('');
+
+  const [clickedLink, setClickedLink] = useState({
+    myInfo: false,
+    myBeans: false,
+    myPosts: false,
+  });
 
   useEffect(() => {
     getMyInfos().then((res) => {
-      if (res.data.informatiosn) {
+      console.log(res.data);
+      if (res.data.informations) {
         setUserId(res.data.informations.userId);
         setEmail(res.data.informations.email);
+        setSocial(res.data.informations.social);
       }
-      return () => {
-        setUserId('');
-        setEmail('');
-      };
     });
-  }, []);
+  }, [isLogin]);
+
+  const clieckedTitle = (e) => {
+    const { name } = e.target;
+
+    setClickedLink({
+      myInfo: false,
+      myBeans: false,
+      myPosts: false,
+      [name]: true,
+    });
+  };
+
+  const EditEmailReq = (data) => {
+    setEmail(data);
+  };
 
   return (
     <>
       {isLogin ? (
         <MainContainer>
           <MyPageSideBars>
-            <Link to='/my-page'>
-              <SideBar>나의 정보</SideBar>
+            <Link
+              to=''
+              name='myInfo'
+              clicked={clickedLink.myInfo ? 'clicked' : null}
+              onClick={clieckedTitle}
+            >
+              나의 정보
             </Link>
-            <Link to='/my-page/my-beans'>
-              <SideBar>나의 원두</SideBar>
+            <Link
+              to='my-beans'
+              name='myBeans'
+              clicked={clickedLink.myBeans ? 'clicked' : null}
+              onClick={clieckedTitle}
+            >
+              나의 원두
             </Link>
-            <Link to='/my-page/my-posts'>
-              <SideBar>나의 글</SideBar>
+            <Link
+              to='my-posts'
+              name='myPosts'
+              clicked={clickedLink.myPosts ? 'clicked' : null}
+              onClick={clieckedTitle}
+            >
+              나의 글
             </Link>
           </MyPageSideBars>
-          <MyPageContents>
-            <Routes>
-              <Route path='/my-page' elements={<MyInfo />}></Route>
-              <Route path='/my-page/my-beans' elements={<MyBeans />}></Route>
-              <Route path='/my-page/my-posts' elements={<MyPosts />}></Route>
-            </Routes>
-          </MyPageContents>
+          <Routes>
+            <Route
+              path=''
+              element={
+                <MyInfo userId={userId} email={email} social={social} EditEmailReq={EditEmailReq} />
+              }
+            ></Route>
+            <Route path='my-beans' element={<MyBeans />}></Route>
+            <Route path='my-posts' element={<MyPosts />}></Route>
+          </Routes>
         </MainContainer>
       ) : (
         <div>로그인을 해주세요!</div>
