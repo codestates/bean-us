@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { beanInfo } = require('../../models');
 const { sign, verify } = require('jsonwebtoken');
+const { NONE } = require('sequelize');
 
 module.exports = {
   generateAccessToken: (data) => {
@@ -10,6 +11,8 @@ module.exports = {
   sendAccessToken: (res, accessToken) => {
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
+      secure: true,
+      sameSite: 'none',
     });
   },
 
