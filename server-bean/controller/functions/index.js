@@ -10,6 +10,8 @@ module.exports = {
   sendAccessToken: (res, accessToken) => {
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
+      secure: true,
+      sameSite: 'none',
     });
   },
 
