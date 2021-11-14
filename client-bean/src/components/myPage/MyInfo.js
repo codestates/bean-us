@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { emailValidation } from '../../utils/validation';
 import { editMyEmail } from '../../network/myPage/myPage';
+import EditPassword from './EditPassword';
 
 const InfoWrapper = styled.section`
   margin-top: 50px;
@@ -77,12 +78,34 @@ const ErrorMessage = styled.p`
   color: #95673d;
 `;
 
+const ButtonWrapper = styled.div`
+  margin-top: 40px;
+  width: 390px;
+`;
+
+const Button = styled.button`
+  width: 170px;
+  height: 50px;
+  margin-left: ${({ margin }) => (margin ? '30px' : 'none')};
+  background: rgba(255, 255, 255, 0.6);
+  border: none;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.3);
+  }
+`;
+
 export default function MyInfo({ userId, email, social, EditEmailReq }) {
   const [editEmail, setEditEmail] = useState(false);
   const [newEmail, setNewEmail] = useState('');
   const [isValidEmail, setIsValidEmail] = useState('');
 
-  const editClickHandler = () => {
+  const [editPassword, setEditPassword] = useState(false);
+
+  const editEmailClickHandler = () => {
     setEditEmail(true);
   };
 
@@ -102,6 +125,10 @@ export default function MyInfo({ userId, email, social, EditEmailReq }) {
     } else {
       setIsValidEmail('사용할 수 있는 이메일 형식입니다');
     }
+  };
+
+  const editPasswordClickHandler = () => {
+    setEditPassword(!editPassword);
   };
 
   return (
@@ -130,11 +157,22 @@ export default function MyInfo({ userId, email, social, EditEmailReq }) {
                 </EditButton>
               </>
             ) : (
-              <EditButton onClick={editClickHandler}>수정</EditButton>
+              <EditButton onClick={editEmailClickHandler}>수정</EditButton>
             )
           ) : null}
         </InfoLine>
         <ErrorMessage>{isValidEmail}</ErrorMessage>
+        <ButtonWrapper>
+          {social === 'beanus' ? (
+            <>
+              <Button onClick={editPasswordClickHandler}>비밀번호 수정</Button>
+              <Button margin='margin'>회원 탈퇴</Button>
+            </>
+          ) : (
+            <Button></Button>
+          )}
+        </ButtonWrapper>
+        {editPassword ? <EditPassword setEditPassword={setEditPassword}></EditPassword> : null}
       </InfoBox>
     </InfoWrapper>
   );

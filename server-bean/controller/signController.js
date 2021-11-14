@@ -57,7 +57,14 @@ module.exports = {
   },
 
   logout: (req, res) => {
-    res.clearCookie('accessToken').send('로그아웃 되었습니다');
+    res
+      .clearCookie('accessToken', {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
+        expires: 0,
+      })
+      .send('로그아웃 되었습니다');
   },
 
   checkToken: (req, res) => {

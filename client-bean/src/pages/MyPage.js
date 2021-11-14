@@ -45,15 +45,7 @@ const MyPageSideBars = styled.section`
   }
 `;
 
-export default function Main({
-  isLogin,
-  loginHandler,
-  renderModal,
-  modalHandler,
-  loginId,
-  renderSignupHandler,
-  saveLoginId,
-}) {
+export default function Main({ isLogin, loginHandler, renderModal, modalHandler, saveLoginId }) {
   const [userId, setUserId] = useState('');
   const [email, setEmail] = useState('');
   const [social, setSocial] = useState('');
@@ -72,7 +64,7 @@ export default function Main({
         setSocial(res.data.informations.social);
       }
     });
-  }, []);
+  }, [userId, email, social, isLogin]);
 
   const clieckedTitle = (e) => {
     const { name } = e.target;
@@ -103,7 +95,7 @@ export default function Main({
               나의 정보
             </Link>
             <Link
-              to='my-beans'
+              to='myBeans'
               name='myBeans'
               clicked={clickedLink.myBeans ? 'clicked' : null}
               onClick={clieckedTitle}
@@ -111,7 +103,7 @@ export default function Main({
               나의 원두
             </Link>
             <Link
-              to='my-posts'
+              to='myPosts'
               name='myPosts'
               clicked={clickedLink.myPosts ? 'clicked' : null}
               onClick={clieckedTitle}
@@ -126,8 +118,8 @@ export default function Main({
                 <MyInfo userId={userId} email={email} social={social} EditEmailReq={EditEmailReq} />
               }
             ></Route>
-            <Route path='my-beans' element={<MyBeans />}></Route>
-            <Route path='my-posts' element={<MyPosts />}></Route>
+            <Route path='myBeans' element={<MyBeans />}></Route>
+            <Route path='myPosts' element={<MyPosts />}></Route>
           </Routes>
         </MainContainer>
       ) : (

@@ -41,14 +41,7 @@ const CreatePost = styled.button`
   }
 `;
 
-export default function Posts({
-  isLogin,
-  loginHandler,
-  renderModal,
-  modalHandler,
-  loginId,
-  saveLoginId,
-}) {
+export default function Posts({ isLogin, loginHandler, renderModal, modalHandler, saveLoginId }) {
   const [posts, setPosts] = useState([]);
   const [value, setValue] = useState('');
   useEffect(() => {

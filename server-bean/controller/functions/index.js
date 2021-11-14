@@ -9,9 +9,11 @@ module.exports = {
 
   sendAccessToken: (res, accessToken) => {
     res.cookie('accessToken', accessToken, {
+      domain: 'localhost',
       httpOnly: true,
       secure: true,
-      sameSite: 'none',
+      sameSite: 'None',
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 48),
     });
   },
 

@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
-
 // package
 import React, { useState } from 'react';
 import styled from 'styled-components';
 // component
 import { H2 } from '../../../styles/signs/SignTitle';
 import InputLine from '../../../styles/signs/InputLine';
-import SignButton, { Button } from '../../../styles/signs/SignButton';
+import SignButton from '../../../styles/signs/SignButton';
 
 // functions
 import { loginReq } from '../../../network/sign/signApi';
@@ -76,8 +74,10 @@ export default function Login({ modalHandler, renderSignupHandler, loginHandler,
     }
   };
 
-  const btnLoginClick = () => {
+  const btnLoginClick = (e) => {
+    e.preventDefault();
     loginReq(userId, password).then((res) => {
+      console.log(res.data.data);
       if (res.data.data) {
         saveLoginId(userId);
         setUserId('');

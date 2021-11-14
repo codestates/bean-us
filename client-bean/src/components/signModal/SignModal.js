@@ -21,7 +21,7 @@ const fadeIn = keyframes`
   }
 `;
 
-const Background = styled.div`
+export const Background = styled.div`
   position: fixed;
   top: 0;
   left: 0;

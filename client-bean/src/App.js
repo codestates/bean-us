@@ -103,7 +103,7 @@ function App() {
           }
         />
         <Route
-          path='/my-page/*'
+          path='/myPage/*'
           element={
             <MyPage
               isLogin={isLogin}
