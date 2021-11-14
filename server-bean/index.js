@@ -25,8 +25,6 @@ app.use(
     origin: ['https://localhost:3000'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    sameSite: 'None',
-    secure: true
   })
 );
 
