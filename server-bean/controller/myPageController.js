@@ -1,5 +1,5 @@
 const {isAuthorized} = require('./functions/index.js');
-const {userInfo, userBean, beanInfo} = require('./../models');
+const {userInfo, userBean, beanInfo, post} = require('./../models');
 
 module.exports = {
   myInfo: (req, res) => {
@@ -47,6 +47,12 @@ module.exports = {
   },
 
   myPosts: (req, res) => {
-
+    post.findAll({
+      where: {userId: req.query.userId}
+    }).then(result => {
+      res.status(200).json({
+        posts: result
+      });
+    });
   },
 };
