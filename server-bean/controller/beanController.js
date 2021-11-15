@@ -1,4 +1,4 @@
-const {beanInfo, userBean} = require('./../models');
+const {beanInfo, userBean, postBean, post} = require('./../models');
 const {Op, fn, col, literal} = require('sequelize');
 const {isAuthorized} = require('./functions/index.js');
 
@@ -19,7 +19,7 @@ module.exports = {
       );
     }else{
       attributes.push(
-        [fn('COALESCE', col('userBeans.userId'), String(1)), 'like']
+        [fn('COALESCE', col('userBeans.userId'), String(0)), 'like']
       );
     }
 
@@ -81,7 +81,7 @@ module.exports = {
       );
     }else{
       attributes.push(
-        [fn('COALESCE', col('userBeans.userId'), String(1)), 'like']
+        [fn('COALESCE', col('userBeans.userId'), String(0)), 'like']
       );
     }
 
@@ -140,12 +140,54 @@ module.exports = {
     });
   },
 
-  findBeanPost: (req, res) => {
+  findBeanPost: async (req, res) => {
+    const postBeans = await postBean.findAll({
+      raw: true,
+      where: {beanId: req.query['bean-id']}
+    });
 
+    const postWhere = {[Op.or]: []};
+    for(let postBeanIdx of postBeans){
+      postWhere[Op.or].push({postId: postBeanIdx['postId']});
+    }
+
+    const postList = await post.findAll({
+      raw: true,
+      attributes: ['postId', 'title', 'content', 'water', 'waterTemp', 'userid', 'createdAt'],
+      where: postWhere,
+    });
+
+    const postBeansByPostId = await postBean.findAll({
+      raw: false,
+      where: postWhere,
+      include: [
+        {
+          model: beanInfo,
+          attributes: ['beanId', 'beanName']
+        }
+      ],
+    });
+
+    for(let postItem of postList){
+      const beans = [];
+      for(let postBeanInfo of postBeansByPostId){
+        if(postItem['postId'] === postBeanInfo.dataValues['postId']){
+          beans.push({
+            beanId: postBeanInfo.dataValues.beanInfo['beanId'],
+            beanName: postBeanInfo.dataValues.beanInfo['beanName'],
+          });
+        }
+      }
+      postItem['beans'] = beans;
+    }
+
+    res.status(200).json({
+      posts: postList
+    });
   },
 
   beanLike: (req, res) => {
-    console.log(req.body);
+    const {beanId, beanLike} = req.body.data;
     const accessTokenInfo = isAuthorized(req);
     if(!accessTokenInfo){
       res.status(400).json({
@@ -153,10 +195,10 @@ module.exports = {
       });
     }
 
-    if(req.body.beanLike){
+    if(beanLike){
       userBean.create({
         userId: accessTokenInfo.userId,
-        beanId: req.body.beanId
+        beanId
       }).then(() => {
         res.status(200).json({
           message: 'success'
@@ -166,7 +208,7 @@ module.exports = {
       userBean.destroy({
         where: {
           userId: accessTokenInfo.userId,
-          beanId: req.body.beanId
+          beanId
         }
       }).then(() => {
         res.status(200).json({
