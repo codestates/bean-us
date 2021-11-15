@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+// import { delPost } from '../../../../network/postsView/http';
 
 const PostHeadWrap = styled.div`
   width: 100%;
@@ -67,6 +68,11 @@ export default function PostHeader({ postCotents, postId }) {
   const deletePost = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
       //! TODO DELETE /posts/ 게시물 삭제 요청
+      // delPost(postId).then((res) => {
+      //   alert('삭제되었습니다');
+      //   navigate('/posts', { replace: true });
+      // });
+
       alert('삭제되었습니다');
       navigate('/posts', { replace: true });
     }

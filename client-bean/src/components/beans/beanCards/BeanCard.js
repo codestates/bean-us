@@ -45,13 +45,8 @@ const ContentUL = styled.ul`
   }
 `;
 
-export default function BeanCard({ bean, beanModal }) {
+export default function BeanCard({ bean, beanModal, loginId }) {
   const { beanId, beanImage, beanName, origin, likeCount, like } = bean;
-
-  //! 테스트 변수
-  // let like = false;
-  let isLogin = true;
-  //!------
 
   const [beanlike, setBeanLike] = useState(like);
   const [likeNum, setLikeNum] = useState(likeCount);
@@ -60,7 +55,6 @@ export default function BeanCard({ bean, beanModal }) {
     let { tagName } = e.target;
     if (tagName === 'svg' || tagName === 'path') return;
     //! TODO GET /bean?beanId=beanId 해당 원두와 관련된 게시글 요청
-
     // getBeanPost(beanId).then((res) => {
     //   console.log(res);
     //   beanModal(beanId, res);
@@ -70,10 +64,10 @@ export default function BeanCard({ bean, beanModal }) {
   };
 
   const heartClick = (id) => {
-    if (!isLogin) {
+    if (!loginId) {
       alert('로그인 회원만 사용 가능합니다. 로그인해 주세요');
     } else {
-      //! TODO POST /bean/like
+      // TODO POST /bean/like
       postBeanLike(id, !beanlike)
         .then((res) => statusCode(res))
         .then((result) => {
@@ -89,20 +83,6 @@ export default function BeanCard({ bean, beanModal }) {
             alert(result);
           }
         });
-
-      //   let result = statusCode(200);
-      //   if (result === 200) {
-      //     setBeanLike(!beanlike);
-
-      //     let num = likeNum;
-      //     if (!beanlike) {
-      //       setLikeNum(++num);
-      //     } else {
-      //       setLikeNum(--num);
-      //     }
-      //   } else {
-      //     alert(result);
-      //   }
     }
   };
 

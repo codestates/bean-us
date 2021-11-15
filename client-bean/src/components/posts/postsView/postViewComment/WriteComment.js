@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { ContentWrap } from '../../../../styles/basicFrame/ContentWrap';
 import BtnFrame from '../../../../styles/basicFrame/Btn';
 import { TextAreaFrame } from '../../../../styles/basicFrame/TextareaFrame';
-
 // import PostComment from './PostComment';
 
 const CommentTop = styled.div`
@@ -36,7 +35,7 @@ export default function WriteComment({ postId, addComment }) {
       e.preventDefault();
       return;
     }
-    //! POST /posts/comment/posting-id
+    //! POST /posts/comment
     // PostComment(postId, commentText).then((res) => {
     //   addComment(res);
     //   setCommentText('');

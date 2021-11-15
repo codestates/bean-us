@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import BeanCard from './BeanCard';
-// import { getBeanPost } from '../../network/beans/http';
-// import { FaRegHeart } from 'react-icons/fa';
 
 const CardWrap = styled.div`
   & .noCard {
     width: 100%;
+    height: 40vh;
     text-align: center;
     font-weight: bold;
     font-size: 1.2rem;
@@ -22,14 +21,13 @@ const CardsUL = styled.ul`
   margin-bottom: 1rem;
 `;
 
-export default function BeanCards({ beans, beanModal }) {
-  console.log(beans);
+export default function BeanCards({ beans, loginId, beanModal }) {
   return (
     <CardWrap>
       {beans.length ? (
         <CardsUL>
           {beans.map((bean) => (
-            <BeanCard key={bean.beanId} bean={bean} beanModal={beanModal} />
+            <BeanCard key={bean.beanId} bean={bean} beanModal={beanModal} loginId={loginId} />
           ))}
         </CardsUL>
       ) : (
