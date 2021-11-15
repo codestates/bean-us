@@ -1,15 +1,3 @@
-// {
-//   title,
-//   imageUrl,
-//   "beans": [beanName, beanName],
-//   "beanRatio": {"beanName": beanRatio, "beanName": beanRatio}
-//   water,
-//   waterTemp,
-//   content,
-//   userId,
-//   comments: {}
-// }
-
 export const postView = {
   postCotents: {
     title: 'this is titlethis is titlethis is title',

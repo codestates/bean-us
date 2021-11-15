@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const CardWrap = styled.div`
   & .noCard {
@@ -86,41 +86,47 @@ const CardsLi = styled.li`
   }
 `;
 
-function PostCards(props) {
+export default function PostCards(props) {
   const { posts } = props;
+
+  let navigate = useNavigate();
+  const postCardClick = (postId) => {
+    navigate(`/posts/view/${postId}`);
+  };
+
   return (
     <CardWrap>
+      {/* 테스트용 카드 */}
+      <div onClick={() => postCardClick(3)}>testcard</div>
       {posts.length ? (
         <CardsUL>
           {posts.map((post) => (
-            <Link
-              to={{ pathname: '/posts/post', search: `?postId=${post.postId}` }}
+            <CardsLi
               key={post.postId}
+              onClick={() => postCardClick(post.postId)}
               className='postlink'
             >
-              <CardsLi key={post.postId}>
-                <div className='contentWrap'>
-                  <div className='imgWrap'>
-                    <img
-                      src={post.imageUrl ? post.imageUrl : '/asset/postspage/post-no-img.jpg'}
-                      alt='postImg'
-                    />
-                  </div>
-                  <div className='contentTitle'>
-                    {post.title.length > 12 ? post.title.slice(0, 13) + '...' : post.title}
-                  </div>
-                  <div className='beanInfo'>
-                    {post.beans.map((bean) => (
-                      <div key='' className='beanLabel'>
-                        #{bean}
-                      </div>
-                    ))}
-                  </div>
-                  <div className='userInfo'>작성자: {post.userName}</div>
-                  <div className='createdAt'>{post.createdAt}</div>
+              <div className='contentWrap'>
+                <div className='imgWrap'>
+                  <img
+                    src={post.imageUrl ? post.imageUrl : '/asset/postspage/post-no-img.jpg'}
+                    alt='postImg'
+                  />
                 </div>
-              </CardsLi>
-            </Link>
+                <div className='contentTitle'>
+                  {post.title.length > 12 ? post.title.slice(0, 13) + '...' : post.title}
+                </div>
+                <div className='beanInfo'>
+                  {post.beans.map((bean) => (
+                    <div key='' className='beanLabel'>
+                      #{bean}
+                    </div>
+                  ))}
+                </div>
+                <div className='userInfo'>작성자: {post.userName}</div>
+                <div className='createdAt'>{post.createdAt}</div>
+              </div>
+            </CardsLi>
           ))}
         </CardsUL>
       ) : (
@@ -129,5 +135,3 @@ function PostCards(props) {
     </CardWrap>
   );
 }
-
-export default PostCards;

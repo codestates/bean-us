@@ -1,10 +1,8 @@
-/*eslint-disable no-unused-vars*/
-
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { editPutComment } from '../../../../network/postsView/http';
-import BtnFrame from '../../../../styles/basicFrame/Btn';
+// import { editPutComment } from '../../../../network/postsView/http';
 import { TextAreaFrame } from '../../../../styles/basicFrame/TextareaFrame';
+import PostCommentUser from './PostCommentUser';
 
 const CommentLi = styled.li`
   margin-bottom: 0.9rem;
@@ -42,9 +40,6 @@ const FixedComment = styled.div`
 `;
 
 function ViewComment({ comment, postId, deleteComment }) {
-  // test login
-  let loginId = 'meme';
-
   const [isEdit, setIsEdit] = useState(false);
   const [editComment, setEditComment] = useState(comment.comment);
   const [textRows, setTextRows] = useState(1);
@@ -65,16 +60,8 @@ function ViewComment({ comment, postId, deleteComment }) {
     setTextRows(setRows(e));
   };
 
-  const deleteCommentClick = (comId) => {
-    //! Delete /posts/comments
-    // delComment(postId,comId).then((res) => {
-    //   deleteComment(comId);
-    // });
-    if (window.confirm('정말 삭제하시겠습니까?')) deleteComment(comId);
-  };
-
-  const editCommentClick = (comId) => {
-    setIsEdit(true);
+  const changeEdit = (data) => {
+    setIsEdit(data);
   };
 
   const editComplete = (comId) => {
@@ -83,34 +70,23 @@ function ViewComment({ comment, postId, deleteComment }) {
 
     //! PUT /posts/comments
     // editPutComment(postId, comId, editComment).then((res) => {
-    //   setIsEdit(false);
+    //   changeEdit(false);
     // });
 
-    setIsEdit(false);
+    changeEdit(false);
   };
 
   return (
     <CommentLi>
       <CommentUser>
-        <div className='user'>{comment.userId}</div>
-        {loginId === comment.userId && (
-          <>
-            {isEdit ? (
-              <span onClick={() => editComplete(comment.commentId)}>
-                <BtnFrame content='완료'></BtnFrame>
-              </span>
-            ) : (
-              <div>
-                <span onClick={() => editCommentClick(comment.commentId)}>
-                  <BtnFrame content='수정' />
-                </span>
-                <span onClick={() => deleteCommentClick(comment.commentId)}>
-                  <BtnFrame content='삭제' marginLeft='3px' />
-                </span>
-              </div>
-            )}
-          </>
-        )}
+        <PostCommentUser
+          comment={comment}
+          isEdit={isEdit}
+          postId={postId}
+          deleteComment={deleteComment}
+          changeEdit={changeEdit}
+          editComplete={editComplete}
+        />
       </CommentUser>
       {isEdit ? (
         <EditText value={editComment} onChange={changeEditComment} rows={textRows}></EditText>

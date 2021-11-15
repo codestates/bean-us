@@ -119,7 +119,7 @@ export default function Main({ isLogin, loginHandler, renderModal, modalHandler,
                 <MyInfo userId={userId} email={email} social={social} EditEmailReq={EditEmailReq} />
               }
             ></Route>
-            <Route path='myBeans' element={<MyBeans />}></Route>
+            <Route path='myBeans' element={<MyBeans loginId={userId} />}></Route>
             <Route path='myPosts' element={<MyPosts />}></Route>
           </Routes>
         </MainContainer>

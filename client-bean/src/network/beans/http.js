@@ -10,7 +10,7 @@ axios.defaults.headers.common['Content-Type'] = 'application/json';
 //* cookie에 담긴 accessToken을 기반으로 user를 알아내고, 해당 유저가 좋아하는(like) 표시된 사항을 보내주어야 한다.
 export const getAllBeans = async () => {
   const res = await axios.get(`${http}/bean/all-beans`);
-  return res.data;
+  return res.data.beanList;
 };
 
 //TODO 필터링 원두 가져오기
@@ -40,8 +40,12 @@ export const getBeanPost = async (beanId) => {
 // POST /bean/like
 // response status 200 / 401
 export const postBeanLike = async (beanId, beanLike) => {
-  const res = await axios.post(`${http}/bean/like`, { data: { beanId, beanLike } });
-  return res.status;
+  try {
+    const res = await axios.post(`${http}/bean/like`, { data: { beanId, beanLike } });
+    return res.status;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const statusCode = (code) => {
