@@ -2,8 +2,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// import { checkToken } from '../network/sign/checkToken';
-
 const TopBarDiv = styled.div`
   width: 100vw;
   display: flex;
@@ -51,19 +49,10 @@ const Greeting = styled.span`
 export default function TopBar({
   isLogin,
   modalHandler,
-  // loginHandler,
   loginId,
-  // saveLoginId,
   main,
 }) {
-  // useEffect(() => {
-  //   checkToken().then((res) => {
-  //     loginHandler(res.data.data);
-  //     if (res.data.data) {
-  //       saveLoginId(res.data.loginId);
-  //     }
-  //   });
-  // }, []);
+
   return (
     <TopBarDiv main={main}>
       {isLogin ? (

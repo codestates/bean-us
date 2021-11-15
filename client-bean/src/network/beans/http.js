@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const http = process.env.REACT_APP_HTTPSURL;
+// const http = process.env.REACT_APP_HTTPSURL;
+const http = process.env.REACT_APP_HTTPURL;
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
@@ -39,7 +40,7 @@ export const getBeanPost = async (beanId) => {
 // POST /bean/like
 // response status 200 / 401
 export const postBeanLike = async (beanId, beanLike) => {
-  const res = await axios.post(`${http}/bean/like`, { beanId, beanLike });
+  const res = await axios.post(`${http}/bean/like`, { data: { beanId, beanLike } });
   return res.status;
 };
 
