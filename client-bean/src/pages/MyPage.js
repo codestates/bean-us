@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars*/
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import SignModal from '../components/signModal/SignModal';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 
 import { getMyInfos } from '../network/myPage/myPage';
 
@@ -46,7 +44,7 @@ const MyPageSideBars = styled.section`
   }
 `;
 
-export default function Main({ isLogin, loginHandler, renderModal, modalHandler, saveLoginId }) {
+export default function Main({ isLogin, loginHandler }) {
   const [userId, setUserId] = useState('');
   const [email, setEmail] = useState('');
   const [social, setSocial] = useState('');
@@ -80,7 +78,6 @@ export default function Main({ isLogin, loginHandler, renderModal, modalHandler,
   };
 
   const editEmailReq = (data) => {
-    console.log(data);
     setEmail(data);
   };
 
@@ -134,14 +131,6 @@ export default function Main({ isLogin, loginHandler, renderModal, modalHandler,
       ) : (
         <div>로그인을 해주세요!</div>
       )}
-      {renderModal ? (
-        <SignModal
-          isLogin={isLogin}
-          modalHandler={modalHandler}
-          saveLoginId={saveLoginId}
-          loginHandler={loginHandler}
-        />
-      ) : null}
     </>
   );
 }

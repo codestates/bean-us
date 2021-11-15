@@ -5,7 +5,6 @@ import PostCards from '../components/postspage/PostCards';
 import { MdPostAdd } from 'react-icons/md';
 import getAllPosts from '../network/postspage/http';
 import getFilterdPost from '../network/postspage/http';
-import SignModal from '../components/signModal/SignModal';
 import { Link } from 'react-router-dom';
 
 const PostsContainer = styled.div`
@@ -48,7 +47,7 @@ export default function Posts({ isLogin, loginHandler, renderModal, modalHandler
   const [value, setValue] = useState('');
   useEffect(() => {
     getAllPosts().then((res) => {
-      console.log(res.postList)
+      console.log(res.postList);
       setPosts(res.postList);
     });
   }, []);
@@ -68,20 +67,14 @@ export default function Posts({ isLogin, loginHandler, renderModal, modalHandler
     <PostsContainer>
       <div className='title'>게시글</div>
       <PostSearch handleClick={handleClick} handleInputChange={handleInputChange} posts={posts} />
-      {isLogin? <StyledLink to='/posts/create'>
-        <CreatePost>
-          <MdPostAdd className='postIcon' />
-        </CreatePost>
-      </StyledLink> : null}
-      <PostCards posts={posts} />
-      {renderModal ? (
-        <SignModal
-          isLogin={isLogin}
-          modalHandler={modalHandler}
-          saveLoginId={saveLoginId}
-          loginHandler={loginHandler}
-        />
+      {isLogin ? (
+        <StyledLink to='/posts/create'>
+          <CreatePost>
+            <MdPostAdd className='postIcon' />
+          </CreatePost>
+        </StyledLink>
       ) : null}
+      <PostCards posts={posts} />
     </PostsContainer>
   );
 }

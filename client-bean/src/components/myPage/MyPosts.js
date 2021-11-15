@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars*/
 import React, { useState, useEffect } from 'react';
 import { TopFrame } from '../../styles/basicFrame/TopFrame';
 
@@ -7,16 +6,16 @@ import PostCards from '../postspage/PostCards';
 import getAllPosts from '../../network/postspage/http';
 
 export default function MyPosts() {
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
   useEffect(() => {
     getAllPosts().then((res) => {
-      setPosts([...res.postList])
-    })
+      setPosts([...res.postList]);
+    });
   }, []);
 
   return (
-  <TopFrame>
-    <PostCards posts={posts} />
-  </TopFrame>
-  )
+    <TopFrame>
+      <PostCards posts={posts} />
+    </TopFrame>
+  );
 }

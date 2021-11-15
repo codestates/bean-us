@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { MdHomeFilled } from 'react-icons/md';
 
-const MainHeader = styled.header`
+import TopBar from './TopBar';
+
+export const MainHeader = styled.header`
   width: 100vw;
-  height: 7vh;
+  height: 5vh;
   display: flex;
   position: -webkit-sticky;
   position: sticky;
@@ -19,17 +21,16 @@ const MainHeader = styled.header`
     }
   }
 `;
-const Nav = styled.nav`
-  width: 20vw;
-  height: 10vh;
+export const Nav = styled.nav`
+  width: 100vw;
   display: flex;
   font-size: 1.2rem;
-  justify-content: space-around;
-  position: absolute;
-  right: 0;
-  margin-right: 3.3vw;
+  justify-content: flex-end;
+  align-items: center;
+  right: 5px;
+  margin-right: 1.5vw;
   > .link {
-    height: 30px;
+    padding: 4px 0 8px;
     width: 90px;
     flex: none;
     text-decoration: none;
@@ -47,26 +48,48 @@ const Nav = styled.nav`
   }
 `;
 
-export default function Header() {
+const Img = styled.img`
+  position: absolute;
+  top: -8px;
+`;
+
+export default function NavBar({
+  isLogin,
+  loginHandler,
+  modalHandler,
+  saveLoginId,
+  loginId,
+  renderModal,
+}) {
   return (
-    <MainHeader>
-      <Link to='/' className='link'>
-        <img src='/asset/mainpage/logo.png' alt='logo' />
-      </Link>
-      <Nav>
-        <Link to='/' className='link'>
-          <MdHomeFilled className='navicon' />
+    <>
+      <TopBar
+        isLogin={isLogin}
+        modalHandler={modalHandler}
+        loginHandler={loginHandler}
+        loginId={loginId}
+        saveLoginId={saveLoginId}
+        renderModal={renderModal}
+      ></TopBar>
+      <MainHeader>
+        <Link to='/' className='link' absolute='absolute'>
+          <Img src='/asset/mainpage/logo.png' alt='logo' />
         </Link>
-        <Link to='/posts' className='link'>
-          post
-        </Link>
-        <Link to='beans' className='link'>
-          beans
-        </Link>
-        <Link to='myPage' className='link'>
-          mypage
-        </Link>
-      </Nav>
-    </MainHeader>
+        <Nav>
+          <Link to='/' className='link'>
+            <MdHomeFilled className='navicon' />
+          </Link>
+          <Link to='/posts' className='link'>
+            post
+          </Link>
+          <Link to='beans' className='link'>
+            beans
+          </Link>
+          <Link to='myPage' className='link'>
+            mypage
+          </Link>
+        </Nav>
+      </MainHeader>
+    </>
   );
 }
