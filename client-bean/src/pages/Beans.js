@@ -19,9 +19,7 @@ export default function Beans({
   saveLoginId,
   loginId,
 }) {
-  console.log('beans', loginId);
-
-  const [beans, isLoading, nowUser, setBeans] = useLoading([], getAllBeans(), loginId, loginId);
+  const [beans, isLoading, setBeans] = useLoading([], getAllBeans(), loginId);
   const [openModal, cardBeanInfo, cardPostInfo, beanModal, closeModal] = useBeanModal(beans);
 
   const getBeanCards = (res) => {
@@ -36,7 +34,7 @@ export default function Beans({
         <TopFrame>
           <div className='title'>원두</div>
           <BeanSearch getBeanCards={getBeanCards} beanName={beans.map((v) => v.beanName)} />
-          <BeanCards beans={beans} beanModal={beanModal} loginId={nowUser} />
+          <BeanCards beans={beans} beanModal={beanModal} loginId={loginId} />
           {openModal && (
             <BeanCardModal
               cardPostInfo={cardPostInfo}

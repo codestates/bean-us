@@ -6,14 +6,12 @@ import { useEffect, useState } from 'react';
 import { Beandb } from '../db/beandb';
 import { postView } from '../db/postView';
 
-export function useLoading(inital, httpService, arg, loginId) {
-  const [nowUser, setNowUser] = useState(loginId);
+export function useLoading(inital, httpService, arg) {
   const [data, setData] = useState(inital);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
-    setNowUser(loginId);
     if (httpService !== null) {
       //! TODO GET /post?post-id=postId
       httpService.then((res) => {
@@ -30,5 +28,5 @@ export function useLoading(inital, httpService, arg, loginId) {
     }
   }, [arg]);
 
-  return [data, isLoading, nowUser, setData];
+  return [data, isLoading, setData];
 }

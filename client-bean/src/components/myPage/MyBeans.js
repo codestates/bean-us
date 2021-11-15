@@ -8,7 +8,7 @@ import useBeanModal from '../../hooks/useBeanModal';
 import { useLoading } from '../../hooks/useLoading';
 
 function MyBeans({ loginId }) {
-  const [mybeans, isLoading, nowUser] = useLoading([], getAllBeans(), null, loginId);
+  const [mybeans, isLoading] = useLoading([], getAllBeans());
   const [openModal, cardBeanInfo, cardPostInfo, beanModal, closeModal] = useBeanModal(
     mybeans.filter((my) => my.like)
   );
@@ -21,7 +21,7 @@ function MyBeans({ loginId }) {
         <TopFrame>
           <BeanCards
             beans={mybeans.filter((my) => my.like)}
-            loginId={nowUser}
+            loginId={loginId}
             beanModal={beanModal}
           />
           {openModal && (
