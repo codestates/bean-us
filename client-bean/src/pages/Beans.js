@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars*/
 
-import React, { useState } from 'react';
+import React from 'react';
 import BeanCards from '../components/beans/beanCards/BeanCards';
 import BeanSearch from '../components/beans/BeanSearch';
 import BeanCardModal from '../components/beans/beanModal/BeanCardModal';
@@ -11,9 +11,6 @@ import useBeanModal from '../hooks/useBeanModal';
 import { useLoading } from '../hooks/useLoading';
 import LoadingPage from './LoadingPage';
 
-//db
-// import { Beandb } from '../db/beandb';
-
 export default function Beans({
   isLogin,
   loginHandler,
@@ -22,12 +19,12 @@ export default function Beans({
   saveLoginId,
   loginId,
 }) {
-  const [beans, isLoading, setBeans] = useLoading([], getAllBeans());
-  console.log('beans', beans, isLoading);
+  console.log('beans', loginId);
+
+  const [beans, isLoading, nowUser, setBeans] = useLoading([], getAllBeans(), loginId, loginId);
   const [openModal, cardBeanInfo, cardPostInfo, beanModal, closeModal] = useBeanModal(beans);
 
   const getBeanCards = (res) => {
-    //TODO res에 따른 setBeans 설정
     setBeans([...res.beanList]);
   };
 
@@ -39,7 +36,7 @@ export default function Beans({
         <TopFrame>
           <div className='title'>원두</div>
           <BeanSearch getBeanCards={getBeanCards} beanName={beans.map((v) => v.beanName)} />
-          <BeanCards beans={beans} beanModal={beanModal} loginId={loginId} />
+          <BeanCards beans={beans} beanModal={beanModal} loginId={nowUser} />
           {openModal && (
             <BeanCardModal
               cardPostInfo={cardPostInfo}

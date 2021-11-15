@@ -50,8 +50,7 @@ function App() {
   const location = useLocation();
   return (
     <>
-      {location.pathname === '/' 
-      || location.pathname === '/posts/create' ? null : (
+      {location.pathname === '/' || location.pathname === '/posts/create' ? null : (
         <TopBar
           isLogin={isLogin}
           modalHandler={modalHandler}
@@ -60,8 +59,7 @@ function App() {
           saveLoginId={saveLoginId}
         />
       )}
-      {location.pathname === '/' 
-      || location.pathname === '/posts/create' ? null : <NavBar />}
+      {location.pathname === '/' || location.pathname === '/posts/create' ? null : <NavBar />}
       <Routes>
         <Route
           path='/'
@@ -76,7 +74,7 @@ function App() {
             />
           }
         />
-        <Route path='/posts/view/:id' element={<PostsView />} />
+        <Route path='/posts/view/:id' element={<PostsView loginId={loginId} />} />
         <Route path='/posts/create' element={<PostsCreate />} />
         <Route path='/posts/edit/:id' element={<PostsCreate />} />
         <Route

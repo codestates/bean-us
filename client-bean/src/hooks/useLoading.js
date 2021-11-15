@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars*/
-/* eslint-disable react-hooks/exhaustive-deps*/
 
 import { useEffect, useState } from 'react';
 
@@ -7,13 +6,15 @@ import { useEffect, useState } from 'react';
 import { Beandb } from '../db/beandb';
 import { postView } from '../db/postView';
 
-export function useLoading(inital, httpService, arg) {
+export function useLoading(inital, httpService, arg, loginId) {
+  const [nowUser, setNowUser] = useState(loginId);
   const [data, setData] = useState(inital);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+    setNowUser(loginId);
     if (httpService !== null) {
-      setIsLoading(true);
       //! TODO GET /post?post-id=postId
       httpService.then((res) => {
         setData(res);
@@ -27,7 +28,7 @@ export function useLoading(inital, httpService, arg) {
         setIsLoading(false);
       }, 1000);
     }
-  }, []);
+  }, [arg]);
 
-  return [data, isLoading, setData];
+  return [data, isLoading, nowUser, setData];
 }
