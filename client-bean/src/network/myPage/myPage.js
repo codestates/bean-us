@@ -19,9 +19,34 @@ export const getMyPosts = () => {
 };
 
 export const editMyEmail = (userId, email) => {
-  return axios.post(
+  return axios.put(
     `${http}/my-page/email`,
     { userId, email },
+    { headers: { 'Content-Type': 'application/json' } }
+  );
+};
+
+export const passwordChange = (userId, curPwd, newPwd) => {
+  return axios.put(
+    `${http}/my-page/password-change`,
+    { userId, curPwd, newPwd },
+    { headers: { 'Content-Type': 'application/json' } }
+  );
+};
+
+export const withdrawUser = (userId, password) => {
+  return axios.delete(
+    `${http}/my-page/withdrawal`,
+    { data: { userId, password } },
+    { headers: { 'Content-Type': 'application/json' } }
+  );
+};
+
+export const withdrawOAuthUser = (userId, social) => {
+  console.log(userId, social);
+  return axios.delete(
+    `${http}/my-page/withdrawal-oauth`,
+    { data: { userId, social } },
     { headers: { 'Content-Type': 'application/json' } }
   );
 };

@@ -60,6 +60,7 @@ export default function Main({ isLogin, loginHandler, renderModal, modalHandler,
   useEffect(() => {
     getMyInfos().then((res) => {
       if (res.data.informations) {
+        console.log(res.data.informations);
         setUserId(res.data.informations.userId);
         setEmail(res.data.informations.email);
         setSocial(res.data.informations.social);
@@ -78,7 +79,8 @@ export default function Main({ isLogin, loginHandler, renderModal, modalHandler,
     });
   };
 
-  const EditEmailReq = (data) => {
+  const editEmailReq = (data) => {
+    console.log(data);
     setEmail(data);
   };
 
@@ -116,7 +118,13 @@ export default function Main({ isLogin, loginHandler, renderModal, modalHandler,
             <Route
               path=''
               element={
-                <MyInfo userId={userId} email={email} social={social} EditEmailReq={EditEmailReq} />
+                <MyInfo
+                  userId={userId}
+                  email={email}
+                  social={social}
+                  editEmailReq={editEmailReq}
+                  loginHandler={loginHandler}
+                />
               }
             ></Route>
             <Route path='myBeans' element={<MyBeans />}></Route>
