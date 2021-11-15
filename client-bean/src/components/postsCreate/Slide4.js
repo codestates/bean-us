@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BsArrowUpCircle, BsArrowDownCircle } from "react-icons/bs";
-import { Question } from '../../styles/postspage/InputFrame';
+import { Question, Answer } from '../../styles/postspage/InputFrame';
 
 const Slide4Wrapper = styled.div`
   width: 800px;
@@ -39,10 +39,11 @@ const Slide4Wrapper = styled.div`
 `;
 
 export default function Slide4(props) {
-  const {slideScrollNext, slideScrollPost} = props;
+  const {handleInputChange, slideScrollNext, slideScrollPost} = props;
   return(
     <Slide4Wrapper>
       <Question>4. 원두 비율(필수)</Question>
+      <Answer onChange={handleInputChange} name='rate' type='number' placeholder='g단위로 입력해주세요.'></Answer>
       <button className="postBtn" onClick={() => slideScrollPost(2)}>
         <BsArrowUpCircle/>
       </button>

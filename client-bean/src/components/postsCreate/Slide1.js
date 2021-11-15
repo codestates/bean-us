@@ -52,13 +52,13 @@ const AlertMessage = styled.div`
 
 //title입력 슬라이드
 function Slide1(props) {
-  const {handleTitleChange, title, slideScrollNext, slideScrollPost} = props;
+  const {handleInputChange, slideScrollNext, slideScrollPost, inputs} = props;
 
   return(
     <Slide1Wrapper>
       <Question>1. 제목 입력(필수)</Question>
-      <Answer placeholder='제목은 20글자 이하로 작성해주세요' onChange={handleTitleChange} title={title}></Answer>
-      {title.length > 20 ? <AlertMessage>제목은 20글자 이하여야 합니다</AlertMessage> : null}
+      <Answer placeholder='제목은 20글자 이하로 작성해주세요' onChange={handleInputChange} name='title'></Answer>
+      {inputs.title.length > 20 ? <AlertMessage>제목은 20글자 이하여야 합니다</AlertMessage> : null}
       <button className='postBtn' onClick={() => slideScrollPost(0)}><BsArrowUpCircle/></button>
       <button className='nextBtn' onClick={() => slideScrollNext(1)}><BsArrowDownCircle /></button>
     </Slide1Wrapper>

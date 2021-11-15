@@ -14,7 +14,8 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   cursor: default;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 export default function Main({

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BsArrowUpCircle, BsArrowDownCircle } from "react-icons/bs";
-import { Question } from '../../styles/postspage/InputFrame';
+import { Question, Answer } from '../../styles/postspage/InputFrame';
 
 const Slide3Wrapper = styled.div`
   width: 800px;
@@ -39,10 +39,11 @@ const Slide3Wrapper = styled.div`
 `;
 
 export default function Slide3(props) {
-  const {slideScrollNext, slideScrollPost} = props;
+  const {handleInputChange, slideScrollNext, slideScrollPost} = props;
   return(
     <Slide3Wrapper>
       <Question>3. 원두 선택(필수)</Question>
+      <Answer onChange={handleInputChange} name='bean' placeholder='원두를 선택해주세요.'></Answer>
       <button className="postBtn" onClick={() => slideScrollPost(1)}>
         <BsArrowUpCircle/>
       </button>

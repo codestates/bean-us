@@ -36,13 +36,26 @@ const Slide2Wrapper = styled.div`
   font-size: 2rem;
   color: #a46565;
   }
+  & input {
+  width: 400px;
+  height: 60px;
+  outline: none;
+  background: none;
+  border: none;
+  position: absolute;
+  top: 40%;
+  left: 24%;
+  font-size: 1.3rem;
+  padding: 0;
+  }
 `;
 
 function Slide2(props) {
-  const {slideScrollNext, slideScrollPost} = props;
+  const { handleInputChange,slideScrollNext, slideScrollPost} = props;
   return(
     <Slide2Wrapper>
       <Question>2. 사진 업로드(선택)</Question>
+      <input name='imgFile' type='file' accept='image/*' onChange={handleInputChange}></input>
       <button className="postBtn" onClick={() => slideScrollPost(0)}>
         <BsArrowUpCircle/>
       </button>

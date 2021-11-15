@@ -13,7 +13,8 @@ const PostsContainer = styled.div`
   width: 1100px;
   margin: auto;
   cursor: default;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   & .title {
     padding: 1rem 0;
