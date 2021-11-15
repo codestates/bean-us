@@ -12,7 +12,7 @@ module.exports = {
      * }], {});
     */
 
-    return queryInterface.bulkInsert('posts', [
+    return queryInterface.bulkInsert('postBeans', [
       {
         postId: 1,
         beanId: 1,
@@ -265,5 +265,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+
+    return queryInterface.bulkDelete('postBeans', null, {});
   }
 };
