@@ -9,6 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       commentId: {
+        allowNull: false,
+        autoIncrement: true,
         type: Sequelize.INTEGER
       },
       comment: {

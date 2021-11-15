@@ -9,7 +9,7 @@ import SignModal from '../components/signModal/SignModal';
 //db
 // import { Beandb } from '../db/beandb';
 
-export default function Beans({ isLogin, loginHandler, renderModal, modalHandler }) {
+export default function Beans({ isLogin, loginHandler, renderModal, modalHandler, saveLoginId }) {
   const [beans, setBeans] = useState([]);
   const [beanName, setBeanName] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -60,7 +60,14 @@ export default function Beans({ isLogin, loginHandler, renderModal, modalHandler
           closeModal={closeModal}
         />
       )}
-      {renderModal ? <SignModal isLogin={isLogin} modalHandler={modalHandler} /> : null}
+      {renderModal ? (
+        <SignModal
+          isLogin={isLogin}
+          modalHandler={modalHandler}
+          saveLoginId={saveLoginId}
+          loginHandler={loginHandler}
+        />
+      ) : null}
     </TopFrame>
   );
 }

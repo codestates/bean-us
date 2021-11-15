@@ -45,7 +45,7 @@ const MyPageSideBars = styled.section`
   }
 `;
 
-export default function Main({ isLogin, renderModal, modalHandler }) {
+export default function Main({ isLogin, loginHandler, renderModal, modalHandler, saveLoginId }) {
   const [userId, setUserId] = useState('');
   const [email, setEmail] = useState('');
   const [social, setSocial] = useState('');
@@ -58,14 +58,13 @@ export default function Main({ isLogin, renderModal, modalHandler }) {
 
   useEffect(() => {
     getMyInfos().then((res) => {
-      console.log(res.data);
       if (res.data.informations) {
         setUserId(res.data.informations.userId);
         setEmail(res.data.informations.email);
         setSocial(res.data.informations.social);
       }
     });
-  }, [isLogin]);
+  }, [userId, email, social, isLogin]);
 
   const clieckedTitle = (e) => {
     const { name } = e.target;
@@ -96,7 +95,7 @@ export default function Main({ isLogin, renderModal, modalHandler }) {
               나의 정보
             </Link>
             <Link
-              to='my-beans'
+              to='myBeans'
               name='myBeans'
               clicked={clickedLink.myBeans ? 'clicked' : null}
               onClick={clieckedTitle}
@@ -104,7 +103,7 @@ export default function Main({ isLogin, renderModal, modalHandler }) {
               나의 원두
             </Link>
             <Link
-              to='my-posts'
+              to='myPosts'
               name='myPosts'
               clicked={clickedLink.myPosts ? 'clicked' : null}
               onClick={clieckedTitle}
@@ -119,14 +118,21 @@ export default function Main({ isLogin, renderModal, modalHandler }) {
                 <MyInfo userId={userId} email={email} social={social} EditEmailReq={EditEmailReq} />
               }
             ></Route>
-            <Route path='my-beans' element={<MyBeans />}></Route>
-            <Route path='my-posts' element={<MyPosts />}></Route>
+            <Route path='myBeans' element={<MyBeans />}></Route>
+            <Route path='myPosts' element={<MyPosts />}></Route>
           </Routes>
         </MainContainer>
       ) : (
         <div>로그인을 해주세요!</div>
       )}
-      {renderModal ? <SignModal isLogin={isLogin} modalHandler={modalHandler} /> : null}
+      {renderModal ? (
+        <SignModal
+          isLogin={isLogin}
+          modalHandler={modalHandler}
+          saveLoginId={saveLoginId}
+          loginHandler={loginHandler}
+        />
+      ) : null}
     </>
   );
 }

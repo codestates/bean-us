@@ -180,4 +180,29 @@ module.exports = {
       postList
     });
   },
+
+  createPostComment: (req, res) => {
+    console.log(req.body);
+
+    res.status(200).json({
+      message: '댓글이 등록 되었습니다.',
+    });
+  },
+
+  updatePostComment: (req, res) => {
+    res.status(200).json({
+      message: '댓글이 수정 되었습니다.',
+    });
+  },
+
+  deletePostComment: (req, res) => {
+    res.status(200).json({
+      message: '댓글이 삭제 되었습니다.',
+    });
+  },
+
+  findPostCommentByPostId: (req, res) => {
+    res.status(200).json({
+    });
+  },
 };
