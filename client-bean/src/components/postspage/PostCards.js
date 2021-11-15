@@ -62,6 +62,7 @@ const CardsLi = styled.li`
     font-size: 1.2rem;
     font-weight: bold;
     margin-right: 20px;
+    padding: 5px;
   }
 
   & .beanInfo {
@@ -78,11 +79,13 @@ const CardsLi = styled.li`
     margin-top: 5px;
     margin-right: 18px;
     font-size: 0.8rem;
+    padding: 2px;
   }
   & .createdAt {
     text-align: right;
     margin-right: 18px;
     font-size: 0.7rem;
+    padding: 3px;
   }
 `;
 
@@ -94,7 +97,7 @@ function PostCards(props) {
         <CardsUL>
           {posts.map((post) => (
             <Link
-              to={{ pathname: '/posts/post', search: `?postId=${post.postId}` }}
+              to={{ pathname: `/posts/view/${post.postId}`}}
               key={post.postId}
               className='postlink'
             >
@@ -112,11 +115,11 @@ function PostCards(props) {
                   <div className='beanInfo'>
                     {post.beans.map((bean) => (
                       <div key='' className='beanLabel'>
-                        #{bean}
+                        #{bean.beanName}
                       </div>
                     ))}
                   </div>
-                  <div className='userInfo'>작성자: {post.userName}</div>
+                  <div className='userInfo'>작성자: {post.userId}</div>
                   <div className='createdAt'>{post.createdAt}</div>
                 </div>
               </CardsLi>

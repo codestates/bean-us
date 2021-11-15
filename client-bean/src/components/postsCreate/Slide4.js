@@ -60,7 +60,7 @@ export default function Slide4(props) {
       <Question>4. 원두 비율(필수)</Question>
       <div className='inputBox'>
       {value.map((el, index) => (
-        <input key={index} onChange={handleInputChange} name='rate' bean={index} type='number' placeholder={el + 'g'}></input>
+        <input key={index} onChange={handleInputChange} name='rate' bean={index} type='number' placeholder={el + 'g'} max='1000'></input>
       ))}
       </div>
       <button className="postBtn" onClick={() => slideScrollPost(2)}>

@@ -11,6 +11,7 @@ import Slide7 from '../components/postsCreate/Slide7';
 import { Button } from '../styles/postspage/CreateBtn';
 import { BorderFrame, Wrapper } from '../styles/postspage/OuterFrame';
 import createPosts from '../network/postsCreate/https';
+
 // import {useNavigate} from 'react-router-dom';
 
 // 페이지 크기 조정
@@ -248,11 +249,11 @@ function PostsCreate() {
         inputs.water && 
 				inputs.waterTemp &&
         inputs.content ? 
-        <Button width='55px' height='30' margin='5px' padding='2px' onClick={createPost}>게시</Button>
+        <Button width='55px' height='35px' margin='5px' padding='2px' onClick={createPost}>게시</Button>
         : null
       }
         {/* 필수요소들이 채워지기 전에는 취소버튼만 보임 */}
-        <Button width='55px' height='30' margin='5px' padding='2px' onClick={openModal}>취소</Button>
+        <Button width='55px' height='35px' margin='5px' padding='2px' onClick={openModal}>취소</Button>
       </Wrapper>
     </PostCreateCnt>
   );

@@ -50,7 +50,8 @@ function App() {
   const location = useLocation();
   return (
     <>
-      {location.pathname === '/' || location.pathname === '/posts/create' ? null : (
+      {location.pathname === '/' 
+      || location.pathname === '/posts/create' ? null : (
         <TopBar
           isLogin={isLogin}
           modalHandler={modalHandler}
@@ -59,7 +60,8 @@ function App() {
           saveLoginId={saveLoginId}
         />
       )}
-      {location.pathname === '/' || location.pathname === '/posts/create' ? null : <NavBar />}
+      {location.pathname === '/' 
+      || location.pathname === '/posts/create' ? null : <NavBar />}
       <Routes>
         <Route
           path='/'

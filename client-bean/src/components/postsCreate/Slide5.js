@@ -43,7 +43,7 @@ export default function Slide5(props) {
   return(
     <Slide5Wrapper>
       <Question>5. 물 양(필수)</Question>
-      <Answer onChange={handleInputChange} name='water' placeholder='ml단위로 입력해주세요.' type='number'></Answer>
+      <Answer onChange={handleInputChange} name='water' placeholder='ml단위로 입력해주세요.' type='number' max='1000  '></Answer>
       <button className="postBtn" onClick={() => slideScrollPost(3)}>
         <BsArrowUpCircle/>
       </button>

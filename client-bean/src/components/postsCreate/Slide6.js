@@ -43,7 +43,7 @@ export default function Slide6(props) {
   return(
     <Slide6Wrapper>
       <Question>6. 물 온도(필수)</Question>
-      <Answer onChange={handleInputChange} name='waterTemp' placeholder='적정 물온도를 입력해주세요.' type='number'></Answer>
+      <Answer onChange={handleInputChange} name='waterTemp' placeholder='적정 물온도를 입력해주세요.' type='number' max='500'></Answer>
       <button className="postBtn" onClick={() => slideScrollPost(4)}>
         <BsArrowUpCircle/>
       </button>
