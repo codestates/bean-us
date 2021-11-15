@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
-
 // package
 import React, { useState } from 'react';
 import styled from 'styled-components';
 // component
 import { H2 } from '../../../styles/signs/SignTitle';
 import InputLine from '../../../styles/signs/InputLine';
-import SignButton, { Button } from '../../../styles/signs/SignButton';
+import SignButton from '../../../styles/signs/SignButton';
 
 // functions
 import { loginReq } from '../../../network/sign/signApi';
@@ -63,7 +61,7 @@ const GithubP = styled.p`
   font-size: 15px;
 `;
 
-export default function Login({ modalHandler, renderSignupHandler }) {
+export default function Login({ modalHandler, renderSignupHandler, loginHandler, saveLoginId }) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -76,12 +74,16 @@ export default function Login({ modalHandler, renderSignupHandler }) {
     }
   };
 
-  const btnLoginClick = () => {
+  const btnLoginClick = (e) => {
+    e.preventDefault();
     loginReq(userId, password).then((res) => {
+      console.log(res.data.data);
       if (res.data.data) {
+        saveLoginId(userId);
         setUserId('');
         setPassword('');
         setLoginError('');
+        loginHandler(true);
         modalHandler();
       } else {
         setLoginError(res.data.message);

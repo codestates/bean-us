@@ -6,9 +6,11 @@ import { Button } from '../../../styles/signs/SignButton';
 
 import { logoutReq } from '../../../network/sign/signApi';
 
-export default function Logout({ modalHandler }) {
+export default function Logout({ modalHandler, loginHandler, saveLoginId }) {
   const clickHandler = () => {
     logoutReq().then((data) => {
+      saveLoginId(null);
+      loginHandler(false);
       modalHandler();
     });
   };

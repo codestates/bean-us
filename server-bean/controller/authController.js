@@ -76,7 +76,7 @@ module.exports = {
 
     sendAccessToken(res, beanusAccessToken);
 
-    res.json({ data: true, message: '카카오 아이디로 로그인에 성공하셨습니다' });
+    res.json({ userId: instance[0].userId, message: '카카오 아이디로 로그인에 성공하셨습니다' });
   },
 
   github: (req, res) => {
@@ -145,6 +145,6 @@ module.exports = {
 
     sendAccessToken(res, beanusAccessToken);
 
-    res.json({ data: true, message: '깃허브 아이디로 로그인에 성공하셨습니다' });
+    res.json({ userId: instance[0].userId, message: '깃허브 아이디로 로그인에 성공하셨습니다' });
   },
 };
