@@ -62,7 +62,6 @@ module.exports = {
         httpOnly: true,
         secure: true,
         sameSite: 'None',
-        expires: 0,
       })
       .send('로그아웃 되었습니다');
   },

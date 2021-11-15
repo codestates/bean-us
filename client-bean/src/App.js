@@ -97,6 +97,7 @@ function App() {
           element={
             <Beans
               isLogin={isLogin}
+              loginId={loginId}
               loginHandler={loginHandler}
               renderModal={renderModal}
               modalHandler={modalHandler}

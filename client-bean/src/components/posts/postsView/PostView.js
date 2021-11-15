@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useParams } from 'react-router';
+import { Navigate } from 'react-router-dom';
+
 import { InnerFrame } from '../../../styles/basicFrame/InnerFrame';
 import PostHeader from './postViewContent/PostHeader';
 import PostComment from './postViewComment/PostComment';
 import PostSection from './postViewContent/PostSection';
-import { useParams } from 'react-router';
-import { Navigate } from 'react-router-dom';
-// import { getPostInfo } from '../../../network/http/postView';
+import { useLoading } from '../../../hooks/useLoading';
+import LoadingPage from '../../../pages/LoadingPage';
+// import { getPostInfo } from '../../../network/postsView/http';
 
-//db 더미 데이
-import { postView } from '../../../db/postView';
+// db 더미 데이터
 
-export default function PostView({ postId }) {
-  const [postInfo, setPostInfo] = useState({ ...postView });
-
+export default function PostView(props) {
   let { id } = useParams();
 
-  useEffect(() => {
-    //! TODO GET /post?post-id=postId 요청
-    // getPostInfo(postId).then((res) => setPostInfo(res));
-    setPostInfo({ ...postView });
-  }, []);
+  // let [postContent, isLoading] = useLoading({}, getPostInfo(id), id);
+  let [postContent, isLoading] = useLoading({}, null, id);
 
   const nonPost = () => {
     alert('해당 게시물이 없거나 삭제되었습니다');
@@ -28,16 +25,22 @@ export default function PostView({ postId }) {
 
   return (
     <>
-      {postInfo ? (
-        <InnerFrame>
-          <PostHeader postCotents={postInfo.postCotents} postId={id} />
-          <PostSection postCotents={postInfo.postCotents} />
-          <PostComment comments={postInfo.comments} postId={postId} />
-        </InnerFrame>
+      {isLoading ? (
+        <LoadingPage />
       ) : (
         <>
-          {/* alert('삭제되거나 없는 게시물입니다') */}
-          {nonPost()}
+          {postContent ? (
+            <>
+              <div className='title'>게시물 열람</div>
+              <InnerFrame>
+                <PostHeader postCotents={postContent.postCotents} postId={id} />
+                <PostSection postCotents={postContent.postCotents} />
+                <PostComment comments={postContent.comments} postId={id} />
+              </InnerFrame>
+            </>
+          ) : (
+            <>{nonPost()}</>
+          )}
         </>
       )}
     </>

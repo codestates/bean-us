@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const CardWrap = styled.div`
   & .noCard {
@@ -89,19 +89,26 @@ const CardsLi = styled.li`
   }
 `;
 
-function PostCards(props) {
+export default function PostCards(props) {
   const { posts } = props;
+
+  let navigate = useNavigate();
+  const postCardClick = (postId) => {
+    navigate(`/posts/view/${postId}`);
+  };
+
   return (
     <CardWrap>
+      {/* 테스트용 카드 */}
+      <div onClick={() => postCardClick(3)}>testcard</div>
       {posts.length ? (
         <CardsUL>
           {posts.map((post) => (
-            <Link
-              to={{ pathname: `/posts/view/${post.postId}`}}
+            <CardsLi
               key={post.postId}
+              onClick={() => postCardClick(post.postId)}
               className='postlink'
             >
-              <CardsLi key={post.postId}>
                 <div className='contentWrap'>
                   <div className='imgWrap'>
                     <img
@@ -122,8 +129,7 @@ function PostCards(props) {
                   <div className='userInfo'>작성자: {post.userId}</div>
                   <div className='createdAt'>{post.createdAt}</div>
                 </div>
-              </CardsLi>
-            </Link>
+            </CardsLi>
           ))}
         </CardsUL>
       ) : (
@@ -132,5 +138,3 @@ function PostCards(props) {
     </CardWrap>
   );
 }
-
-export default PostCards;

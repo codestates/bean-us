@@ -1,4 +1,4 @@
-const {post, postBean, beanInfo} = require('./../models');
+const {post, postBean, beanInfo, postComment} = require('./../models');
 const {Op} = require('sequelize');
 
 module.exports = {
@@ -79,7 +79,7 @@ module.exports = {
   },
 
   deletePost: async (req, res) => {
-    const {postId} = req.params
+    const {postId} = req.body;
 
     await post.destroy({
       where: {postId}
@@ -181,8 +181,13 @@ module.exports = {
     });
   },
 
-  createPostComment: (req, res) => {
-    console.log(req.body);
+  createPostComment: async (req, res) => {
+    const {postId, userId, comment} = req.body;
+    const buildComment = await postComment.build({postId, userId, comment});
+    const lastComment = await postComment.findOne({order:[['commentId', 'DESC']]});
+
+    buildComment.dataValues['commentId'] = lastComment.dataValues['commentId'] + 1;
+    buildComment.save();
 
     res.status(200).json({
       message: '댓글이 등록 되었습니다.',
@@ -190,14 +195,27 @@ module.exports = {
   },
 
   updatePostComment: (req, res) => {
-    res.status(200).json({
-      message: '댓글이 수정 되었습니다.',
+    console.log(req.body);
+    const {commentId, comment} = req.body;
+    console.log(commentId);
+
+    postComment.update(
+      {comment},
+      {where: {commentId}}
+    ).then(() => {
+      res.status(200).json({
+        message: '댓글이 수정 되었습니다.',
+      });
     });
   },
 
   deletePostComment: (req, res) => {
-    res.status(200).json({
-      message: '댓글이 삭제 되었습니다.',
+    const {commentId} = req.body;
+
+    postComment.destroy({where: {commentId}}).then(() => {
+      res.status(200).json({
+        message: '댓글이 삭제 되었습니다.',
+      });
     });
   },
 

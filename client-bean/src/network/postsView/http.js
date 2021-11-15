@@ -9,8 +9,16 @@ axios.defaults.headers.common['Content-Type'] = 'application/json';
 //TODO GET /posts?post-id=postId
 // 게시물 내용 가져오기
 export const getPostInfo = async (postId) => {
-  const res = await axios.get(`${http}/post?post-id=${postId}`);
+  const res = await axios.get(`${http}/posts?post-id=${postId}`);
   return res.data;
+};
+
+//TODO Delete /posts
+// 게시물 삭제
+// 응답 : 204 성공
+export const delPost = async (postId) => {
+  const res = await axios.delete(`${http}/posts`, { data: { postId } });
+  return res.data; // 204
 };
 
 //TODO POST /posts/comments
@@ -33,7 +41,9 @@ export const delComment = async (postId, commentId) => {
 //TODO PUT /posts/comments
 // 게시물 댓글 수정
 // response => null
-export const editPutComment = async (postId, comId, editComment) => {
-  const res = await axios.put(`${http}/posts/comments`, { data: { postId, comId, editComment } });
+export const editPutComment = async (postId, commentId, editComment) => {
+  const res = await axios.put(`${http}/posts/comments`, {
+    data: { postId, commentId, editComment },
+  });
   return res.data;
 };

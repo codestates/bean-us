@@ -102,9 +102,16 @@ export default function BeanInput({ beanName, getBeanCards }) {
 
   return (
     <SearchContainer focus={onInputFocus} name={filterName.length}>
-      <div className="subtitle">원두 검색</div>
+      <div className='subtitle'>원두 검색</div>
       <form onSubmit={nameSubmit}>
-        <input ref={inpuRef} type="text" onChange={searchBeanName} value={inputName} onFocus={inputFoucs} onBlur={inputFoucs} />
+        <input
+          ref={inpuRef}
+          type='text'
+          onChange={searchBeanName}
+          value={inputName}
+          onFocus={inputFoucs}
+          onBlur={inputFoucs}
+        />
         <button>click</button>
         <DropText focus={onInputFocus}>
           {filterName.map((name, i) => (

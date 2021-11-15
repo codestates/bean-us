@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { emailValidation } from '../../utils/validation';
 import { editMyEmail } from '../../network/myPage/myPage';
 import EditPassword from './EditPassword';
+import WithdrawUser from './WithdrawUser';
 
 const InfoWrapper = styled.section`
   margin-top: 50px;
@@ -98,21 +99,21 @@ const Button = styled.button`
   }
 `;
 
-export default function MyInfo({ userId, email, social, EditEmailReq }) {
+export default function MyInfo({ userId, email, social, editEmailReq, loginHandler }) {
   const [editEmail, setEditEmail] = useState(false);
   const [newEmail, setNewEmail] = useState('');
   const [isValidEmail, setIsValidEmail] = useState('');
 
   const [editPassword, setEditPassword] = useState(false);
+  const [withdraw, setWithdraw] = useState(false);
 
   const editEmailClickHandler = () => {
     setEditEmail(true);
   };
 
   const editEmailHandler = (e) => {
-    console.log(e.target);
     if (e.target.name === 'complete' && isValidEmail === '사용할 수 있는 이메일 형식입니다') {
-      editMyEmail(userId, newEmail).then((res) => EditEmailReq(newEmail));
+      editMyEmail(userId, newEmail).then((res) => editEmailReq(newEmail));
     }
     setIsValidEmail('');
     setEditEmail(false);
@@ -129,6 +130,10 @@ export default function MyInfo({ userId, email, social, EditEmailReq }) {
 
   const editPasswordClickHandler = () => {
     setEditPassword(!editPassword);
+  };
+
+  const withdrawCilckHandler = () => {
+    setWithdraw(!withdraw);
   };
 
   return (
@@ -166,13 +171,30 @@ export default function MyInfo({ userId, email, social, EditEmailReq }) {
           {social === 'beanus' ? (
             <>
               <Button onClick={editPasswordClickHandler}>비밀번호 수정</Button>
-              <Button margin='margin'>회원 탈퇴</Button>
+              <Button onClick={withdrawCilckHandler} margin='margin'>
+                회원 탈퇴
+              </Button>
             </>
           ) : (
-            <Button></Button>
+            <Button onClick={withdrawCilckHandler} oauth='oauth'>
+              회원 탈퇴
+            </Button>
           )}
         </ButtonWrapper>
-        {editPassword ? <EditPassword setEditPassword={setEditPassword}></EditPassword> : null}
+        {editPassword ? (
+          <EditPassword
+            userId={userId}
+            editPasswordClickHandler={editPasswordClickHandler}
+          ></EditPassword>
+        ) : null}
+        {withdraw ? (
+          <WithdrawUser
+            userId={userId}
+            withdrawCilckHandler={withdrawCilckHandler}
+            loginHandler={loginHandler}
+            social={social}
+          ></WithdrawUser>
+        ) : null}
       </InfoBox>
     </InfoWrapper>
   );
