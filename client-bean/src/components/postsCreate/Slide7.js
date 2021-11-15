@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BsArrowUpCircle, BsArrowDownCircle } from "react-icons/bs";
-import { Question, Answer } from '../../styles/postspage/InputFrame';
+import { Question } from '../../styles/postspage/InputFrame';
 
-const Slide6Wrapper = styled.div`
+const Slide7Wrapper = styled.div`
   width: 800px;
   height: 70vh;
   margin: 0 auto;
@@ -36,20 +36,32 @@ const Slide6Wrapper = styled.div`
   font-size: 2rem;
   color: #a46565;
   }
+  & textarea {
+  width: 500px;
+  height: 200px;
+  outline: none;
+  border: 1px solid #a46565;
+  border-radius: 2px;
+  background: none;
+  position: absolute;
+  top: 40%;
+  left: 18%;
+  padding: 2;
+  }
 `;
 
-export default function Slide6(props) {
+export default function Slide7(props) {
   const {handleInputChange, slideScrollNext, slideScrollPost} = props;
   return(
-    <Slide6Wrapper>
-      <Question>6. 물 온도(필수)</Question>
-      <Answer onChange={handleInputChange} name='waterTemp' placeholder='적정 물온도를 입력해주세요.' type='number'></Answer>
-      <button className="postBtn" onClick={() => slideScrollPost(4)}>
+    <Slide7Wrapper>
+      <Question>7. 간단한 설명(필수)</Question>
+      <textarea name='content' onChange={handleInputChange}></textarea>
+      <button className="postBtn" onClick={() => slideScrollPost(5)}>
         <BsArrowUpCircle/>
       </button>
       <button className="nextBtn" onClick={() => slideScrollNext(6)}>
         <BsArrowDownCircle/>
       </button>
-    </Slide6Wrapper>
+    </Slide7Wrapper>
   );
 }

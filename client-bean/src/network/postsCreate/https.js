@@ -11,4 +11,10 @@ const createPosts = (data) => {
   .then((res) => res.data);
 }
 
+//원두 불러오기
+export const getBeans = () => {
+  return axios.get(`${https}/posts/getBeans`)
+  .then((res) => res.data)
+}
+
 export default createPosts;

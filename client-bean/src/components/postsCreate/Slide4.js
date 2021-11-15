@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BsArrowUpCircle, BsArrowDownCircle } from "react-icons/bs";
-import { Question, Answer } from '../../styles/postspage/InputFrame';
+import { Question } from '../../styles/postspage/InputFrame';
 
 const Slide4Wrapper = styled.div`
   width: 800px;
@@ -36,14 +36,33 @@ const Slide4Wrapper = styled.div`
   font-size: 2rem;
   color: #a46565;
   }
+  & .inputBox {
+    position: absolute;
+    top: 43%;
+    left: 25%;
+    width: 400px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 80px);
+    grid-gap: 5px;
+    justify-content: space-between;
+  }
+  & input {
+    width: 100px;
+    height: 40px;
+    outline: none;
+  }
 `;
 
 export default function Slide4(props) {
-  const {handleInputChange, slideScrollNext, slideScrollPost} = props;
+  const {handleInputChange, slideScrollNext, slideScrollPost, value} = props;
   return(
     <Slide4Wrapper>
       <Question>4. 원두 비율(필수)</Question>
-      <Answer onChange={handleInputChange} name='rate' type='number' placeholder='g단위로 입력해주세요.'></Answer>
+      <div className='inputBox'>
+      {value.map((el, index) => (
+        <input key={index} onChange={handleInputChange} name='rate' bean={index} type='number' placeholder={el + 'g'}></input>
+      ))}
+      </div>
       <button className="postBtn" onClick={() => slideScrollPost(2)}>
         <BsArrowUpCircle/>
       </button>

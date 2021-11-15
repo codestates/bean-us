@@ -42,8 +42,8 @@ export default function Slide5(props) {
   const {handleInputChange, slideScrollNext, slideScrollPost} = props;
   return(
     <Slide5Wrapper>
-      <Question>5. 물 온도 & 양(필수)</Question>
-      <Answer onChange={handleInputChange} name='water' placeholder='ml단위로 입력해주세요.'></Answer>
+      <Question>5. 물 양(필수)</Question>
+      <Answer onChange={handleInputChange} name='water' placeholder='ml단위로 입력해주세요.' type='number'></Answer>
       <button className="postBtn" onClick={() => slideScrollPost(3)}>
         <BsArrowUpCircle/>
       </button>
