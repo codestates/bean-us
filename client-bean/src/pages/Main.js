@@ -27,6 +27,7 @@ export default function Main({
   saveLoginId,
 }) {
   const { scrollY } = useScroll();
+
   return (
     <MainContainer>
       <SideBar scrollY={scrollY} />

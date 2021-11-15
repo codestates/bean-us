@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import { Background } from '../../components/signModal/SignModal';
 import { H2 } from '../../styles/signs/SignTitle';
 import SignButton from '../../styles/signs/SignButton';
 
 import { passwordValidation } from '../../utils/validation';
+import { passwordChange } from '../../network/myPage/myPage';
 
 const slideUp = keyframes`
   from {
@@ -14,6 +14,28 @@ const slideUp = keyframes`
   } to {
     transform: translateY(0px)
   }
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0
+  } to {
+    opacity: 1
+  }
+`;
+
+export const Background = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 11;
+  animation: ${fadeIn} 0.25s ease-out;
 `;
 
 const Container = styled.div`
@@ -50,13 +72,14 @@ const ValidMessage = styled.p`
   color: #95673d;
 `;
 
-export default function EditPassword({ setEditPassword }) {
+export default function EditPassword({ userId, editPasswordClickHandler }) {
   const [curPwd, setCurPwd] = useState('');
   const [newPwd, setNewPwd] = useState('');
-  const [newPwdCheck, setNewPwdCheck] = useState('');
 
   const [isValidPassword, setIsValidPassword] = useState('');
   const [checkPassword, setCheckPassword] = useState('');
+
+  const [isMatchedPassword, setIsMatchedPassword] = useState('');
 
   const inputHandler = (e) => {
     if (e.target.name === 'curPwd') {
@@ -70,7 +93,6 @@ export default function EditPassword({ setEditPassword }) {
         setIsValidPassword('');
       }
     } else if (e.target.name === 'newPwdCheck') {
-      setNewPwdCheck(e.target.value);
       if (e.target.value === '') {
         setCheckPassword('');
       } else if (e.target.value !== newPwd) {
@@ -81,6 +103,17 @@ export default function EditPassword({ setEditPassword }) {
     }
   };
 
+  const editPassword = () => {
+    passwordChange(userId, curPwd, newPwd).then((res) => {
+      if (res.data.data) {
+        editPasswordClickHandler();
+        alert(res.data.message);
+      } else {
+        setIsMatchedPassword(res.data.message);
+      }
+    });
+  };
+
   return (
     <Background>
       <Container>
@@ -89,6 +122,7 @@ export default function EditPassword({ setEditPassword }) {
           <P>현재 비밀번호</P>
           <Input name='curPwd' onChange={inputHandler} type='password'></Input>
         </LineWrapper>
+        <ValidMessage>{isMatchedPassword}</ValidMessage>
         <LineWrapper>
           <P>새 비밀번호</P>
           <Input name='newPwd' onChange={inputHandler} type='password'></Input>
@@ -104,6 +138,8 @@ export default function EditPassword({ setEditPassword }) {
           marginTop='20px'
           leftBtn='비밀번호 변경 취소'
           rightBtn='비밀번호 변경'
+          leftBtnHandler={editPasswordClickHandler}
+          rightBtnHandler={editPassword}
         ></SignButton>
       </Container>
     </Background>
