@@ -33,6 +33,7 @@ const CreatePost = styled.button`
   font-size: 2rem;
   padding-left: 97%;
   cursor: pointer;
+  margin-bottom: 14px;
   & .postIcon {
     line-height: 1.5rem;
     vertical-align: bottom;
@@ -47,7 +48,8 @@ export default function Posts({ isLogin, loginHandler, renderModal, modalHandler
   const [value, setValue] = useState('');
   useEffect(() => {
     getAllPosts().then((res) => {
-      setPosts(res);
+      console.log(res.postList)
+      setPosts(res.postList);
     });
   }, []);
 
@@ -57,7 +59,8 @@ export default function Posts({ isLogin, loginHandler, renderModal, modalHandler
   };
   const handleClick = () => {
     getFilterdPost(value).then((res) => {
-      setPosts(res);
+      console.log(res);
+      setPosts(res.postList);
     });
   };
 
@@ -65,11 +68,11 @@ export default function Posts({ isLogin, loginHandler, renderModal, modalHandler
     <PostsContainer>
       <div className='title'>게시글</div>
       <PostSearch handleClick={handleClick} handleInputChange={handleInputChange} posts={posts} />
-      <StyledLink to='/posts/create'>
+      {isLogin? <StyledLink to='/posts/create'>
         <CreatePost>
           <MdPostAdd className='postIcon' />
         </CreatePost>
-      </StyledLink>
+      </StyledLink> : null}
       <PostCards posts={posts} />
       {renderModal ? (
         <SignModal

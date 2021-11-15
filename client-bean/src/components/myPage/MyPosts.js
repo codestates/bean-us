@@ -1,10 +1,22 @@
 /* eslint-disable no-unused-vars*/
 import React, { useState, useEffect } from 'react';
+import { TopFrame } from '../../styles/basicFrame/TopFrame';
 
-import { getMyPosts } from '../../network/myPage/myPage';
+// import { getMyPosts } from '../../network/myPage/myPage';
+import PostCards from '../postspage/PostCards';
+import getAllPosts from '../../network/postspage/http';
 
 export default function MyPosts() {
-  useEffect(() => {});
+  const [posts, setPosts] = useState([])
+  useEffect(() => {
+    getAllPosts().then((res) => {
+      setPosts([...res.postList])
+    })
+  }, []);
 
-  return <div>그럼 지는 얘는 어디에 있는 거지?</div>;
+  return (
+  <TopFrame>
+    <PostCards posts={posts} />
+  </TopFrame>
+  )
 }
