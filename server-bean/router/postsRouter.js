@@ -7,11 +7,11 @@ router.get('/:postId', controller.findById);
 router.get('/', controller.findByParams);
 router.post('/', controller.createPost);
 router.put('/', controller.updatePost);
-router.delete('/:postId', controller.deletePost);
+router.delete('/', controller.deletePost);
 
 router.post('/comments', controller.createPostComment);
-router.put('/comments/:commentId', controller.updatePostComment);
-router.delete('/comments/:commentId', controller.deletePostComment);
+router.put('/comments', controller.updatePostComment);
+router.delete('/comments', controller.deletePostComment);
 router.get('/comments/:commentId', controller.findPostCommentByPostId);
 
 module.exports = router;
