@@ -79,7 +79,7 @@ module.exports = {
   },
 
   deletePost: async (req, res) => {
-    const {postId} = req.params
+    const {postId} = req.body;
 
     await post.destroy({
       where: {postId}
@@ -195,16 +195,27 @@ module.exports = {
   },
 
   updatePostComment: (req, res) => {
-    
+    console.log(req.body);
+    const {commentId, comment} = req.body;
+    console.log(commentId);
 
-    res.status(200).json({
-      message: '댓글이 수정 되었습니다.',
+    postComment.update(
+      {comment},
+      {where: {commentId}}
+    ).then(() => {
+      res.status(200).json({
+        message: '댓글이 수정 되었습니다.',
+      });
     });
   },
 
   deletePostComment: (req, res) => {
-    res.status(200).json({
-      message: '댓글이 삭제 되었습니다.',
+    const {commentId} = req.body;
+
+    postComment.destroy({where: {commentId}}).then(() => {
+      res.status(200).json({
+        message: '댓글이 삭제 되었습니다.',
+      });
     });
   },
 
