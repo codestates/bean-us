@@ -145,6 +145,7 @@ module.exports = {
   },
 
   beanLike: (req, res) => {
+    console.log(req.body);
     const accessTokenInfo = isAuthorized(req);
     if(!accessTokenInfo){
       res.status(400).json({
