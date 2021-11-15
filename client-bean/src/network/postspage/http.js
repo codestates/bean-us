@@ -15,4 +15,5 @@ export const getFilterdPost = (postName) => {
   return axios.get(`${https}/posts?title=${postName}`).then((res) => res.data);
 }
 
+
 export default getAllPosts;

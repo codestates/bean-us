@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function KakaoCallback({ loginHandler }) {
+export default function KakaoCallback({ loginHandler, saveLoginId }) {
   const navigate = useNavigate();
   const getKakaoAccessToken = () => {
     const http = process.env.REACT_APP_HTTPURL;
@@ -14,8 +14,10 @@ export default function KakaoCallback({ loginHandler }) {
 
   useEffect(() => {
     getKakaoAccessToken().then((res) => {
-      loginHandler();
-      navigate(-1);
+      console.log(res.data);
+      saveLoginId(res.data.userId);
+      loginHandler(true);
+      navigate('/', { replace: true });
     });
   }, []);
 

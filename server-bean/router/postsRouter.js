@@ -9,4 +9,9 @@ router.post('/', controller.createPost);
 router.put('/', controller.updatePost);
 router.delete('/:postId', controller.deletePost);
 
+router.post('/comments', controller.createPostComment);
+router.put('/comments/:commentId', controller.updatePostComment);
+router.delete('/comments/:commentId', controller.deletePostComment);
+router.get('/comments/:commentId', controller.findPostCommentByPostId);
+
 module.exports = router;

@@ -41,7 +41,14 @@ export default function Main({
       <Section2 scrollY={scrollY} />
       <Section3 scrollY={scrollY} />
       <Footer />
-      {renderModal ? <SignModal isLogin={isLogin} modalHandler={modalHandler} /> : null}
+      {renderModal ? (
+        <SignModal
+          isLogin={isLogin}
+          modalHandler={modalHandler}
+          loginHandler={loginHandler}
+          saveLoginId={saveLoginId}
+        />
+      ) : null}
     </MainContainer>
   );
 }
