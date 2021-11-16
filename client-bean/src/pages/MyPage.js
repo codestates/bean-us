@@ -131,7 +131,7 @@ export default function MyPage({ isLogin, loginHandler }) {
               }
             ></Route>
             <Route path='myBeans' element={<MyBeans loginId={userId} />}></Route>
-            <Route path='myPosts' element={<MyPosts />}></Route>
+            <Route path='myPosts' element={<MyPosts loginId={userId}/>}></Route>
           </Routes>
         </MainContainer>
       ) : (

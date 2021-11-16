@@ -1,5 +1,23 @@
 import React from 'react';
-import styled,{ css} from 'styled-components';
+import styled,{ keyframes, css} from 'styled-components';
+
+const descTrasnform = keyframes`
+  from {
+    opacity: 0;
+  } to {
+    transform: translate(-30%);
+    opacity: 1;
+  }
+`;
+
+const imgTransform = keyframes`
+  from {
+    opacity: 0;
+  } to {
+    transform : translate(30%);
+    opacity: 1;
+  }
+`;
 
 const MainSection2 = styled.section`
   width: 100vw;
@@ -16,14 +34,17 @@ const ImgContainer = styled.div`
   width: 260px;
   position: absolute;
   top: 30%;
+  opacity: 0;
   ${props => 
     props.scrollY > 375 && css`
-      transform: translate(30%);
+      animation: ${imgTransform} 3s;
+      animation-fill-mode: forwards;
       transition: all 1s linear;
     ` 
     }
 `;
 const Description = styled.div`
+  opacity: 0;
   position: absolute;
   left: 50%;
   flex: none;
@@ -35,7 +56,8 @@ const Description = styled.div`
   justify-content: center;
   ${props => 
     props.scrollY > 375 && css`
-      transform: translate(-30%);
+      animation: ${descTrasnform} 3s;
+      animation-fill-mode: forwards;
       transition: all 1s linear;
     ` 
     }

@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import PostSearch from '../components/postspage/PostSearch';
 import PostCards from '../components/postspage/PostCards';
 import { MdPostAdd } from 'react-icons/md';
-import getAllPosts from '../network/postspage/http';
-import getFilterdPost from '../network/postspage/http';
+import {getAllPosts} from '../network/postspage/http';
+import {getFilterdPost} from '../network/postspage/http';
 import { Link } from 'react-router-dom';
 
 const PostsContainer = styled.div`
   position: relative;
-  width: 1100px;
+  width: 1200px;
   margin: auto;
   cursor: default;
   overflow-y: auto;
@@ -47,34 +47,35 @@ export default function Posts({ isLogin, loginHandler, renderModal, modalHandler
   const [value, setValue] = useState('');
   useEffect(() => {
     getAllPosts().then((res) => {
-      console.log(res.postList);
       setPosts(res.postList);
     });
   }, []);
 
   const handleInputChange = (e) => {
-    console.log(e.target.value);
     setValue(e.target.value);
   };
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     getFilterdPost(value).then((res) => {
-      console.log(res);
       setPosts(res.postList);
+      console.log(res)
     });
   };
 
   return (
-    <PostsContainer>
+    <>
+      <PostsContainer>
       <div className='title'>게시글</div>
-      <PostSearch handleClick={handleClick} handleInputChange={handleInputChange} posts={posts} />
-      {isLogin ? (
+      <PostSearch handleClick={handleClick} handleInputChange={handleInputChange} posts={posts} value={value}/>
+        {isLogin ? 
         <StyledLink to='/posts/create'>
-          <CreatePost>
-            <MdPostAdd className='postIcon' />
-          </CreatePost>
-        </StyledLink>
-      ) : null}
+        <CreatePost>
+          <MdPostAdd className='postIcon' />
+        </CreatePost>
+      </StyledLink> : null  
+      }
       <PostCards posts={posts} />
     </PostsContainer>
+    </>
   );
 }

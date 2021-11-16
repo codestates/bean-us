@@ -72,7 +72,7 @@ const DropBox = styled.div`
   }
 `;
 
-export default function Slide3(props) {
+export default function EditSlide3(props) {
   const {handleInputChange, handleClick, slideScrollNext, slideScrollPost, beans, value} = props;
   const [onInputFocus, setOnInputFocus] = useState(false);
 

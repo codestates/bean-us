@@ -1,8 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import backgroundimg from '../../../backgroundimg.jpg';
 import MainNavBar from '../MainNavBar';
 // import TopBar from '../../TopBar';
+
+const beanRotation = keyframes`
+  from {
+    transform: rotate(0deg);
+  } to {
+    transform: rotate(360deg);
+  }
+`;
 
 const MainSection1 = styled.section`
   width: 100vw;
@@ -35,6 +43,7 @@ const SectionIntroCnt = styled.div`
   }
   > .beanimg {
     width: 200px;
+    animation: ${beanRotation} 8s 0.2s infinite ;
   }
 `;
 

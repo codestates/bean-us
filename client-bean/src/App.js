@@ -12,6 +12,7 @@ import Beans from './pages/Beans';
 import MyPage from './pages/MyPage';
 import PostsView from './pages/PostsView';
 import PostsCreate from './pages/PostsCreate';
+import PostEdit from './pages/PostEdit';
 import KakaoCallback from './pages/KakaoCallback';
 import GithubCallback from './pages/GithubCallback';
 import SignModal from './components/signModal/SignModal';
@@ -77,7 +78,7 @@ function App() {
         />
         <Route path='/posts/view/:id' element={<PostsView loginId={loginId} />} />
         <Route path='/posts/create' element={<PostsCreate />} />
-        <Route path='/posts/edit/:id' element={<PostsCreate />} />
+        <Route path='/posts/edit/:id' element={<PostEdit />} />
         <Route
           path='/posts'
           element={

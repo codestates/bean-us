@@ -3,15 +3,15 @@ import { TopFrame } from '../../styles/basicFrame/TopFrame';
 
 // import { getMyPosts } from '../../network/myPage/myPage';
 import PostCards from '../postspage/PostCards';
-import getAllPosts from '../../network/postspage/http';
+import {getUserPost} from '../../network/postspage/http';
 
-export default function MyPosts() {
+export default function MyPosts({loginId}) {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    getAllPosts().then((res) => {
+    getUserPost(loginId).then((res) => {
       setPosts([...res.postList]);
     });
-  }, []);
+  }, [loginId]);
 
   return (
     <TopFrame>
