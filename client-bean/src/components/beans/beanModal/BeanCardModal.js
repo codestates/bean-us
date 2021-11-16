@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NoDataWrap } from '../../../styles/basicFrame/NoDataWrap';
 import ModalBeanInfo from './ModalBeanInfo';
 import ModalHeader from './ModalHeader';
 import ModalPosting from './ModalPosting';
@@ -10,11 +11,10 @@ const CardModalContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6);
-
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
 `;
 
 const ModalWrap = styled.div`
@@ -37,7 +37,11 @@ export default function BeanCardModal({ cardPostInfo, cardBeanInfo, closeModal }
       <ModalWrap>
         <ModalHeader cardBeanInfo={cardBeanInfo} closeModal={closeModal} />
         <ModalBeanInfo cardBeanInfo={cardBeanInfo} />
-        <ModalPosting cardPostInfo={cardPostInfo} />
+        {cardPostInfo ? (
+          <ModalPosting cardPostInfo={cardPostInfo} />
+        ) : (
+          <NoDataWrap>게시물이 없습니다</NoDataWrap>
+        )}
       </ModalWrap>
     </CardModalContainer>
   );

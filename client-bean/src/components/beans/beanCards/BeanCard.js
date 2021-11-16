@@ -55,12 +55,10 @@ export default function BeanCard({ bean, beanModal, loginId }) {
     let { tagName } = e.target;
     if (tagName === 'svg' || tagName === 'path') return;
     //! TODO GET /bean?beanId=beanId 해당 원두와 관련된 게시글 요청
-    // getBeanPost(beanId).then((res) => {
-    //   console.log(res);
-    //   beanModal(beanId, res);
-    // });
-
-    beanModal(beanId, 'get 통신 결과 bean과 관련된 post 정보');
+    getBeanPost(beanId).then((res) => {
+      console.log(res);
+      beanModal(beanId, res);
+    });
   };
 
   const heartClick = (id) => {

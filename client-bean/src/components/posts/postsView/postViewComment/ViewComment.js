@@ -39,7 +39,7 @@ const FixedComment = styled.div`
   margin-bottom: 0.5rem;
 `;
 
-function ViewComment({ comment, postId, deleteComment }) {
+function ViewComment({ comment, postId, loginId, deleteComment }) {
   const [isEdit, setIsEdit] = useState(false);
   const [editComment, setEditComment] = useState(comment.comment);
   const [textRows, setTextRows] = useState(1);
@@ -83,6 +83,7 @@ function ViewComment({ comment, postId, deleteComment }) {
           comment={comment}
           isEdit={isEdit}
           postId={postId}
+          loginId={loginId}
           deleteComment={deleteComment}
           changeEdit={changeEdit}
           editComplete={editComplete}

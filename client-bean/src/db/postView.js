@@ -18,13 +18,13 @@ export const postView = {
   },
   comments: [
     {
-      userId: '작성자id입니다',
+      userId: 'test2',
       commentId: 1,
       comment: '댓글 내용댓글 내용댓글 내용댓글 내용',
       createAt: '2020-12-20',
     },
     {
-      userId: 'userId',
+      userId: 'test2',
       commentId: 2,
       comment: '댓글 내용댓글 내용댓글 내용댓글 내용',
       createAt: '2020-12-20',

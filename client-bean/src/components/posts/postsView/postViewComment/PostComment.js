@@ -8,7 +8,7 @@ const CommentUl = styled.ul`
   width: 100%;
 `;
 
-export default function PostComment({ comments, postId }) {
+export default function PostComment({ comments, postId, loginId }) {
   const [allComment, setAllComment] = useState([...comments]);
 
   const addComment = (newComment) => {
@@ -22,7 +22,7 @@ export default function PostComment({ comments, postId }) {
 
   return (
     <>
-      <WriteComment postId={postId} addComment={addComment} />
+      <WriteComment postId={postId} addComment={addComment} loginId={loginId} />
       <CommentUl>
         {allComment.map((comment) => (
           <ViewComment

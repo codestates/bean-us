@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars*/
-/* eslint-disable react-hooks/exhaustive-deps*/
 
 import { useEffect, useState } from 'react';
 
@@ -12,8 +11,8 @@ export function useLoading(inital, httpService, arg) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     if (httpService !== null) {
-      setIsLoading(true);
       //! TODO GET /post?post-id=postId
       httpService.then((res) => {
         setData(res);
@@ -27,7 +26,7 @@ export function useLoading(inital, httpService, arg) {
         setIsLoading(false);
       }, 1000);
     }
-  }, []);
+  }, [arg]);
 
   return [data, isLoading, setData];
 }

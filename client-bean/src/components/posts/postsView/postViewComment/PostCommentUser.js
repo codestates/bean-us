@@ -2,10 +2,15 @@ import React from 'react';
 import BtnFrame from '../../../../styles/basicFrame/Btn';
 // import { delComment } from '../../../../network/postsView/http';
 
-function PostCommentUser({ comment, isEdit, postId, deleteComment, changeEdit, editComplete }) {
-  // test login
-  let loginId = 'meme';
-
+function PostCommentUser({
+  comment,
+  isEdit,
+  postId,
+  loginId,
+  deleteComment,
+  changeEdit,
+  editComplete,
+}) {
   const deleteCommentClick = (comId) => {
     //! Delete /posts/comments
     // if (window.confirm('정말 삭제하시겠습니까?')){
@@ -31,12 +36,12 @@ function PostCommentUser({ comment, isEdit, postId, deleteComment, changeEdit, e
             </span>
           ) : (
             <div>
-              <span onClick={editCommentClick}>
-                <BtnFrame content='수정' />
-              </span>
-              <span onClick={() => deleteCommentClick(comment.commentId)}>
-                <BtnFrame content='삭제' marginLeft='3px' />
-              </span>
+              <BtnFrame content='수정' clickEvent={editCommentClick} />
+              <BtnFrame
+                content='삭제'
+                marginLeft='3px'
+                clickEvent={() => deleteCommentClick(comment.commentId)}
+              />
             </div>
           )}
         </>

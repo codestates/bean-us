@@ -75,7 +75,7 @@ function App() {
             />
           }
         />
-        <Route path='/posts/view/:id' element={<PostsView />} />
+        <Route path='/posts/view/:id' element={<PostsView loginId={loginId} />} />
         <Route path='/posts/create' element={<PostsCreate />} />
         <Route path='/posts/edit/:id' element={<PostsCreate />} />
         <Route

@@ -1,17 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NoDataWrap } from '../../../styles/basicFrame/NoDataWrap';
 import BeanCard from './BeanCard';
-
-const CardWrap = styled.div`
-  & .noCard {
-    width: 100%;
-    height: 40vh;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.2rem;
-    padding-top: 1rem;
-  }
-`;
 
 const CardsUL = styled.ul`
   display: grid;
@@ -23,7 +13,7 @@ const CardsUL = styled.ul`
 
 export default function BeanCards({ beans, loginId, beanModal }) {
   return (
-    <CardWrap>
+    <>
       {beans.length ? (
         <CardsUL>
           {beans.map((bean) => (
@@ -31,8 +21,8 @@ export default function BeanCards({ beans, loginId, beanModal }) {
           ))}
         </CardsUL>
       ) : (
-        <div className='noCard'>해당하는 원두가 없습니다</div>
+        <NoDataWrap>해당하는 원두가 없습니다</NoDataWrap>
       )}
-    </CardWrap>
+    </>
   );
 }
