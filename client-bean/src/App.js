@@ -22,7 +22,6 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [renderModal, setRenderModal] = useState(false);
   const [loginId, setLoginId] = useState(null);
-
   const loginHandler = (data) => {
     if (data === null) return setIsLogin(!isLogin);
     setIsLogin(data);
@@ -59,6 +58,7 @@ function App() {
           loginHandler={loginHandler}
           loginId={loginId}
           saveLoginId={saveLoginId}
+          renderModal={renderModal}
         />
       )}
       <Routes>
@@ -68,10 +68,10 @@ function App() {
             <Main
               isLogin={isLogin}
               loginHandler={loginHandler}
-              renderModal={renderModal}
-              modalHandler={modalHandler}
               loginId={loginId}
               saveLoginId={saveLoginId}
+              modalHandler={modalHandler}
+              renderModal={renderModal}
             />
           }
         />

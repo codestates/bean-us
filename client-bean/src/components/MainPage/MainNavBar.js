@@ -21,25 +21,16 @@ const MainNav = styled(Nav)`
 
 const Img = styled.img``;
 
-export default function MainNavBar({
-  isLogin,
-  loginHandler,
-  modalHandler,
-  saveLoginId,
-  loginId,
-  renderModal,
-  main,
-}) {
+export default function MainNavBar({ isLogin, loginHandler, modalHandler, saveLoginId, loginId }) {
   return (
     <>
       <TopBar
         isLogin={isLogin}
-        modalHandler={modalHandler}
         loginHandler={loginHandler}
         loginId={loginId}
         saveLoginId={saveLoginId}
-        renderModal={renderModal}
-        main={main}
+        modalHandler={modalHandler}
+        main
       ></TopBar>
       <MainHeaderNone>
         <Link to='/' className='link'>

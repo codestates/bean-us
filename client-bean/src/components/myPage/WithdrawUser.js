@@ -47,6 +47,8 @@ const Container = styled.div`
   box-sizing: border-box;
   animation: ${slideUp} 0.25s ease-out;
   transition: all 0.5s;
+  border-radius: 20px;
+  background: #f9f9f9;
 `;
 
 const LineWrapper = styled.div`
@@ -74,6 +76,14 @@ const Input = styled.input`
   margin-left: 5px;
   width: 230px;
   height: 30px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 10px;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.8);
+  }
 `;
 
 const ValidMessage = styled.p`

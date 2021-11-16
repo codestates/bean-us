@@ -1,5 +1,5 @@
 import React from 'react';
-// import {useLocation} from 'react-router-dom';
+
 import SideBar from '../components/MainPage/SideBar';
 import Section1 from '../components/MainPage/Section/Section1';
 import Section2 from '../components/MainPage/Section/Section2';
@@ -17,14 +17,7 @@ const MainContainer = styled.div`
   overflow-x: hidden;
 `;
 
-export default function Main({
-  isLogin,
-  loginHandler,
-  renderModal,
-  modalHandler,
-  loginId,
-  saveLoginId,
-}) {
+export default function Main({ isLogin, loginHandler, loginId, saveLoginId, modalHandler }) {
   const { scrollY } = useScroll();
 
   return (

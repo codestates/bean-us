@@ -5,6 +5,7 @@ import { emailValidation } from '../../utils/validation';
 import { editMyEmail } from '../../network/myPage/myPage';
 import EditPassword from './EditPassword';
 import WithdrawUser from './WithdrawUser';
+import LoadingPage from '../../pages/LoadingPage';
 
 const InfoWrapper = styled.section`
   margin-top: 50px;
@@ -47,12 +48,15 @@ const EditButton = styled.button`
   margin-left: 30px;
   width: ${({ editEmail }) => (editEmail ? '70px' : '50px')};
   height: ${({ editEmail }) => (editEmail ? '35px' : '30px')};
-  background-color: ${({ theme }) => theme.color.lightBrown};
+  background-color: rgba(0, 0, 0, 0);
   border: none;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.5);
   margin-bottom: 20px;
+  font-weight: 500;
   &:hover {
     cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.5);
   }
   &:active {
     box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.5);
@@ -61,14 +65,20 @@ const EditButton = styled.button`
 
 const EditInput = styled.input`
   font-size: 25px;
-  font-weight: 600;
+  font-weight: 700;
   margin-left: 20px;
   margin-bottom: 20px;
   border: none;
+  border-radius: 10px;
+  height: 35px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
   padding: 2px 0 2px 10px;
   box-sizing: border-box;
   background: rgba(255, 255, 255, 0.6);
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+  }
 `;
 
 const ErrorMessage = styled.p`
@@ -85,19 +95,26 @@ const ButtonWrapper = styled.div`
 const Button = styled.button`
   width: 170px;
   height: 50px;
+  font-size: 20px;
   margin-left: ${({ margin }) => (margin ? '30px' : 'none')};
   background: rgba(255, 255, 255, 0.6);
   border: none;
+  border-radius: 10px;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+  transition: 0.2s;
+  font-weight: 500;
   &:hover {
     cursor: pointer;
+    color: #fff;
+    font-weight: 700;
+    background: rgba(160, 72, 6);
   }
   &:active {
     box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.3);
   }
 `;
 
-export default function MyInfo({ userId, email, social, editEmailReq, loginHandler }) {
+export default function MyInfo({ userId, email, social, editEmailReq, loginHandler, isLoading }) {
   const [editEmail, setEditEmail] = useState(false);
   const [newEmail, setNewEmail] = useState('');
   const [isValidEmail, setIsValidEmail] = useState('');
@@ -135,65 +152,71 @@ export default function MyInfo({ userId, email, social, editEmailReq, loginHandl
   };
 
   return (
-    <InfoWrapper>
-      <CoffeeImg src='asset/beans/bean1.jpg' alt='커피' />
-      <InfoBox>
-        <InfoLine>
-          <InfoTitle title='title'>아이디</InfoTitle>
-          <InfoContent>{userId}</InfoContent>
-        </InfoLine>
-        <InfoLine>
-          <InfoTitle title='title'>이메일</InfoTitle>
-          {editEmail ? (
-            <EditInput defaultValue={email} onChange={validTest}></EditInput>
-          ) : (
-            <InfoContent>{email}</InfoContent>
-          )}
-          {social === 'beanus' ? (
-            editEmail ? (
-              <>
-                <EditButton name='complete' editEmail={editEmail} onClick={editEmailHandler}>
-                  수정완료
-                </EditButton>
-                <EditButton name='cancle' editEmail={editEmail} onClick={editEmailHandler}>
-                  수정취소
-                </EditButton>
-              </>
-            ) : (
-              <EditButton onClick={editEmailClickHandler}>수정</EditButton>
-            )
-          ) : null}
-        </InfoLine>
-        <ErrorMessage>{isValidEmail}</ErrorMessage>
-        <ButtonWrapper>
-          {social === 'beanus' ? (
-            <>
-              <Button onClick={editPasswordClickHandler}>비밀번호 수정</Button>
-              <Button onClick={withdrawCilckHandler} margin='margin'>
-                회원 탈퇴
-              </Button>
-            </>
-          ) : (
-            <Button onClick={withdrawCilckHandler} oauth='oauth'>
-              회원 탈퇴
-            </Button>
-          )}
-        </ButtonWrapper>
-        {editPassword ? (
-          <EditPassword
-            userId={userId}
-            editPasswordClickHandler={editPasswordClickHandler}
-          ></EditPassword>
-        ) : null}
-        {withdraw ? (
-          <WithdrawUser
-            userId={userId}
-            withdrawCilckHandler={withdrawCilckHandler}
-            loginHandler={loginHandler}
-            social={social}
-          ></WithdrawUser>
-        ) : null}
-      </InfoBox>
-    </InfoWrapper>
+    <>
+      {isLoading ? (
+        <LoadingPage>정보를 가져오는 중이에요...</LoadingPage>
+      ) : (
+        <InfoWrapper>
+          <CoffeeImg src='asset/beans/bean1.jpg' alt='커피' />
+          <InfoBox>
+            <InfoLine>
+              <InfoTitle title='title'>아이디</InfoTitle>
+              <InfoContent>{userId}</InfoContent>
+            </InfoLine>
+            <InfoLine>
+              <InfoTitle title='title'>이메일</InfoTitle>
+              {editEmail ? (
+                <EditInput defaultValue={email} onChange={validTest}></EditInput>
+              ) : (
+                <InfoContent>{email}</InfoContent>
+              )}
+              {social === 'beanus' ? (
+                editEmail ? (
+                  <>
+                    <EditButton name='complete' editEmail={editEmail} onClick={editEmailHandler}>
+                      수정완료
+                    </EditButton>
+                    <EditButton name='cancle' editEmail={editEmail} onClick={editEmailHandler}>
+                      수정취소
+                    </EditButton>
+                  </>
+                ) : (
+                  <EditButton onClick={editEmailClickHandler}>수정</EditButton>
+                )
+              ) : null}
+            </InfoLine>
+            <ErrorMessage>{isValidEmail}</ErrorMessage>
+            <ButtonWrapper>
+              {social === 'beanus' ? (
+                <>
+                  <Button onClick={editPasswordClickHandler}>비밀번호 수정</Button>
+                  <Button onClick={withdrawCilckHandler} margin='margin'>
+                    회원 탈퇴
+                  </Button>
+                </>
+              ) : (
+                <Button onClick={withdrawCilckHandler} oauth='oauth'>
+                  회원 탈퇴
+                </Button>
+              )}
+            </ButtonWrapper>
+            {editPassword ? (
+              <EditPassword
+                userId={userId}
+                editPasswordClickHandler={editPasswordClickHandler}
+              ></EditPassword>
+            ) : null}
+            {withdraw ? (
+              <WithdrawUser
+                userId={userId}
+                withdrawCilckHandler={withdrawCilckHandler}
+                loginHandler={loginHandler}
+                social={social}
+              ></WithdrawUser>
+            ) : null}
+          </InfoBox>
+        </InfoWrapper>
+      )}
+    </>
   );
 }

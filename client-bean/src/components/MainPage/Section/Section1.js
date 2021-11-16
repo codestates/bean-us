@@ -41,7 +41,13 @@ const SectionIntroCnt = styled.div`
 export default function Section1({ isLogin, loginHandler, modalHandler, loginId, saveLoginId }) {
   return (
     <MainSection1>
-      <MainNavBar main />
+      <MainNavBar
+        isLogin={isLogin}
+        loginHandler={loginHandler}
+        loginId={loginId}
+        saveLoginId={saveLoginId}
+        modalHandler={modalHandler}
+      />
       <SectionIntroCnt>
         <img src='asset/mainpage/logowhite.png' alt='' className='logoimg' />
         <img src='asset/mainpage/coffeebeans.png' alt='' className='beanimg' />
