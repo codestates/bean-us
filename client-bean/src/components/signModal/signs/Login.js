@@ -11,7 +11,7 @@ import { loginReq } from '../../../network/sign/signApi';
 
 const ErrorMessage = styled.p`
   text-align: center;
-  margin: 3px 0 0 0;
+  margin: 3px 0 0 22px;
   font-size: 13px;
   color: #95673d;
 `;
@@ -108,7 +108,7 @@ export default function Login({ modalHandler, renderSignupHandler, loginHandler,
       <InputLine name='password' title='비밀번호' type='password' inputHandler={inputHandler} />
       <ErrorMessage>{loginError}</ErrorMessage>
       <SignButton
-        leftBtn='회원가입?'
+        leftBtn='회원가입 하기'
         rightBtn='로그인'
         leftBtnHandler={renderSignupHandler}
         rightBtnHandler={btnLoginClick}

@@ -14,6 +14,7 @@ import PostsView from './pages/PostsView';
 import PostsCreate from './pages/PostsCreate';
 import KakaoCallback from './pages/KakaoCallback';
 import GithubCallback from './pages/GithubCallback';
+import SignModal from './components/signModal/SignModal';
 
 import { checkToken } from './network/sign/checkToken';
 
@@ -28,6 +29,7 @@ function App() {
   };
 
   const modalHandler = () => {
+    console.log('handle');
     setRenderModal(!renderModal);
   };
 
@@ -51,7 +53,7 @@ function App() {
   return (
     <>
       {location.pathname === '/' || location.pathname === '/posts/create' ? null : (
-        <TopBar
+        <NavBar
           isLogin={isLogin}
           modalHandler={modalHandler}
           loginHandler={loginHandler}
@@ -59,7 +61,6 @@ function App() {
           saveLoginId={saveLoginId}
         />
       )}
-      {location.pathname === '/' || location.pathname === '/posts/create' ? null : <NavBar />}
       <Routes>
         <Route
           path='/'
@@ -136,6 +137,14 @@ function App() {
           }
         />
       </Routes>
+      {renderModal ? (
+        <SignModal
+          isLogin={isLogin}
+          modalHandler={modalHandler}
+          saveLoginId={saveLoginId}
+          loginHandler={loginHandler}
+        />
+      ) : null}
     </>
   );
 }

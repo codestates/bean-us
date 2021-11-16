@@ -6,20 +6,16 @@ import BeanSearch from '../components/beans/BeanSearch';
 import BeanCardModal from '../components/beans/beanModal/BeanCardModal';
 import { getAllBeans } from '../network/beans/http';
 import { TopFrame } from '../styles/basicFrame/TopFrame';
-import SignModal from '../components/signModal/SignModal';
 import useBeanModal from '../hooks/useBeanModal';
 import { useLoading } from '../hooks/useLoading';
 import LoadingPage from './LoadingPage';
 
-export default function Beans({
-  isLogin,
-  loginHandler,
-  renderModal,
-  modalHandler,
-  saveLoginId,
-  loginId,
-}) {
-  const [beans, isLoading, setBeans] = useLoading([], getAllBeans(), loginId);
+//db
+// import { Beandb } from '../db/beandb';
+
+export default function Beans({ loginId }) {
+  const [beans, isLoading, setBeans] = useLoading([], getAllBeans());
+  console.log('beans', beans, isLoading);
   const [openModal, cardBeanInfo, cardPostInfo, beanModal, closeModal] = useBeanModal(beans);
 
   const getBeanCards = (res) => {
@@ -42,14 +38,6 @@ export default function Beans({
               closeModal={closeModal}
             />
           )}
-          {renderModal ? (
-            <SignModal
-              isLogin={isLogin}
-              modalHandler={modalHandler}
-              saveLoginId={saveLoginId}
-              loginHandler={loginHandler}
-            />
-          ) : null}
         </TopFrame>
       )}
     </>

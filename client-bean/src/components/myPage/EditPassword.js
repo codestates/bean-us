@@ -1,4 +1,3 @@
-/*eslint-disable no-unused-vars*/
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
