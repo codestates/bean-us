@@ -46,7 +46,8 @@ const LinkButton = styled.button`
   line-height: 1.7;
   font-weight: 600;
   font-size: 23px;
-  transition: 0.1s;
+  font-family: 'Cafe24Ohsquareair';
+  transition: 0.2s;
   color: #000;
   box-shadow: ${({ clicked }) => (clicked ? `0 3px 8px 2px ${lightGreen}` : 'none')};
   &:hover {

@@ -13,6 +13,8 @@ const MainNav = styled(Nav)`
   background-color: rgba(0, 0, 0, 0);
   > .link {
     color: #e67700;
+    font-size: 23px;
+    font-family: 'Cafe24Oneprettynight';
     &:hover {
       background-color: grey;
     }

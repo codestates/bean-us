@@ -38,8 +38,7 @@ export const Background = styled.div`
 `;
 
 const Container = styled.div`
-  width: 468px;
-  height: 350px;
+  width: 450px;
   padding: 15px 0 0 25px;
   background-color: #eee;
   position: relative;
@@ -58,6 +57,8 @@ const LineWrapper = styled.div`
 
 const P = styled.p`
   width: 120px;
+  font-size: 17px;
+  font-family: 'BMHANNAAir';
 `;
 
 const Input = styled.input`
@@ -80,6 +81,12 @@ const ValidMessage = styled.p`
   color: #95673d;
 `;
 
+const ErrorMessage = styled.p`
+  margin-top: 16px;
+  text-align: center;
+  color: #956739;
+`;
+
 export default function EditPassword({ userId, editPasswordClickHandler }) {
   const [curPwd, setCurPwd] = useState('');
   const [newPwd, setNewPwd] = useState('');
@@ -88,6 +95,8 @@ export default function EditPassword({ userId, editPasswordClickHandler }) {
   const [checkPassword, setCheckPassword] = useState('');
 
   const [isMatchedPassword, setIsMatchedPassword] = useState('');
+
+  const [isValidRequest, setIsValidRequest] = useState('');
 
   const inputHandler = (e) => {
     if (e.target.name === 'curPwd') {
@@ -112,14 +121,18 @@ export default function EditPassword({ userId, editPasswordClickHandler }) {
   };
 
   const editPassword = () => {
-    passwordChange(userId, curPwd, newPwd).then((res) => {
-      if (res.data.data) {
-        editPasswordClickHandler();
-        alert(res.data.message);
-      } else {
-        setIsMatchedPassword(res.data.message);
-      }
-    });
+    if (isValidPassword === '' && checkPassword === '비밀번호가 일치합니다') {
+      passwordChange(userId, curPwd, newPwd).then((res) => {
+        if (res.data.data) {
+          editPasswordClickHandler();
+          alert(res.data.message);
+        } else {
+          setIsMatchedPassword(res.data.message);
+        }
+      });
+    } else {
+      setIsValidRequest('형식에 맞추어 작성해주세요');
+    }
   };
 
   return (
@@ -141,8 +154,10 @@ export default function EditPassword({ userId, editPasswordClickHandler }) {
           <Input name='newPwdCheck' onChange={inputHandler} type='password'></Input>
         </LineWrapper>
         <ValidMessage>{checkPassword}</ValidMessage>
+        <ErrorMessage>{isValidRequest}</ErrorMessage>
         <SignButton
           marginLeft='45px'
+          marginBottom='40px'
           marginTop='20px'
           leftBtn='비밀번호 변경 취소'
           rightBtn='비밀번호 변경'

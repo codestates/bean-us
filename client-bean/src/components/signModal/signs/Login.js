@@ -11,7 +11,8 @@ import { loginReq } from '../../../network/sign/signApi';
 
 const ErrorMessage = styled.p`
   text-align: center;
-  margin: 3px 0 0 22px;
+  margin: 3px 0 0 25px;
+  font-family: 'NotoSans';
   font-size: 13px;
   color: #95673d;
 `;
@@ -58,7 +59,9 @@ const GuthubImg = styled.img`
 const GithubP = styled.p`
   margin-left: 78px;
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'NotoSans';
 `;
 
 export default function Login({ modalHandler, renderSignupHandler, loginHandler, saveLoginId }) {

@@ -20,6 +20,7 @@ const P = styled.p`
   align-items: center;
   justify-content: center;
   font-size: 50px;
+  font-family: 'Cafe24Ohsquareair';
   font-weight: 600;
   margin-top: 40px;
 `;

@@ -1,0 +1,63 @@
+/** 한글 기본 폰트 */
+@font-face {
+  font-family: 'BMHANNAAir';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
+    format('woff');
+  font-weight: 400;
+  font-display: fallback;
+  font-style: normal;
+}
+
+/** 영어 기본 폰트 + 한글 에러 메시지, 해시태그와 같이 폰트 크기가 작은 글에 적용 */
+@font-face {
+  font-family: 'NotoSans';
+  src: url('./NotoSansKR-Regular.otf') format('truetype');
+  font-weight: 400;
+  font-display: fallback;
+  font-style: normal;
+}
+
+/** 기본 폰트에서 서예 느낌 => NavBar */
+@font-face {
+  font-family: 'Cafe24Oneprettynight';
+  src: url('./Cafe24Oneprettynight.ttf') format('truetype');
+  font-weight: 400;
+  font-display: fallback;
+  font-style: normal;
+}
+
+/** 기본 폰트에서 날카로운 느낌 => TopBar(로그인-로그아웃 버튼)*/
+@font-face {
+  font-family: 'Cafe24Simplehae';
+  src: url('./Cafe24Simplehae.ttf') format('truetype');
+  font-weight: 400;
+  font-display: fallback;
+  font-style: normal;
+}
+
+/** 영어로된 큰 타이틀(h1~h2)에 적용, 한글 타이틀은 밑에 것과 비교해볼 것*/
+@font-face {
+  font-family: 'BMHANNAPro';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff')
+    format('woff');
+  font-weight: 400;
+  font-display: fallback;
+  font-style: normal;
+}
+
+/** 한글로된 큰 타이틀(h1~h2)에 적용 */
+@font-face {
+  font-family: 'Cafe24Ohsquareair';
+  src: url('./Cafe24Ohsquareair.ttf') format('truetype');
+  font-weight: 400;
+  font-display: fallback;
+}
+
+/** 이건 좀 둥글둥글한 고딕 느낌. h3~4 같은 거에 넣으면 좋음. 영어는 제외 */
+@font-face {
+  font-family: 'Cafe24SsurroundAir';
+  src: url('./Cafe24SsurroundAir.ttf') format('truetype');
+  font-weight: 400;
+  font-display: fallback;
+  font-style: normal;
+}

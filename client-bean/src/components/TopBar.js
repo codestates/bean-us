@@ -14,10 +14,12 @@ const LoginBtn = styled.button`
   width: 110px;
   height: 20px;
   background: none;
+  font-family: 'Cafe24Simplehae';
   border: none;
   cursor: pointer;
   font-weight: 500;
   font-size: 15px;
+  text-shadow: ${({ main }) => (main ? '0 0 10px #000' : 'none')};
   color: ${({ main }) => (main ? '#fff' : '#000')};
   color: ${({ renderModal }) => renderModal && '#fff'};
   z-index: 10;
@@ -31,6 +33,7 @@ const LogoutBtn = styled.button`
   width: 60px;
   height: 20px;
   background: none;
+  font-family: 'Cafe24Simplehae';
   font-weight: 500;
   padding: 4px;
   border: none;
@@ -48,6 +51,7 @@ const Greeting = styled.span`
   display: flex;
   align-items: center;
   font-size: 13px;
+  font-family: 'Cafe24Simplehae';
   font-weight: 500;
   padding: 0 10px 0 0;
   color: ${({ main }) => (main ? '#fff' : '#000')};

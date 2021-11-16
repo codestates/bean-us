@@ -33,7 +33,9 @@ export const Nav = styled.nav`
     flex: none;
     text-decoration: none;
     color: black;
-    font-weight: 500;
+    font-weight: 700;
+    font-size: 23px;
+    font-family: 'Cafe24Oneprettynight';
     box-sizing: border-box;
     text-align: center;
     &:hover {

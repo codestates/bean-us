@@ -1,13 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Input = styled.input`
-  width: ${({ checkId }) => (checkId === 'true' ? '170px' : '250px')};
+  width: ${({ checkId }) => (checkId ? '170px' : '250px')};
   height: 35px;
+  ${({ type }) =>
+    type === 'text' &&
+    css`
+      font-size: 16px;
+      font-family: 'Cafe24Simplehae';
+    `}
   border: none;
+  padding: 10px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
+  box-sizing: border-box;
   &:focus {
     outline: none;
     box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.8);
@@ -20,6 +28,7 @@ const CheckIdBtn = styled.button`
   height: 35px;
   border: none;
   border-radius: 10px;
+  font-family: 'BMHANNAAir';
   font-size: 13px;
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
@@ -44,8 +53,8 @@ export const Wrapper = styled.div`
 
 const P = styled.p`
   margin-right: 15px;
-  width: ${({ signup }) => (signup === 'true' ? '100px' : '60px')};
-  font-size: 16px;
+  width: ${({ signup }) => (signup ? '100px' : '60px')};
+  font-family: 'BMHANNAAir';
 `;
 
 export default function InputLine({
@@ -76,6 +85,5 @@ export default function InputLine({
 }
 
 Input.defaultProps = {
-  signup: 'false',
-  checkId: 'false',
+  type: 'text',
 };
