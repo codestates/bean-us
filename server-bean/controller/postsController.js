@@ -62,14 +62,14 @@ module.exports = {
           bean['postId'] = postId;
         }
 
-        postBean.bulkCreate(beanList).then(postBeans => {
+        postBean.bulkCreate(beanList).then((postBeans) => {
           const post = result.dataValues;
           delete post.id;
           delete post.updatedAt;
 
           let beanList = [];
-  
-          for(let beanItem of [...postBeans]){
+
+          for (let beanItem of [...postBeans]) {
             delete beanItem.dataValues.id;
             delete beanItem.dataValues.createdAt;
             delete beanItem.dataValues.updatedAt;
@@ -77,24 +77,70 @@ module.exports = {
           }
 
           res.status(201).json({
-            message: '게시글이 수정되었습니다.',
+            message: '게시글이 등록되었습니다.',
             post,
-            beanList
+            beanList,
           });
         });
       });
-    });
+  },
+
+  updatePost: (req, res) => {
+    const { postId, title, content, water, waterTemp, beanList } = req.body;
+    post
+      .findOne({
+        where: { postId },
+      })
+      .then((result) => {
+        result
+          .update({
+            title,
+            content,
+            water,
+            waterTemp,
+          })
+          .then(async (result) => {
+            await postBean.destroy({
+              where: { postId },
+            });
+
+            for (let bean of beanList) {
+              bean['postId'] = postId;
+            }
+
+            postBean.bulkCreate(beanList).then((postBeans) => {
+              const post = result.dataValues;
+              delete post.id;
+              delete post.updatedAt;
+
+              let beanList = [];
+
+              for (let beanItem of [...postBeans]) {
+                delete beanItem.dataValues.id;
+                delete beanItem.dataValues.createdAt;
+                delete beanItem.dataValues.updatedAt;
+                beanList = [...beanList, beanItem.dataValues];
+              }
+
+              res.status(201).json({
+                message: '게시글이 수정되었습니다.',
+                post,
+                beanList,
+              });
+            });
+          });
+      });
   },
 
   deletePost: async (req, res) => {
-    const {postId} = req.body;
+    const { postId } = req.body;
 
     await post.destroy({
-      where: {postId}
+      where: { postId },
     });
 
     await postBean.destroy({
-      where: {postId}
+      where: { postId },
     });
 
     res.status(200).json({
@@ -104,27 +150,27 @@ module.exports = {
 
   findAllPost: async (req, res) => {
     const postList = await post.findAll({
-      raw: true
+      raw: true,
     });
     const postbeanList = await postBean.findAll({
       raw: true,
-      attributes: ['postId', 'beanId']
+      attributes: ['postId', 'beanId'],
     });
     const beanList = await beanInfo.findAll({
       raw: true,
-      attributes: ['beanId', 'beanName']
+      attributes: ['beanId', 'beanName'],
     });
 
-    for(let postIdx of postList){
+    for (let postIdx of postList) {
       delete postIdx.id;
       delete postIdx.updatedAt;
 
       const beans = [];
-      for(let postBeanIdx of postbeanList){
-        if(postIdx['postId'] === postBeanIdx['postId']){
-          for(let beanIdx of beanList){
-            if(postBeanIdx['beanId'] === beanIdx['beanId']){
-              beans.push({beanId: beanIdx['beanId'], beanName: beanIdx['beanName']});
+      for (let postBeanIdx of postbeanList) {
+        if (postIdx['postId'] === postBeanIdx['postId']) {
+          for (let beanIdx of beanList) {
+            if (postBeanIdx['beanId'] === beanIdx['beanId']) {
+              beans.push({ beanId: beanIdx['beanId'], beanName: beanIdx['beanName'] });
               break;
             }
           }
@@ -136,7 +182,7 @@ module.exports = {
 
     res.status(200).json({
       message: 'success',
-      postList
+      postList,
     });
   },
 
@@ -161,7 +207,6 @@ module.exports = {
     }
     
     postOne.dataValues['beans'] = beans;
-
     res.status(200).json({
       post: postOne,
     });
@@ -181,23 +226,23 @@ module.exports = {
     });
     const postbeanList = await postBean.findAll({
       raw: true,
-      attributes: ['postId', 'beanId']
+      attributes: ['postId', 'beanId'],
     });
     const beanList = await beanInfo.findAll({
       raw: true,
-      attributes: ['beanId', 'beanName']
+      attributes: ['beanId', 'beanName'],
     });
 
-    for(let postIdx of postList){
+    for (let postIdx of postList) {
       delete postIdx.id;
       delete postIdx.updatedAt;
 
       const beans = [];
-      for(let postBeanIdx of postbeanList){
-        if(postIdx['postId'] === postBeanIdx['postId']){
-          for(let beanIdx of beanList){
-            if(postBeanIdx['beanId'] === beanIdx['beanId']){
-              beans.push({beanId: beanIdx['beanId'], beanName: beanIdx['beanName']});
+      for (let postBeanIdx of postbeanList) {
+        if (postIdx['postId'] === postBeanIdx['postId']) {
+          for (let beanIdx of beanList) {
+            if (postBeanIdx['beanId'] === beanIdx['beanId']) {
+              beans.push({ beanId: beanIdx['beanId'], beanName: beanIdx['beanName'] });
               break;
             }
           }
@@ -269,10 +314,7 @@ module.exports = {
   updatePostComment: (req, res) => {
     const {commentId, comment} = req.body;
 
-    postComment.update(
-      {comment},
-      {where: {commentId}}
-    ).then(() => {
+    postComment.update({ comment }, { where: { commentId } }).then(() => {
       res.status(200).json({
         message: '댓글이 수정 되었습니다.',
       });
@@ -280,9 +322,9 @@ module.exports = {
   },
 
   deletePostComment: (req, res) => {
-    const {commentId} = req.body;
+    const { commentId } = req.body;
 
-    postComment.destroy({where: {commentId}}).then(() => {
+    postComment.destroy({ where: { commentId } }).then(() => {
       res.status(200).json({
         message: '댓글이 삭제 되었습니다.',
       });

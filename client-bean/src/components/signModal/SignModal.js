@@ -27,7 +27,7 @@ export const Background = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,7 +54,8 @@ const SignWrapper = styled.section`
     }
   }}
   position: relative;
-  background: #eee;
+  border-radius: 20px;
+  background: #f9f9f9;
   box-sizing: border-box;
   animation: ${slideUp} 0.25s ease-out;
   transition: all 0.5s;
@@ -72,6 +73,8 @@ const LoginImg = styled.img`
   margin-left: 30px;
   width: 300px;
   height: 450px;
+
+  border-radius: 0 20px 20px 0;
 `;
 
 const FlexWrapper = styled.div`

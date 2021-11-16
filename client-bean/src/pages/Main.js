@@ -7,7 +7,6 @@ import Section3 from '../components/MainPage/Section/Section3';
 import styled from 'styled-components';
 import Footer from '../components/MainPage/Footer/Footer';
 import useScroll from '../components/MainPage/useScroll';
-import SignModal from '../components/signModal/SignModal';
 
 const MainContainer = styled.div`
   display: flex;
@@ -42,14 +41,6 @@ export default function Main({
       <Section2 scrollY={scrollY} />
       <Section3 scrollY={scrollY} />
       <Footer />
-      {renderModal ? (
-        <SignModal
-          isLogin={isLogin}
-          modalHandler={modalHandler}
-          loginHandler={loginHandler}
-          saveLoginId={saveLoginId}
-        />
-      ) : null}
     </MainContainer>
   );
 }
