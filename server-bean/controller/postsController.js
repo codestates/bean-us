@@ -225,7 +225,7 @@ module.exports = {
     const postList = await post.findAll({
       raw: true,
       where: paramWhere,
-      order: ['createdAt', 'DESC']
+      order: [['createdAt', 'DESC']]
     });
     const postbeanList = await postBean.findAll({
       raw: true,

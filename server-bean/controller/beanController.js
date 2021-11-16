@@ -136,7 +136,7 @@ module.exports = {
     const postBeans = await postBean.findAll({
       raw: true,
       where: { beanId: req.query['bean-id'] },
-      order: ['createdAt', 'DESC'],
+      order: [['createdAt', 'DESC']],
     });
 
     const postWhere = { [Op.or]: [] };
