@@ -83,53 +83,50 @@ module.exports = {
           });
         });
       });
+    });
   },
 
   updatePost: (req, res) => {
     const { postId, title, content, water, waterTemp, beanList } = req.body;
-    post
-      .findOne({
-        where: { postId },
-      })
-      .then((result) => {
-        result
-          .update({
-            title,
-            content,
-            water,
-            waterTemp,
-          })
-          .then(async (result) => {
-            await postBean.destroy({
-              where: { postId },
-            });
+    post.findOne({
+      where: { postId },
+    }).then((result) => {
+      result.update({
+        title,
+        content,
+        water,
+        waterTemp,
+      }).then(async (result) => {
+        await postBean.destroy({
+          where: { postId },
+        });
 
-            for (let bean of beanList) {
-              bean['postId'] = postId;
-            }
+        for (let bean of beanList) {
+          bean['postId'] = postId;
+        }
 
-            postBean.bulkCreate(beanList).then((postBeans) => {
-              const post = result.dataValues;
-              delete post.id;
-              delete post.updatedAt;
+        postBean.bulkCreate(beanList).then((postBeans) => {
+          const post = result.dataValues;
+          delete post.id;
+          delete post.updatedAt;
 
-              let beanList = [];
+          let beanList = [];
 
-              for (let beanItem of [...postBeans]) {
-                delete beanItem.dataValues.id;
-                delete beanItem.dataValues.createdAt;
-                delete beanItem.dataValues.updatedAt;
-                beanList = [...beanList, beanItem.dataValues];
-              }
+          for (let beanItem of [...postBeans]) {
+            delete beanItem.dataValues.id;
+            delete beanItem.dataValues.createdAt;
+            delete beanItem.dataValues.updatedAt;
+            beanList = [...beanList, beanItem.dataValues];
+          }
 
-              res.status(201).json({
-                message: '게시글이 수정되었습니다.',
-                post,
-                beanList,
-              });
-            });
+          res.status(201).json({
+            message: '게시글이 수정되었습니다.',
+            post,
+            beanList,
           });
+        });
       });
+    });
   },
 
   deletePost: async (req, res) => {
@@ -151,6 +148,7 @@ module.exports = {
   findAllPost: async (req, res) => {
     const postList = await post.findAll({
       raw: true,
+      order: [['createdAt', 'DESC']]
     });
     const postbeanList = await postBean.findAll({
       raw: true,
@@ -213,16 +211,21 @@ module.exports = {
   },
 
   findByParams: async (req, res) => {
-    const {title} = req.query;
+    const {title, userId} = req.query;
     const paramWhere = {};
 
     if(title){
       paramWhere['title'] = {[Op.like]: `%${title}%`};
     }
 
+    if(userId){
+      paramWhere['userId'] = userId;
+    }
+
     const postList = await post.findAll({
       raw: true,
       where: paramWhere,
+      order: [['createdAt', 'DESC']]
     });
     const postbeanList = await postBean.findAll({
       raw: true,
@@ -276,7 +279,8 @@ module.exports = {
     const commentAll = await postComment.findAll({
       raw: true,
       attributes: ['userId', 'commentId', 'comment', 'createdAt'],
-      where:{postId}
+      where:{postId},
+      order: [['createdAt', 'DESC']]
     })
 
     const beanRatio = {};
@@ -295,11 +299,11 @@ module.exports = {
     const accessTokenInfo = isAuthorized(req);
     if(!accessTokenInfo){
       res.status(400).json({
-        message: '로그인이 되어있지 않습니다.',
+        message: '로그인이 되어 있지 않습니다.',
       });
     }
 
-    const {postId, comment} = req.body;
+    const {postId, comment} = req.body.data;
     const buildComment = await postComment.build({postId, userId: accessTokenInfo.userId, comment});
     const lastComment = await postComment.findOne({order:[['commentId', 'DESC']]});
 
@@ -308,24 +312,42 @@ module.exports = {
 
     res.status(200).json({
       message: '댓글이 등록 되었습니다.',
+      userId: buildComment.userId,
+      commentId: buildComment.commentId,
+      comment: buildComment.comment,
+      createdAt: buildComment.createdAt,
     });
   },
 
   updatePostComment: (req, res) => {
-    const {commentId, comment} = req.body;
+    const accessTokenInfo = isAuthorized(req);
+    if(!accessTokenInfo){
+      res.status(400).json({
+        message: '로그인이 되어 있지 않습니다.',
+      });
+    }
+
+    const {commentId, comment} = req.body.data;
 
     postComment.update({ comment }, { where: { commentId } }).then(() => {
-      res.status(200).json({
+      res.status(204).json({
         message: '댓글이 수정 되었습니다.',
       });
     });
   },
 
   deletePostComment: (req, res) => {
+    const accessTokenInfo = isAuthorized(req);
+    if(!accessTokenInfo){
+      res.status(400).json({
+        message: '로그인이 되어 있지 않습니다.',
+      });
+    }
+
     const { commentId } = req.body;
 
     postComment.destroy({ where: { commentId } }).then(() => {
-      res.status(200).json({
+      res.status(204).json({
         message: '댓글이 삭제 되었습니다.',
       });
     });
