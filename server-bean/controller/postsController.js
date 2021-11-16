@@ -148,7 +148,7 @@ module.exports = {
   findAllPost: async (req, res) => {
     const postList = await post.findAll({
       raw: true,
-      order: ['createdAt', 'DESC']
+      order: [['createdAt', 'DESC']]
     });
     const postbeanList = await postBean.findAll({
       raw: true,
@@ -212,10 +212,15 @@ module.exports = {
 
   findByParams: async (req, res) => {
     const {title} = req.query;
+    const accessTokenInfo = isAuthorized(req);
     const paramWhere = {};
 
     if(title){
       paramWhere['title'] = {[Op.like]: `%${title}%`};
+    }
+
+    if(accessTokenInfo){
+      paramWhere['userId'] = {}
     }
 
     const postList = await post.findAll({
@@ -276,7 +281,7 @@ module.exports = {
       raw: true,
       attributes: ['userId', 'commentId', 'comment', 'createdAt'],
       where:{postId},
-      order: ['createdAt', 'DESC']
+      order: [['createdAt', 'DESC']]
     })
 
     const beanRatio = {};
