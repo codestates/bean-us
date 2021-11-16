@@ -83,53 +83,50 @@ module.exports = {
           });
         });
       });
+    });
   },
 
   updatePost: (req, res) => {
     const { postId, title, content, water, waterTemp, beanList } = req.body;
-    post
-      .findOne({
-        where: { postId },
-      })
-      .then((result) => {
-        result
-          .update({
-            title,
-            content,
-            water,
-            waterTemp,
-          })
-          .then(async (result) => {
-            await postBean.destroy({
-              where: { postId },
-            });
+    post.findOne({
+      where: { postId },
+    }).then((result) => {
+      result.update({
+        title,
+        content,
+        water,
+        waterTemp,
+      }).then(async (result) => {
+        await postBean.destroy({
+          where: { postId },
+        });
 
-            for (let bean of beanList) {
-              bean['postId'] = postId;
-            }
+        for (let bean of beanList) {
+          bean['postId'] = postId;
+        }
 
-            postBean.bulkCreate(beanList).then((postBeans) => {
-              const post = result.dataValues;
-              delete post.id;
-              delete post.updatedAt;
+        postBean.bulkCreate(beanList).then((postBeans) => {
+          const post = result.dataValues;
+          delete post.id;
+          delete post.updatedAt;
 
-              let beanList = [];
+          let beanList = [];
 
-              for (let beanItem of [...postBeans]) {
-                delete beanItem.dataValues.id;
-                delete beanItem.dataValues.createdAt;
-                delete beanItem.dataValues.updatedAt;
-                beanList = [...beanList, beanItem.dataValues];
-              }
+          for (let beanItem of [...postBeans]) {
+            delete beanItem.dataValues.id;
+            delete beanItem.dataValues.createdAt;
+            delete beanItem.dataValues.updatedAt;
+            beanList = [...beanList, beanItem.dataValues];
+          }
 
-              res.status(201).json({
-                message: '게시글이 수정되었습니다.',
-                post,
-                beanList,
-              });
-            });
+          res.status(201).json({
+            message: '게시글이 수정되었습니다.',
+            post,
+            beanList,
           });
+        });
       });
+    });
   },
 
   deletePost: async (req, res) => {
