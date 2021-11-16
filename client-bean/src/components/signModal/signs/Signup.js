@@ -1,14 +1,10 @@
-/* eslint-disable no-unused-vars */
-
-// package
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// component
+
 import { H2 } from '../../../styles/signs/SignTitle';
 import InputLine from '../../../styles/signs/InputLine';
-import SignButton, { Button } from '../../../styles/signs/SignButton';
+import SignButton from '../../../styles/signs/SignButton';
 
-// functions
 import { signupReq, checkIdReq } from '../../../network/sign/signApi';
 import { idValidation, passwordValidation, emailValidation } from '../../../utils/validation';
 
@@ -147,7 +143,7 @@ export default function Signup({ renderSignupHandler }) {
       <ValidMessage>{isValidEmail}</ValidMessage>
       <ReqErrorMessage>{signupError}</ReqErrorMessage>
       <SignButton
-        leftBtn='로그인?'
+        leftBtn='로그인 하기'
         rightBtn='회원가입'
         leftBtnHandler={renderSignupHandler}
         rightBtnHandler={btnSignupClick}

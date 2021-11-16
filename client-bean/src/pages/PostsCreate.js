@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import CancelModal from '../components/postsCreate/postsCreateModal/CancelModal';
 import Slide1 from '../components/postsCreate/Slide1';
@@ -39,7 +39,7 @@ const PageTitle = styled.div`
 const SlideFrame = styled.div`
   width: 1000px;
   height: 70vh;
-  background: rgba(255,255,255,0.4);
+  background: rgba(255, 255, 255, 0.4);
   margin-top: 10px;
   position: relative;
   overflow-y: hidden;
@@ -53,7 +53,6 @@ const SlideFrame = styled.div`
 //state관리(title, photo, beans, ratio, water, temp)
 function PostsCreate() {
 	let navigate = useNavigate();
-
   // useEffect(() => {
   //   getBeans().then((res) => {
   //     setBeans(res)
@@ -102,7 +101,6 @@ function PostsCreate() {
     ])
   }, [])
 
-
   const slideRef = useRef([]);
   //-----상태관리-----
   // 모달
@@ -115,10 +113,10 @@ function PostsCreate() {
     water: 0,
     waterTemp: 0,
     imgFile: null,
-    beanList: []
-  })
+    beanList: [],
+  });
 
-	// sldie props(값 연결해주려고 만든 상태들)
+  // sldie props(값 연결해주려고 만든 상태들)
   const [beans, setBeans] = useState([]);
 
   const [value, setvalue] = useState([]); //input value
@@ -130,21 +128,21 @@ function PostsCreate() {
   // 이전 위치로 가는 이벤트
   const slideScrollNext = (n) => {
     slideRef.current[n].scrollIntoView({ behavior: 'smooth' });
-  }
+  };
 
   // 다음 위치로 가는 이벤트
   const slideScrollPost = (n) => {
     slideRef.current[n].scrollIntoView({ behavior: 'smooth' });
-  }
+  };
 
   //취소버튼 클릭시 모달
   const openModal = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const closeModal = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   //게시글 생성
   const createPost = () => {
@@ -156,56 +154,48 @@ function PostsCreate() {
 
   //slide3 drop박스 클릭
   const handleClick = (e) => {
-		console.log(value)
-    setvalue([
-      ...value,
-      e.target.getAttribute('value')
-    ])
+    console.log(value);
+    setvalue([...value, e.target.getAttribute('value')]);
     setInputs({
       ...inputs,
-      beanList : [
-			...inputs.beanList,
-      { beanId: Number(e.target.getAttribute('id'))}
-      ]
-    })
-  }
+      beanList: [...inputs.beanList, { beanId: Number(e.target.getAttribute('id')) }],
+    });
+  };
 
   //slide input 상태관리핸들러
   const handleInputChange = (e) => {
     const { value, name } = e.target;
-		if(name === 'rate') {
-			inputs.beanList[e.target.getAttribute('bean')] = {
-				...inputs.beanList[e.target.getAttribute('bean')],
-				rate: Number(value)
-			}
-			setInputs({
-				...inputs,
-				beanList: [
-					...inputs.beanList,
-				]
-		})
-		} else if(e.target.files) {
+    if (name === 'rate') {
+      inputs.beanList[e.target.getAttribute('bean')] = {
+        ...inputs.beanList[e.target.getAttribute('bean')],
+        rate: Number(value),
+      };
+      setInputs({
+        ...inputs,
+        beanList: [...inputs.beanList],
+      });
+    } else if (e.target.files) {
       const formData = new FormData();
       formData.append('file', e.target.files[0]);
       setInputs({
         ...inputs,
-        [name] : formData
-      })
+        [name]: formData,
+      });
     } else {
-			setInputs({
-				...inputs, 
-				[name]: value
-			})
-		}
-		console.log(inputs)
-  }
+      setInputs({
+        ...inputs,
+        [name]: value,
+      });
+    }
+    console.log(inputs);
+  };
   // slide 안에 들어가야 할 input이 다 달라서... map함수를 쓸 수가 없다..
   // 정말 이게 최선인지 더 고민해볼것
-  return(
+  return (
     <PostCreateCnt>
-      {isOpen ? <CancelModal closeModal={closeModal}/> : null}
+      {isOpen ? <CancelModal closeModal={closeModal} /> : null}
       <BorderFrame width='1000px' height='70px' padding='10px'>
-      <PageTitle>게시글 작성</PageTitle>
+        <PageTitle>게시글 작성</PageTitle>
       </BorderFrame>
       <SlideFrame>
         <div ref={el => (slideRef.current[0] = el)}>
@@ -217,15 +207,15 @@ function PostsCreate() {
 					postInfo={postInfo}
           />
         </div>
-        <div ref={el => (slideRef.current[1] = el)}>
+        <div ref={(el) => (slideRef.current[1] = el)}>
           <Slide2
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
 					postInfo={postInfo}
           />
-          </div>
-          <div ref={el => (slideRef.current[2] = el)}>
+        </div>
+        <div ref={(el) => (slideRef.current[2] = el)}>
           <Slide3
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
@@ -236,7 +226,7 @@ function PostsCreate() {
 					postInfo={postInfo}
           />
         </div>
-        <div ref={el => (slideRef.current[3] = el)}>
+        <div ref={(el) => (slideRef.current[3] = el)}>
           <Slide4
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
@@ -245,7 +235,7 @@ function PostsCreate() {
 					postInfo={postInfo}
           />
         </div>
-        <div ref={el => (slideRef.current[4] = el)}>
+        <div ref={(el) => (slideRef.current[4] = el)}>
           <Slide5
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
@@ -253,7 +243,7 @@ function PostsCreate() {
 					postInfo={postInfo}
           />
         </div>
-        <div ref={el => (slideRef.current[5] = el)}>
+        <div ref={(el) => (slideRef.current[5] = el)}>
           <Slide6
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
@@ -261,7 +251,7 @@ function PostsCreate() {
 					postInfo={postInfo}
           />
         </div>
-        <div ref={el => (slideRef.current[6] = el)}>
+        <div ref={(el) => (slideRef.current[6] = el)}>
           <Slide7
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
@@ -272,17 +262,19 @@ function PostsCreate() {
       </SlideFrame>
       <Wrapper height='60px'>
         {/* 필수요소들이 채워지면 게시버튼이 생김 */}
-        {
-        inputs.title && 
-        inputs.beanList.length === value.length && 
-        inputs.water && 
-				inputs.waterTemp &&
-        inputs.content ? 
-        <Button width='55px' height='35px' margin='5px' padding='2px' onClick={createPost}>게시</Button>
-        : null
-      }
+        {inputs.title &&
+        inputs.beanList.length === value.length &&
+        inputs.water &&
+        inputs.waterTemp &&
+        inputs.content ? (
+          <Button width='55px' height='35px' margin='5px' padding='2px' onClick={createPost}>
+            게시
+          </Button>
+        ) : null}
         {/* 필수요소들이 채워지기 전에는 취소버튼만 보임 */}
-        <Button width='55px' height='35px' margin='5px' padding='2px' onClick={openModal}>취소</Button>
+        <Button width='55px' height='35px' margin='5px' padding='2px' onClick={openModal}>
+          취소
+        </Button>
       </Wrapper>
     </PostCreateCnt>
   );

@@ -1,6 +1,9 @@
+/*eslint-disable no-unused-vars*/
+
 import React from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+import BtnFrame from '../../../../styles/basicFrame/Btn';
 // import { delPost } from '../../../../network/postsView/http';
 
 const PostHeadWrap = styled.div`
@@ -42,25 +45,7 @@ const PostHeadWrap = styled.div`
   }
 `;
 
-const PostBtn = styled.button`
-  border: none;
-  background-color: rgba(0, 0, 0, 0.4);
-  width: 50px;
-  height: 40px;
-  text-align: center;
-  margin: 0 0.5rem;
-  border-radius: 5px;
-
-  &:hover {
-    cursor: pointer;
-    background-color: ${({ theme }) => theme.color.heartRed};
-  }
-`;
-
-export default function PostHeader({ postCotents, postId }) {
-  // 테스트용 loginId
-  let loginId = 'meme';
-
+export default function PostHeader({ postCotents, postId, loginId }) {
   let { title, userId, createAt } = postCotents;
 
   let navigate = useNavigate();
@@ -79,7 +64,6 @@ export default function PostHeader({ postCotents, postId }) {
   };
 
   const editPost = () => {
-    //! TODO onClick 했을 때 서버 통신하여 데이터를 받아 보내주는 것이 나은가??
     navigate(`/posts/edit/${postId}`);
   };
 
@@ -95,11 +79,11 @@ export default function PostHeader({ postCotents, postId }) {
               <li className='date'>{createAt}</li>
             </ul>
           </div>
-          {/* 본인 게시글인 경우만  */}
+          {/* 본인 게시글인 경우만 loginId === userId */}
           {loginId === userId && (
             <div>
-              <PostBtn onClick={editPost}>수정</PostBtn>
-              <PostBtn onClick={deletePost}>삭제</PostBtn>
+              <BtnFrame content='수정' editPost={editPost} />
+              <BtnFrame content='삭제' marginLeft='3px' clickEvent={deletePost} />
             </div>
           )}
         </div>

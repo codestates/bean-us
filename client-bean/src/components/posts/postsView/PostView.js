@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import { Navigate } from 'react-router-dom';
-
 import { InnerFrame } from '../../../styles/basicFrame/InnerFrame';
 import PostHeader from './postViewContent/PostHeader';
 import PostComment from './postViewComment/PostComment';
@@ -10,11 +9,10 @@ import { useLoading } from '../../../hooks/useLoading';
 import LoadingPage from '../../../pages/LoadingPage';
 // import { getPostInfo } from '../../../network/postsView/http';
 
-// db 더미 데이터
-
-export default function PostView(props) {
+export default function PostView({ loginId }) {
   let { id } = useParams();
 
+  //!실제 서버 통신
   // let [postContent, isLoading] = useLoading({}, getPostInfo(id), id);
   let [postContent, isLoading] = useLoading({}, null, id);
 
@@ -33,9 +31,9 @@ export default function PostView(props) {
             <>
               <div className='title'>게시물 열람</div>
               <InnerFrame>
-                <PostHeader postCotents={postContent.postCotents} postId={id} />
+                <PostHeader postCotents={postContent.postCotents} postId={id} loginId={loginId} />
                 <PostSection postCotents={postContent.postCotents} />
-                <PostComment comments={postContent.comments} postId={id} />
+                <PostComment comments={postContent.comments} postId={id} loginId={loginId} />
               </InnerFrame>
             </>
           ) : (

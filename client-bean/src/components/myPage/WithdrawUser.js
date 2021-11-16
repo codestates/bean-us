@@ -1,4 +1,3 @@
-/*eslint-disable no-unused-vars*/
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -81,16 +80,6 @@ const ValidMessage = styled.p`
   margin: 0 0 0 158px;
   font-size: 12px;
   color: #95673d;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Button = styled.button`
-  width: 500px;
 `;
 
 export default function WithdrawUser({ userId, withdrawCilckHandler, loginHandler, social }) {

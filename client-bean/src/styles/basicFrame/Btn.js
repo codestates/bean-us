@@ -10,9 +10,14 @@ export const Btn = styled.button`
 
   &:hover {
     cursor: pointer;
+    background-color: ${({ theme }) => theme.color.darkGreen};
   }
 `;
 
-export default function BtnFrame({ content, marginLeft }) {
-  return <Btn marginLeft={marginLeft}>{content}</Btn>;
+export default function BtnFrame({ content, marginLeft, clickEvent }) {
+  return (
+    <Btn marginLeft={marginLeft} onClick={clickEvent}>
+      {content}
+    </Btn>
+  );
 }

@@ -14,6 +14,7 @@ import PostsView from './pages/PostsView';
 import PostsCreate from './pages/PostsCreate';
 import KakaoCallback from './pages/KakaoCallback';
 import GithubCallback from './pages/GithubCallback';
+import SignModal from './components/signModal/SignModal';
 
 import { checkToken } from './network/sign/checkToken';
 
@@ -28,6 +29,7 @@ function App() {
   };
 
   const modalHandler = () => {
+    console.log('handle');
     setRenderModal(!renderModal);
   };
 
@@ -50,9 +52,8 @@ function App() {
   const location = useLocation();
   return (
     <>
-      {location.pathname === '/' 
-      || location.pathname === '/posts/create' ? null : (
-        <TopBar
+      {location.pathname === '/' || location.pathname === '/posts/create' ? null : (
+        <NavBar
           isLogin={isLogin}
           modalHandler={modalHandler}
           loginHandler={loginHandler}
@@ -60,8 +61,6 @@ function App() {
           saveLoginId={saveLoginId}
         />
       )}
-      {location.pathname === '/' 
-      || location.pathname === '/posts/create' ? null : <NavBar />}
       <Routes>
         <Route
           path='/'
@@ -76,7 +75,7 @@ function App() {
             />
           }
         />
-        <Route path='/posts/view/:id' element={<PostsView />} />
+        <Route path='/posts/view/:id' element={<PostsView loginId={loginId} />} />
         <Route path='/posts/create' element={<PostsCreate />} />
         <Route path='/posts/edit/:id' element={<PostsCreate />} />
         <Route
@@ -138,6 +137,14 @@ function App() {
           }
         />
       </Routes>
+      {renderModal ? (
+        <SignModal
+          isLogin={isLogin}
+          modalHandler={modalHandler}
+          saveLoginId={saveLoginId}
+          loginHandler={loginHandler}
+        />
+      ) : null}
     </>
   );
 }

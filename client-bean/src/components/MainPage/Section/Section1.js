@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import backgroundimg from '../../../backgroundimg.jpg';
 import MainNavBar from '../MainNavBar';
-// import MainTopBar from '../MainTopBar';
-import TopBar from '../../TopBar';
+// import TopBar from '../../TopBar';
 
 const MainSection1 = styled.section`
   width: 100vw;
@@ -42,15 +41,7 @@ const SectionIntroCnt = styled.div`
 export default function Section1({ isLogin, loginHandler, modalHandler, loginId, saveLoginId }) {
   return (
     <MainSection1>
-      <TopBar
-        isLogin={isLogin}
-        modalHandler={modalHandler}
-        loginHandler={loginHandler}
-        loginId={loginId}
-        saveLoginId={saveLoginId}
-        main='main'
-      />
-      <MainNavBar />
+      <MainNavBar main />
       <SectionIntroCnt>
         <img src='asset/mainpage/logowhite.png' alt='' className='logoimg' />
         <img src='asset/mainpage/coffeebeans.png' alt='' className='beanimg' />
