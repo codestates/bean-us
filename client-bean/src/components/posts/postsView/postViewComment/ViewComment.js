@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import { editPutComment } from '../../../../network/postsView/http';
+import { editPutComment } from '../../../../network/postsView/http';
 import { TextAreaFrame } from '../../../../styles/basicFrame/TextareaFrame';
 import PostCommentUser from './PostCommentUser';
 
 const CommentLi = styled.li`
-  margin-bottom: 0.9rem;
   color: rgba(37, 40, 48, 0.8);
-
+  margin-bottom: 0.9rem;
   border-bottom: ${({ theme }) => theme.line.frame};
-
   & .user {
     font-weight: bold;
     padding-bottom: 0.5rem;
   }
-
   & .date {
     font-size: 0.8rem;
   }
@@ -28,7 +25,6 @@ const CommentUser = styled.div`
 const EditText = styled(TextAreaFrame)`
   background-color: ${({ theme }) => theme.color.lightWhite};
   padding: 0.5rem;
-
   &:focus {
     outline: none;
   }
@@ -47,10 +43,8 @@ function ViewComment({ comment, postId, loginId, deleteComment }) {
   const setRows = (e) => {
     let previousRows = e.target.rows;
     e.target.rows = 1; // reset number of rows in textarea
-
     let boxHeight = e.target.scrollHeight;
     let currentRows = Math.floor(boxHeight / 16);
-
     if (currentRows === previousRows) e.target.rows = currentRows;
     return currentRows;
   };
@@ -68,12 +62,10 @@ function ViewComment({ comment, postId, loginId, deleteComment }) {
     let trimCommentText = editComment.trim();
     if (!trimCommentText) return;
 
-    //! PUT /posts/comments
-    // editPutComment(postId, comId, editComment).then((res) => {
-    //   changeEdit(false);
-    // });
-
-    changeEdit(false);
+    // PUT /posts/comments
+    editPutComment(postId, comId, editComment).then(() => {
+      changeEdit(false);
+    });
   };
 
   return (
@@ -90,11 +82,11 @@ function ViewComment({ comment, postId, loginId, deleteComment }) {
         />
       </CommentUser>
       {isEdit ? (
-        <EditText value={editComment} onChange={changeEditComment} rows={textRows}></EditText>
+        <EditText value={editComment} onChange={changeEditComment} rows={textRows} />
       ) : (
         <FixedComment>{editComment}</FixedComment>
       )}
-      <div className='date'>{comment.createAt}</div>
+      <div className='date'>{comment.createdAt}</div>
     </CommentLi>
   );
 }

@@ -19,20 +19,23 @@ export const delPost = async (postId) => {
 
 //TODO POST /posts/comments
 export const postComment = async (postId, comment) => {
-  const res = await axios.get(`${http}/posts/comments`, { data: { postId, comment } });
-  return res.data;
-};
-
-//TODO DELETE /posts/comments
-export const delComment = async (postId, commentId) => {
-  const res = await axios.delete(`${http}/posts/comments`, { data: { postId, commentId } });
+  const res = await axios.post(`${http}/posts/comments`, { data: { postId, comment } });
+  console.log(res.data);
   return res.data;
 };
 
 //TODO PUT /posts/comments
 export const editPutComment = async (postId, commentId, editComment) => {
   const res = await axios.put(`${http}/posts/comments`, {
-    data: { postId, commentId, editComment },
+    data: { postId, commentId, comment: editComment },
+  });
+  return res.data;
+};
+
+//TODO DELETE /posts/comments
+export const delComment = async (postId, commentId) => {
+  const res = await axios.delete(`${http}/posts/comments`, {
+    data: { commentId, postId },
   });
   return res.data;
 };

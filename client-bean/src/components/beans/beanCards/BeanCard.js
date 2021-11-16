@@ -56,7 +56,6 @@ export default function BeanCard({ bean, beanModal, loginId }) {
     if (tagName === 'svg' || tagName === 'path') return;
     //! TODO GET /bean?beanId=beanId 해당 원두와 관련된 게시글 요청
     getBeanPost(beanId).then((res) => {
-      console.log(res);
       beanModal(beanId, res);
     });
   };
@@ -96,7 +95,7 @@ export default function BeanCard({ bean, beanModal, loginId }) {
           transform='scale(1.05)'
           border='5px solid rgba(157, 156, 147, 0.5)'
         />
-        <ContentUL beanName={beanName} beanlike={beanlike}>
+        <ContentUL beanName={beanName} beanlike={+beanlike}>
           <li className='beanName'>{beanName}</li>
           <li>{origin}</li>
           <li>{likeNum}</li>

@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ContentWrap } from '../../../../styles/basicFrame/ContentWrap';
-import BtnFrame from '../../../../styles/basicFrame/Btn';
 import { TextAreaFrame } from '../../../../styles/basicFrame/TextareaFrame';
-// import PostComment from './PostComment';
+import BtnFrame from '../../../../styles/basicFrame/Btn';
+import { postComment } from '../../../../network/postsView/http';
 
 const CommentTop = styled.div`
   display: flex;
@@ -17,7 +17,7 @@ const CommentLable = styled.label.attrs({
   font-weight: bold;
 `;
 
-export default function WriteComment({ addComment, loginId }) {
+export default function WriteComment({ addComment, postId, loginId }) {
   const [commentText, setCommentText] = useState('');
   const [textRows, setTextRows] = useState(1);
 
@@ -32,20 +32,11 @@ export default function WriteComment({ addComment, loginId }) {
       return;
     }
     //! POST /posts/comment
-    // PostComment(postId, commentText).then((res) => {
-    //   addComment(res);
-    //   setCommentText('');
-    //   textRef.current.rows = 1;
-    // });
-
-    addComment({
-      userId: loginId,
-      commentId: 8,
-      comment: commentText,
-      createAt: '2020-12-20',
+    postComment(postId, commentText).then(() => {
+      addComment(commentText);
+      setCommentText('');
+      textRef.current.rows = 1;
     });
-    setCommentText('');
-    textRef.current.rows = 1;
   };
 
   const setRows = (e) => {

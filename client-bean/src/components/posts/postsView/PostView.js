@@ -5,16 +5,15 @@ import { InnerFrame } from '../../../styles/basicFrame/InnerFrame';
 import PostHeader from './postViewContent/PostHeader';
 import PostComment from './postViewComment/PostComment';
 import PostSection from './postViewContent/PostSection';
+import { getPostInfo } from '../../../network/postsView/http';
 import { useLoading } from '../../../hooks/useLoading';
 import LoadingPage from '../../../pages/LoadingPage';
-// import { getPostInfo } from '../../../network/postsView/http';
 
 export default function PostView({ loginId }) {
   let { id } = useParams();
 
   //!실제 서버 통신
-  // let [postContent, isLoading] = useLoading({}, getPostInfo(id), id);
-  let [postContent, isLoading] = useLoading({}, null, id);
+  let [postContent, isLoading] = useLoading({}, getPostInfo(id), id);
 
   const nonPost = () => {
     alert('해당 게시물이 없거나 삭제되었습니다');
@@ -24,7 +23,7 @@ export default function PostView({ loginId }) {
   return (
     <>
       {isLoading ? (
-        <LoadingPage />
+        <LoadingPage content='Loading...' />
       ) : (
         <>
           {postContent ? (

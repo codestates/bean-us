@@ -9,25 +9,27 @@ const CommentUl = styled.ul`
 `;
 
 export default function PostComment({ comments, postId, loginId }) {
-  const [allComment, setAllComment] = useState([...comments]);
+  const [allComments, setAllComments] = useState([...comments]);
 
-  const addComment = (newComment) => {
-    setAllComment([newComment, ...allComment]);
+  const addComment = (commentText) => {
+    let newComment = { comment: commentText, userId: loginId, createdAt: new Date().toISOString() };
+    setAllComments([{ ...newComment }, ...allComments]);
   };
 
   const deleteComment = (comId) => {
-    let filterComment = allComment.filter((com) => com.commentId !== comId);
-    setAllComment([...filterComment]);
+    let filterComment = allComments.filter((com) => com.commentId !== comId);
+    setAllComments([...filterComment]);
   };
 
   return (
     <>
       <WriteComment postId={postId} addComment={addComment} loginId={loginId} />
       <CommentUl>
-        {allComment.map((comment) => (
+        {allComments.map((comment) => (
           <ViewComment
-            key={comment.commentId}
+            key={comment.commentId || comment.createdAt}
             postId={postId}
+            loginId={loginId}
             comment={comment}
             deleteComment={deleteComment}
           />
