@@ -57,6 +57,8 @@ function PostEdit() {
   // 모달
   const [isOpen, setOpen] = useState(false);
 
+  const {id} = useParams();
+
   //slide inputs
   const [inputs, setInputs] = useState({
     title: '',
@@ -81,7 +83,6 @@ function PostEdit() {
   //     setBeans(res)
   //   })
   // }, [])
-  const {id} = useParams();
 	
 	
 	// console.log(location.pathname.split('/')[location.pathname.split('/').length -1])
@@ -96,7 +97,7 @@ function PostEdit() {
         waterTemp: res.post.waterTemp
       })
 			})
-	}, [id])
+	}, [])
 
   useEffect(() => {
     getBeans().then((res) => {
@@ -128,7 +129,7 @@ function PostEdit() {
 
   //게시글 생성
   const putPost = () => {
-    putPosts(id, inputs).then(() => {
+    putPosts(id, inputs).then((res) => {
 			alert('수정되었습니다.')
 			navigate('/posts')
 		});
@@ -136,11 +137,30 @@ function PostEdit() {
 
   //slide3 drop박스 클릭
   const handleClick = (e) => {
-    setvalue([...value, e.target.getAttribute('value')]);
-    setInputs({
-      ...inputs,
-      beanList: [...inputs.beanList, { beanId: Number(e.target.getAttribute('id')) }],
-    });
+		console.log(value)
+    if(!value.includes(e.target.getAttribute('value'))) {
+			setvalue([...value, e.target.getAttribute('value')]);
+		} else {
+			setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
+		}
+		let beanId = Number(e.target.getAttribute('id'));
+		let index = beans.findIndex((bean) => bean.beanId === beanId)
+		let beanArr = [...beans];
+		beanArr[index] = {...beanArr[index], click : !(beanArr[index].click)}
+		setBeans(beanArr);
+		if((inputs.beanList.findIndex(el => el.beanId === beanId)) >= 0) {
+			let nBeanList = inputs.beanList.filter(el => el.beanId !== beanId);
+			setInputs({
+				...inputs,
+				beanList: [...nBeanList]
+			})
+		} else {
+			setInputs({
+				...inputs,
+				beanList: [...inputs.beanList, { beanId: beanId }],
+			});
+		}
+		console.log(inputs);
   };
 
   //slide input 상태관리핸들러
