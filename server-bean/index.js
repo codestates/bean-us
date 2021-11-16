@@ -22,7 +22,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ['https://localhost:3000', 'http://localhost:3000'],
+    origin: [
+      'https://localhost:3000', 'http://localhost:3000',
+      'https://www.beanus.tk', 'http://www.beanus.tk',
+      'https://practic.beanus.tk', 'http://practic.beanus.tk'
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   })
