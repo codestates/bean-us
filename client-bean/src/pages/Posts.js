@@ -66,22 +66,22 @@ export default function Posts({ isLogin, loginHandler, renderModal, modalHandler
 
   return (
     <PostsContainer>
-      <div className='title'>게시글</div>
-      <PostSearch handleClick={handleClick} handleInputChange={handleInputChange} posts={posts} />
-      {isLogin? <StyledLink to='/posts/create'>
-        <CreatePost>
-          <MdPostAdd className='postIcon' />
-        </CreatePost>
-      </StyledLink> : null}
-      <PostCards posts={posts} />
-      {renderModal ? (
-        <SignModal
-          isLogin={isLogin}
-          modalHandler={modalHandler}
-          saveLoginId={saveLoginId}
-          loginHandler={loginHandler}
-        />
-      ) : null}
-    </PostsContainer>
+    <div className='title'>게시글</div>
+    <PostSearch handleClick={handleClick} handleInputChange={handleInputChange} posts={posts} />
+    {isLogin? <StyledLink to='/posts/create'>
+      <CreatePost>
+        <MdPostAdd className='postIcon' />
+      </CreatePost>
+    </StyledLink> : null}
+    <PostCards posts={posts} />
+    {renderModal ? (
+      <SignModal
+        isLogin={isLogin}
+        modalHandler={modalHandler}
+        saveLoginId={saveLoginId}
+        loginHandler={loginHandler}
+      />
+    ) : null}
+  </PostsContainer>
   );
 }

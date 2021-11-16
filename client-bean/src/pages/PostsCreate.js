@@ -10,7 +10,8 @@ import Slide6 from '../components/postsCreate/Slide6';
 import Slide7 from '../components/postsCreate/Slide7';
 import { Button } from '../styles/postspage/CreateBtn';
 import { BorderFrame, Wrapper } from '../styles/postspage/OuterFrame';
-import createPosts from '../network/postsCreate/https';
+import createPosts, { rewritePost } from '../network/postsCreate/https';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 // import {useNavigate} from 'react-router-dom';
 
@@ -51,12 +52,26 @@ const SlideFrame = styled.div`
 
 //state관리(title, photo, beans, ratio, water, temp)
 function PostsCreate() {
+	let navigate = useNavigate();
 
   // useEffect(() => {
   //   getBeans().then((res) => {
   //     setBeans(res)
   //   })
   // }, [])
+	const location = useLocation();
+	const pathArr = location.pathname.split('/');
+	const postId = pathArr[pathArr.length - 1];
+	console.log(postId)
+	
+	// console.log(location.pathname.split('/')[location.pathname.split('/').length -1])
+	useEffect(() => {
+		if(postId) {
+			rewritePost(postId).then((res) => {
+				setPostInfo(res.postList)
+			})
+		}
+	}, [postId])
 
   useEffect(() => {
     setBeans([
@@ -86,6 +101,8 @@ function PostsCreate() {
       }
     ])
   }, [])
+
+
   const slideRef = useRef([]);
   //-----상태관리-----
   // 모달
@@ -105,6 +122,9 @@ function PostsCreate() {
   const [beans, setBeans] = useState([]);
 
   const [value, setvalue] = useState([]); //input value
+
+	//수정시 사용할 값
+	const [postInfo, setPostInfo] = useState([]);
 
   //-----이벤트 핸들러-----
   // 이전 위치로 가는 이벤트
@@ -128,7 +148,10 @@ function PostsCreate() {
 
   //게시글 생성
   const createPost = () => {
-    createPosts(inputs).then((res) => console.log(res))
+    createPosts(inputs).then(() => {
+			alert('저장되었습니다.')
+			navigate('/posts')
+		});
   }
 
   //slide3 drop박스 클릭
@@ -149,7 +172,6 @@ function PostsCreate() {
 
   //slide input 상태관리핸들러
   const handleInputChange = (e) => {
-		console.log(e.target.getAttribute('bean'))
     const { value, name } = e.target;
 		if(name === 'rate') {
 			inputs.beanList[e.target.getAttribute('bean')] = {
@@ -192,6 +214,7 @@ function PostsCreate() {
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
+					postInfo={postInfo}
           />
         </div>
         <div ref={el => (slideRef.current[1] = el)}>
@@ -199,6 +222,7 @@ function PostsCreate() {
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
+					postInfo={postInfo}
           />
           </div>
           <div ref={el => (slideRef.current[2] = el)}>
@@ -209,6 +233,7 @@ function PostsCreate() {
           beans={beans}
           value={value}
           handleClick={handleClick}
+					postInfo={postInfo}
           />
         </div>
         <div ref={el => (slideRef.current[3] = el)}>
@@ -217,6 +242,7 @@ function PostsCreate() {
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
 					value={value}
+					postInfo={postInfo}
           />
         </div>
         <div ref={el => (slideRef.current[4] = el)}>
@@ -224,6 +250,7 @@ function PostsCreate() {
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
+					postInfo={postInfo}
           />
         </div>
         <div ref={el => (slideRef.current[5] = el)}>
@@ -231,6 +258,7 @@ function PostsCreate() {
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
+					postInfo={postInfo}
           />
         </div>
         <div ref={el => (slideRef.current[6] = el)}>
@@ -238,6 +266,7 @@ function PostsCreate() {
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
+					postInfo={postInfo}
           />
         </div>
       </SlideFrame>
