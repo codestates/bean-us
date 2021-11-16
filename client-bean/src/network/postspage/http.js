@@ -6,14 +6,19 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 //모든포스트 가져오기
-const getAllPosts = () => {
+export const getAllPosts = () => {
   return axios.get(`${https}/posts/all-posts`).then((res) => res.data);
 }
 
 //검색포스트 가져오기
-export const getFilterdPost = (postName) => {
-  return axios.get(`${https}/posts?title=${postName}`).then((res) => res.data);
+export const getFilterdPost =  async (postName) => {
+  const res = await axios.get(`${https}/posts?title=${postName}`)
+  return res.data;
 }
 
+// user 포스트 가져오기
+export const getUserPost = async (userId) => {
+  const res = await axios.get(`${https}/posts?userId=${userId}`)
+  return res.data;
+}
 
-export default getAllPosts;

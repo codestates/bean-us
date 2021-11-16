@@ -1,17 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import CancelModal from '../components/postsCreate/postsCreateModal/CancelModal';
-import Slide1 from '../components/postsCreate/Slide1';
-import Slide2 from '../components/postsCreate/Slide2';
-import Slide3 from '../components/postsCreate/Slide3';
-import Slide4 from '../components/postsCreate/Slide4';
-import Slide5 from '../components/postsCreate/Slide5';
-import Slide6 from '../components/postsCreate/Slide6';
-import Slide7 from '../components/postsCreate/Slide7';
+import EditSlide1 from '../components/postEdit/EditSlide1';
+import EditSlide2 from '../components/postEdit/EditSlide2';
+import EditSlide3 from '../components/postEdit/EditSlide3';
+import EditSlide4 from '../components/postEdit/EditSlide4';
+import EditSlide5 from '../components/postEdit/EditSlide5';
+import EditSlide6 from '../components/postEdit/EditSlide6';
+import EditSlide7 from '../components/postEdit/EditSlide7';
 import { Button } from '../styles/postspage/CreateBtn';
 import { BorderFrame, Wrapper } from '../styles/postspage/OuterFrame';
-import {createPosts ,rewritePost, getBeans } from '../network/postsCreate/https';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {rewritePost, getBeans } from '../network/postsCreate/https';
+import {putPosts} from '../network/postEdit/https';
+import {useParams, useNavigate} from 'react-router-dom';
 
 // import {useNavigate} from 'react-router-dom';
 
@@ -51,35 +52,7 @@ const SlideFrame = styled.div`
 // `;
 
 //state관리(title, photo, beans, ratio, water, temp)
-function PostsCreate() {
-	let navigate = useNavigate();
-  // useEffect(() => {
-  //   getBeans().then((res) => {
-  //     setBeans(res)
-  //   })
-  // }, [])
-	const location = useLocation();
-	const pathArr = location.pathname.split('/');
-	const postId = pathArr[pathArr.length - 1];
-	console.log(postId)
-	
-	// console.log(location.pathname.split('/')[location.pathname.split('/').length -1])
-	useEffect(() => {
-		if(postId) {
-			rewritePost(postId).then((res) => {
-				setPostInfo(res.postList)
-			})
-		}
-	}, [postId])
-
-  useEffect(() => {
-    getBeans().then((res) => {
-			console.log(res)
-			setBeans(res.beans)
-		})
-  }, [])
-
-  const slideRef = useRef([]);
+function PostEdit() {
   //-----상태관리-----
   // 모달
   const [isOpen, setOpen] = useState(false);
@@ -102,6 +75,37 @@ function PostsCreate() {
 	//수정시 사용할 값
 	const [postInfo, setPostInfo] = useState([]);
 
+	let navigate = useNavigate();
+  // useEffect(() => {
+  //   getBeans().then((res) => {
+  //     setBeans(res)
+  //   })
+  // }, [])
+  const {id} = useParams();
+	
+	
+	// console.log(location.pathname.split('/')[location.pathname.split('/').length -1])
+	useEffect(() => {
+			rewritePost(id).then((res) => {
+			setPostInfo(res.post)
+      setInputs({
+        ...inputs,
+        content: res.post.content,
+        title: res.post.title,
+        water: res.post.water,
+        waterTemp: res.post.waterTemp
+      })
+			})
+	}, [id])
+
+  useEffect(() => {
+    getBeans().then((res) => {
+			setBeans(res.beans)
+		})
+  }, [])
+
+  const slideRef = useRef([]);
+
   //-----이벤트 핸들러-----
   // 이전 위치로 가는 이벤트
   const slideScrollNext = (n) => {
@@ -123,16 +127,15 @@ function PostsCreate() {
   };
 
   //게시글 생성
-  const createPost = () => {
-    createPosts(inputs).then(() => {
-			alert('저장되었습니다.')
+  const putPost = () => {
+    putPosts(id, inputs).then(() => {
+			alert('수정되었습니다.')
 			navigate('/posts')
 		});
   }
 
   //slide3 drop박스 클릭
   const handleClick = (e) => {
-    console.log(value);
     setvalue([...value, e.target.getAttribute('value')]);
     setInputs({
       ...inputs,
@@ -173,11 +176,11 @@ function PostsCreate() {
     <PostCreateCnt>
       {isOpen ? <CancelModal closeModal={closeModal} /> : null}
       <BorderFrame width='1000px' height='70px' padding='10px'>
-        <PageTitle>게시글 작성</PageTitle>
+        <PageTitle>게시글 수정</PageTitle>
       </BorderFrame>
       <SlideFrame>
         <div ref={el => (slideRef.current[0] = el)}>
-          <Slide1 
+          <EditSlide1 
           inputs={inputs}
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
@@ -186,7 +189,7 @@ function PostsCreate() {
           />
         </div>
         <div ref={(el) => (slideRef.current[1] = el)}>
-          <Slide2
+          <EditSlide2
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
@@ -194,7 +197,7 @@ function PostsCreate() {
           />
         </div>
         <div ref={(el) => (slideRef.current[2] = el)}>
-          <Slide3
+          <EditSlide3
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
@@ -205,7 +208,7 @@ function PostsCreate() {
           />
         </div>
         <div ref={(el) => (slideRef.current[3] = el)}>
-          <Slide4
+          <EditSlide4
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
@@ -214,7 +217,7 @@ function PostsCreate() {
           />
         </div>
         <div ref={(el) => (slideRef.current[4] = el)}>
-          <Slide5
+          <EditSlide5
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
@@ -222,7 +225,7 @@ function PostsCreate() {
           />
         </div>
         <div ref={(el) => (slideRef.current[5] = el)}>
-          <Slide6
+          <EditSlide6
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
@@ -230,7 +233,7 @@ function PostsCreate() {
           />
         </div>
         <div ref={(el) => (slideRef.current[6] = el)}>
-          <Slide7
+          <EditSlide7
           slideScrollNext={slideScrollNext}
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
@@ -241,12 +244,13 @@ function PostsCreate() {
       <Wrapper height='60px'>
         {/* 필수요소들이 채워지면 게시버튼이 생김 */}
         {inputs.title &&
+        inputs.beanList.length > 0 &&
         inputs.beanList.length === value.length &&
         inputs.water &&
         inputs.waterTemp &&
         inputs.content ? (
-          <Button width='55px' height='35px' margin='5px' padding='2px' onClick={createPost}>
-            게시
+          <Button width='55px' height='35px' margin='5px' padding='2px' onClick={putPost}>
+            수정
           </Button>
         ) : null}
         {/* 필수요소들이 채워지기 전에는 취소버튼만 보임 */}
@@ -258,4 +262,4 @@ function PostsCreate() {
   );
 }
 
-export default PostsCreate;
+export default PostEdit;

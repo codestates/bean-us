@@ -108,8 +108,6 @@ export default function PostCards(props) {
 
   return (
     <CardWrap>
-      {/* 테스트용 카드 */}
-      <div onClick={() => postCardClick(3)}>testcard</div>
       {posts.length ? (
         <CardsUL>
           {posts.map((post) => (
