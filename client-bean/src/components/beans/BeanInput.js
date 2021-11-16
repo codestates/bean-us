@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { getBeanName } from '../../network/beans/http';
+import { FaSearch } from 'react-icons/fa';
 
 const SearchContainer = styled.div`
   & form {
@@ -75,9 +76,7 @@ export default function BeanInput({ beanName, getBeanCards }) {
     getBeanName(inputName).then((res) => {
       getBeanCards(res);
     });
-
     setFilterName([]);
-    // inpuRef.current.focus();
   };
 
   const searchBeanName = (e) => {
@@ -112,7 +111,9 @@ export default function BeanInput({ beanName, getBeanCards }) {
           onFocus={inputFoucs}
           onBlur={inputFoucs}
         />
-        <button>click</button>
+        <button>
+          <FaSearch />
+        </button>
         <DropText focus={onInputFocus}>
           {filterName.map((name, i) => (
             <li key={i} onMouseDown={clickName}>

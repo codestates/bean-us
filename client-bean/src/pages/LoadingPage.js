@@ -7,6 +7,6 @@ const Container = styled.div`
   text-align: center;
 `;
 
-export default function LoadingPage({ children }) {
-  return <Container>{children}</Container>;
+export default function LoadingPage({ content }) {
+  return <Container>{content}</Container>;
 }

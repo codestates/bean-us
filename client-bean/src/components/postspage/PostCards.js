@@ -102,14 +102,13 @@ export default function PostCards(props) {
   const { posts } = props;
 
   let navigate = useNavigate();
+
   const postCardClick = (postId) => {
     navigate(`/posts/view/${postId}`);
   };
 
   return (
     <CardWrap>
-      {/* 테스트용 카드 */}
-      <div onClick={() => postCardClick(3)}>testcard</div>
       {posts.length ? (
         <CardsUL>
           {posts.map((post) => (
@@ -118,26 +117,26 @@ export default function PostCards(props) {
               onClick={() => postCardClick(post.postId)}
               className='postlink'
             >
-                <div className='contentWrap'>
-                  <div className='imgWrap'>
-                    <img
-                      src={post.imageUrl ? post.imageUrl : '/asset/postspage/post-no-img.jpg'}
-                      alt='postImg'
-                    />
-                  </div>
-                  <div className='contentTitle'>
-                    {post.title.length > 12 ? post.title.slice(0, 13) + '...' : post.title}
-                  </div>
-                  <div className='beanInfo'>
-                    {post.beans.map((bean) => (
-                      <div key='' className='beanLabel'>
-                        #{bean.beanName}
-                      </div>
-                    ))}
-                  </div>
-                  <div className='userInfo'>작성자: {post.userId}</div>
-                  <div className='createdAt'>{post.createdAt}</div>
+              <div className='contentWrap'>
+                <div className='imgWrap'>
+                  <img
+                    src={post.imageUrl ? post.imageUrl : '/asset/postspage/post-no-img.jpg'}
+                    alt='postImg'
+                  />
                 </div>
+                <div className='contentTitle'>
+                  {post.title.length > 12 ? post.title.slice(0, 13) + '...' : post.title}
+                </div>
+                <div className='beanInfo'>
+                  {post.beans.map((bean) => (
+                    <div key='' className='beanLabel'>
+                      #{bean.beanName}
+                    </div>
+                  ))}
+                </div>
+                <div className='userInfo'>작성자: {post.userId}</div>
+                <div className='createdAt'>{post.createdAt}</div>
+              </div>
             </CardsLi>
           ))}
         </CardsUL>

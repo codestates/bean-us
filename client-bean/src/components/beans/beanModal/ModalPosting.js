@@ -64,7 +64,7 @@ function ModalPosting({ cardPostInfo }) {
       </header>
       <ul>
         {/* //! TODO 실제 서버 통신 시 / BeanPostdb => cardPostInfo */}
-        {cardPostInfo.map((post) => (
+        {cardPostInfo.map((post, i) => (
           <ModalPostingLi key={post.postId} post={post} />
         ))}
       </ul>

@@ -1,6 +1,6 @@
 import React from 'react';
 import BtnFrame from '../../../../styles/basicFrame/Btn';
-// import { delComment } from '../../../../network/postsView/http';
+import { delComment } from '../../../../network/postsView/http';
 
 function PostCommentUser({
   comment,
@@ -12,13 +12,12 @@ function PostCommentUser({
   editComplete,
 }) {
   const deleteCommentClick = (comId) => {
-    //! Delete /posts/comments
-    // if (window.confirm('정말 삭제하시겠습니까?')){
-    // delComment(postId,comId).then((res) => {
-    //   deleteComment(comId);
-    // })}
-
-    if (window.confirm('정말 삭제하시겠습니까?')) deleteComment(comId);
+    //Todo Delete /posts/comments
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      delComment(postId, comId).then(() => {
+        deleteComment(comId);
+      });
+    }
   };
 
   const editCommentClick = () => {

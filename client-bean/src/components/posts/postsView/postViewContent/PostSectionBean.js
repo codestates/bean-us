@@ -22,6 +22,7 @@ const ContentContainer = styled.div`
 
 const ContentInnerContainer = styled(ContentWrap)`
   display: inline;
+  width: 450px;
   flex-basis: ${({ bean }) => (bean ? '62%' : '35%')};
 
   ${({ bean }) =>
@@ -31,7 +32,6 @@ const ContentInnerContainer = styled(ContentWrap)`
       display: flex;
       flex-direction: column;
     `}
-
   ${({ water }) =>
     water &&
     css`
@@ -40,7 +40,7 @@ const ContentInnerContainer = styled(ContentWrap)`
         justify-content: space-around;
         padding-top: 1rem;
       }
-    `}
+    `};
 `;
 
 export default function PostSectionBean({ postCotents }) {
@@ -48,7 +48,14 @@ export default function PostSectionBean({ postCotents }) {
 
   return (
     <BeanWrap>
-      <ImgFrame imgUrl={imageUrl} alt='postImg' width='450px' height='450px' marginRight='5rem' />
+      <ImgFrame
+        imgUrl={imageUrl}
+        alt='postImg'
+        width='450px'
+        height='450px'
+        border={({ theme }) => theme.line.frame}
+        marginRight='5rem'
+      />
       <ContentContainer>
         <ContentInnerContainer bean>
           <div className='subtitle'>

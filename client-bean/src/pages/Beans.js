@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars*/
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BeanCards from '../components/beans/beanCards/BeanCards';
 import BeanSearch from '../components/beans/BeanSearch';
 import BeanCardModal from '../components/beans/beanModal/BeanCardModal';
@@ -10,26 +8,27 @@ import useBeanModal from '../hooks/useBeanModal';
 import { useLoading } from '../hooks/useLoading';
 import LoadingPage from './LoadingPage';
 
-//db
-// import { Beandb } from '../db/beandb';
-
 export default function Beans({ loginId }) {
-  const [beans, isLoading, setBeans] = useLoading([], getAllBeans());
-  console.log('beans', beans, isLoading);
+  const [allBeanName, setAllBeanName] = useState([]);
+
+  const [beans, isLoading, setBeans] = useLoading([], getAllBeans(), loginId);
   const [openModal, cardBeanInfo, cardPostInfo, beanModal, closeModal] = useBeanModal(beans);
 
-  const getBeanCards = (res) => {
-    setBeans([...res.beanList]);
-  };
+  useEffect(() => {
+    let name = beans.map((v) => v.beanName);
+    setAllBeanName([...name]);
+  }, [isLoading]);
+
+  const getBeanCards = (res) => setBeans([...res.beanList]);
 
   return (
     <>
       {isLoading ? (
-        <LoadingPage />
+        <LoadingPage content='Loading...' />
       ) : (
         <TopFrame>
           <div className='title'>원두</div>
-          <BeanSearch getBeanCards={getBeanCards} beanName={beans.map((v) => v.beanName)} />
+          <BeanSearch getBeanCards={getBeanCards} beanName={allBeanName} />
           <BeanCards beans={beans} beanModal={beanModal} loginId={loginId} />
           {openModal && (
             <BeanCardModal
