@@ -30,6 +30,7 @@ const CardsLi = styled.li`
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
     padding: 20px 0 10px 20px;
+    height: 350px;
   }
 
   & .imgWrap {
@@ -62,26 +63,34 @@ const CardsLi = styled.li`
     font-size: 1.2rem;
     font-weight: bold;
     margin-right: 20px;
-    padding: 5px;
+    padding: 10px;
   }
 
   & .beanInfo {
     display: flex;
+    flex-wrap: wrap;
   }
   & .beanLabel {
     background-color: #bbc8b5;
     margin-right: 8px;
+    margin-top: 2px;
     padding: 2px;
     border-radius: 5px;
+    flex: none;
   }
   & .userInfo {
     /* background-color: magenta; */
-    margin-top: 5px;
+    position: absolute;
+    top: 80%;
+    margin-top: 10px;
     margin-right: 18px;
     font-size: 0.8rem;
     padding: 2px;
   }
   & .createdAt {
+    position: absolute;
+    top: 90%;
+    left: 31%;
     text-align: right;
     margin-right: 18px;
     font-size: 0.7rem;
