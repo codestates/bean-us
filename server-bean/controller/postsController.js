@@ -292,11 +292,11 @@ module.exports = {
     const accessTokenInfo = isAuthorized(req);
     if(!accessTokenInfo){
       res.status(400).json({
-        message: '로그인이 되어있지 않습니다.',
+        message: '로그인이 되어 있지 않습니다.',
       });
     }
 
-    const {postId, comment} = req.body;
+    const {postId, comment} = req.body.data;
     const buildComment = await postComment.build({postId, userId: accessTokenInfo.userId, comment});
     const lastComment = await postComment.findOne({order:[['commentId', 'DESC']]});
 
@@ -305,24 +305,42 @@ module.exports = {
 
     res.status(200).json({
       message: '댓글이 등록 되었습니다.',
+      userId: buildComment.userId,
+      commentId: buildComment.commentId,
+      comment: buildComment.comment,
+      createdAt: buildComment.createdAt,
     });
   },
 
   updatePostComment: (req, res) => {
-    const {commentId, comment} = req.body;
+    const accessTokenInfo = isAuthorized(req);
+    if(!accessTokenInfo){
+      res.status(400).json({
+        message: '로그인이 되어 있지 않습니다.',
+      });
+    }
+
+    const {commentId, comment} = req.body.data;
 
     postComment.update({ comment }, { where: { commentId } }).then(() => {
-      res.status(200).json({
+      res.status(204).json({
         message: '댓글이 수정 되었습니다.',
       });
     });
   },
 
   deletePostComment: (req, res) => {
-    const { commentId } = req.body;
+    const accessTokenInfo = isAuthorized(req);
+    if(!accessTokenInfo){
+      res.status(400).json({
+        message: '로그인이 되어 있지 않습니다.',
+      });
+    }
+
+    const { commentId } = req.body.data;
 
     postComment.destroy({ where: { commentId } }).then(() => {
-      res.status(200).json({
+      res.status(204).json({
         message: '댓글이 삭제 되었습니다.',
       });
     });
