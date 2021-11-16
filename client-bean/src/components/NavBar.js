@@ -27,7 +27,6 @@ export const Nav = styled.nav`
   justify-content: flex-end;
   align-items: center;
   margin-right: 1.5vw;
-  background-color: #fff;
   > .link {
     padding: 4px 0 8px;
     width: 90px;
@@ -47,7 +46,11 @@ export const Nav = styled.nav`
   }
 `;
 
-const Img = styled.img``;
+export const Img = styled.img`
+  position: absolute;
+  top: -8px;
+  left: 20px;
+`;
 
 export default function NavBar({
   isLogin,

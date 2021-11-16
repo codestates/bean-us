@@ -157,7 +157,7 @@ export default function MyInfo({ userId, email, social, editEmailReq, loginHandl
         <LoadingPage>정보를 가져오는 중이에요...</LoadingPage>
       ) : (
         <InfoWrapper>
-          <CoffeeImg src='asset/beans/bean1.jpg' alt='커피' />
+          <CoffeeImg src='/asset/beans/bean1.jpg' alt='커피' />
           <InfoBox>
             <InfoLine>
               <InfoTitle title='title'>아이디</InfoTitle>

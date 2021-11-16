@@ -7,8 +7,8 @@ const TopBarDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  /* padding: 4px 21px 0 0; */
-  background-color: ${({ main }) => (main ? 'orange' : '#c8aa9b')};
+  padding: 4px 21px 0;
+  background-color: ${({ main }) => (main ? 'rgba(0, 0, 0, 0)' : '#c8aa9b')};
 `;
 const LoginBtn = styled.button`
   width: 110px;
@@ -23,6 +23,8 @@ const LoginBtn = styled.button`
   z-index: 10;
   &:hover {
     cursor: pointer;
+    color: #fff;
+    background-color: ${({ main }) => (main ? 'grey' : '#877158')};
   }
 `;
 const LogoutBtn = styled.button`
@@ -38,6 +40,7 @@ const LogoutBtn = styled.button`
   color: ${({ renderModal }) => renderModal && '#fff'};
   &:hover {
     cursor: pointer;
+    background-color: ${({ main }) => (main ? 'grey' : '#877158')};
   }
 `;
 

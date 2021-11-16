@@ -72,70 +72,25 @@ function App() {
               loginId={loginId}
               saveLoginId={saveLoginId}
               modalHandler={modalHandler}
-              renderModal={renderModal}
             />
           }
         />
         <Route path='/posts/view/:id' element={<PostsView loginId={loginId} />} />
         <Route path='/posts/create' element={<PostsCreate />} />
         <Route path='/posts/edit/:id' element={<PostEdit />} />
-        <Route
-          path='/posts'
-          element={
-            <Posts
-              isLogin={isLogin}
-              loginHandler={loginHandler}
-              renderModal={renderModal}
-              modalHandler={modalHandler}
-              loginId={loginId}
-              saveLoginId={saveLoginId}
-            />
-          }
-        />
-        <Route
-          path='/beans'
-          element={
-            <Beans
-              isLogin={isLogin}
-              loginId={loginId}
-              loginHandler={loginHandler}
-              renderModal={renderModal}
-              modalHandler={modalHandler}
-              saveLoginId={saveLoginId}
-            />
-          }
-        />
+        <Route path='/posts' element={<Posts isLogin={isLogin} />} />
+        <Route path='/beans' element={<Beans loginId={loginId} />} />
         <Route
           path='/myPage/*'
-          element={
-            <MyPage
-              isLogin={isLogin}
-              renderModal={renderModal}
-              modalHandler={modalHandler}
-              loginHandler={loginHandler}
-              saveLoginId={saveLoginId}
-            />
-          }
+          element={<MyPage isLogin={isLogin} loginHandler={loginHandler} />}
         />
         <Route
           path='/auth/kakao-callback'
-          element={
-            <KakaoCallback
-              isLogin={isLogin}
-              loginHandler={loginHandler}
-              saveLoginId={saveLoginId}
-            />
-          }
+          element={<KakaoCallback loginHandler={loginHandler} saveLoginId={saveLoginId} />}
         />
         <Route
           path='/auth/github-callback'
-          element={
-            <GithubCallback
-              isLogin={isLogin}
-              loginHandler={loginHandler}
-              saveLoginId={saveLoginId}
-            />
-          }
+          element={<GithubCallback loginHandler={loginHandler} saveLoginId={saveLoginId} />}
         />
       </Routes>
       {renderModal ? (
