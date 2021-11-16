@@ -4,7 +4,7 @@ import { FaChevronCircleDown } from 'react-icons/fa';
 import ModalPostingLi from './ModalPostingLi';
 
 //db
-import { BeanPostdb } from '../../../db/beanPostdb';
+// import { BeanPostdb } from '../../../db/beanPostdb';
 
 const BeanPostWrap = styled.div`
   display: inline-block;
@@ -64,8 +64,8 @@ function ModalPosting({ cardPostInfo }) {
       </header>
       <ul>
         {/* //! TODO 실제 서버 통신 시 / BeanPostdb => cardPostInfo */}
-        {BeanPostdb.map((res) => (
-          <ModalPostingLi key={res.postId} res={res} />
+        {cardPostInfo.map((post) => (
+          <ModalPostingLi key={post.postId} post={post} />
         ))}
       </ul>
     </BeanPostWrap>

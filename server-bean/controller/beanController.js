@@ -136,6 +136,7 @@ module.exports = {
     const postBeans = await postBean.findAll({
       raw: true,
       where: { beanId: req.query['bean-id'] },
+      order: [['createdAt', 'DESC']],
     });
 
     const postWhere = { [Op.or]: [] };
@@ -145,7 +146,7 @@ module.exports = {
 
     const postList = await post.findAll({
       raw: true,
-      attributes: ['postId', 'title', 'content', 'water', 'waterTemp', 'userid', 'createdAt'],
+      attributes: ['postId', 'title', 'content', 'userid', 'createdAt'],
       where: postWhere,
     });
 
@@ -155,19 +156,16 @@ module.exports = {
       include: [
         {
           model: beanInfo,
-          attributes: ['beanId', 'beanName'],
-        },
+          attributes: ['beanName']
+        }
       ],
     });
 
     for (let postItem of postList) {
       const beans = [];
-      for (let postBeanInfo of postBeansByPostId) {
-        if (postItem['postId'] === postBeanInfo.dataValues['postId']) {
-          beans.push({
-            beanId: postBeanInfo.dataValues.beanInfo['beanId'],
-            beanName: postBeanInfo.dataValues.beanInfo['beanName'],
-          });
+      for(let postBeanInfo of postBeansByPostId){
+        if(postItem['postId'] === postBeanInfo.dataValues['postId']){
+          beans.push(postBeanInfo.dataValues.beanInfo['beanName']);
         }
       }
       postItem['beans'] = beans;
@@ -180,8 +178,8 @@ module.exports = {
 
   beanLike: (req, res) => {
     const { beanId, beanLike } = req.body.data;
-    const accessTokenInfo = isAuthorized(req);
-    if (!accessTokenInfo) {
+    const accessTokenInfo = isAuthorized(req);    
+    if(!accessTokenInfo){
       res.status(400).json({
         message: '로그인이 되어 있지 않습니다.',
       });
@@ -212,5 +210,15 @@ module.exports = {
           });
         });
     }
+  },
+
+  beanForPost: (req, res) => {
+    beanInfo.findAll({
+      attributes: ['beanId', 'beanName'],
+    }).then(result => {
+      res.status(200).json({
+        beans: result
+      });
+    });
   },
 };

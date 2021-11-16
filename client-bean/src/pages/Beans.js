@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars*/
+
 import React from 'react';
 import BeanCards from '../components/beans/beanCards/BeanCards';
 import BeanSearch from '../components/beans/BeanSearch';
@@ -17,7 +19,6 @@ export default function Beans({ loginId }) {
   const [openModal, cardBeanInfo, cardPostInfo, beanModal, closeModal] = useBeanModal(beans);
 
   const getBeanCards = (res) => {
-    //TODO res에 따른 setBeans 설정
     setBeans([...res.beanList]);
   };
 

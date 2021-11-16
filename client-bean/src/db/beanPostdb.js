@@ -4,7 +4,7 @@ export const BeanPostdb = [
   {
     postId: 1,
     title: '쓴맛 속에 스며든 약간의 신맛과 단맛이 특맛과 단맛이 특맛과 단맛이 특맛과 단맛이 특징',
-    beans: ['자바', '만델링'],
+    beans: { beanName: ['자바', '만델링'] },
     userId: 'hihi',
     createAt: '2020-12-20',
   },

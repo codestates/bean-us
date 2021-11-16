@@ -49,7 +49,7 @@ function ModalBeanInfo({ cardBeanInfo }) {
   let {
     acidity,
     beanImage,
-    beanName,
+    beans,
     bitterness,
     body,
     desc,
@@ -87,7 +87,7 @@ function ModalBeanInfo({ cardBeanInfo }) {
           marginRight='5rem'
         />
         <ul className='beaninfo'>
-          <li className='name'>{beanName}</li>
+          <li className='name'>{beans.beanName}</li>
           <li className='Orign'>Orign : {origin}</li>
           <li className='like'>Like : {likeCount}</li>
           <ul>

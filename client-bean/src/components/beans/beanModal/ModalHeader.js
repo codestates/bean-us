@@ -23,9 +23,9 @@ const ModalHead = styled.div`
   }
 `;
 
-function ModalHeader({ cardBeanInfo, closeModal }) {
+export default function ModalHeader({ cardBeanInfo, closeModal }) {
+  console.log('cardBeanInfo', cardBeanInfo);
   let { beanName } = cardBeanInfo[0];
-
   const closeBtn = () => {
     closeModal();
   };
@@ -37,5 +37,3 @@ function ModalHeader({ cardBeanInfo, closeModal }) {
     </ModalHead>
   );
 }
-
-export default ModalHeader;

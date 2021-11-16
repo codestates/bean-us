@@ -1,33 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import useBeanModal from '../../hooks/useBeanModal';
+import React from 'react';
 import { getAllBeans } from '../../network/beans/http';
 import { TopFrame } from '../../styles/basicFrame/TopFrame';
 import BeanCards from '../beans/beanCards/BeanCards';
 import BeanCardModal from '../beans/beanModal/BeanCardModal';
+import LoadingPage from '../../pages/LoadingPage';
+import useBeanModal from '../../hooks/useBeanModal';
+import { useLoading } from '../../hooks/useLoading';
 
 function MyBeans({ loginId }) {
-  const [myBeans, setMyBeans] = useState([]);
-  const [openModal, cardBeanInfo, cardPostInfo, beanModal, closeModal] = useBeanModal(myBeans);
-
-  useEffect(() => {
-    // TODO GET 요청
-    getAllBeans().then((res) => {
-      let filterBeans = res.beanList.filter((my) => my.like);
-      setMyBeans([...filterBeans]);
-    });
-  }, []);
+  const [mybeans, isLoading] = useLoading([], getAllBeans());
+  const [openModal, cardBeanInfo, cardPostInfo, beanModal, closeModal] = useBeanModal(
+    mybeans.filter((my) => my.like)
+  );
 
   return (
-    <TopFrame>
-      <BeanCards beans={myBeans} loginId={loginId} beanModal={beanModal} />
-      {openModal && (
-        <BeanCardModal
-          cardPostInfo={cardPostInfo}
-          cardBeanInfo={cardBeanInfo}
-          closeModal={closeModal}
-        />
+    <>
+      {isLoading ? (
+        <LoadingPage />
+      ) : (
+        <TopFrame>
+          <BeanCards
+            beans={mybeans.filter((my) => my.like)}
+            loginId={loginId}
+            beanModal={beanModal}
+          />
+          {openModal && (
+            <BeanCardModal
+              cardPostInfo={cardPostInfo}
+              cardBeanInfo={cardBeanInfo}
+              closeModal={closeModal}
+            />
+          )}
+        </TopFrame>
       )}
-    </TopFrame>
+    </>
   );
 }
 
