@@ -6,7 +6,7 @@ import { MdHomeFilled } from 'react-icons/md';
 import TopBar from './TopBar';
 
 export const MainHeader = styled.header`
-  width: 100vw;
+  width: 100%;
   height: 5vh;
   display: flex;
   position: -webkit-sticky;
@@ -17,18 +17,17 @@ export const MainHeader = styled.header`
   > .link {
     > img {
       width: 100px;
-      margin-left: 2vw;
     }
   }
 `;
 export const Nav = styled.nav`
-  width: 100vw;
+  width: 100%;
   display: flex;
   font-size: 1.2rem;
   justify-content: flex-end;
   align-items: center;
-  right: 5px;
   margin-right: 1.5vw;
+  background-color: #fff;
   > .link {
     padding: 4px 0 8px;
     width: 90px;
@@ -48,10 +47,7 @@ export const Nav = styled.nav`
   }
 `;
 
-const Img = styled.img`
-  position: absolute;
-  top: -8px;
-`;
+const Img = styled.img``;
 
 export default function NavBar({
   isLogin,

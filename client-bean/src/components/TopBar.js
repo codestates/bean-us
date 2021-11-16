@@ -4,11 +4,11 @@ import styled from 'styled-components';
 // import { checkToken } from '../network/sign/checkToken';
 
 const TopBarDiv = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: flex-end;
-  padding: 4px 21px 0 0;
-  background-color: ${({ main }) => (main === 'main' ? 'none' : '#c8aa9b')};
+  /* padding: 4px 21px 0 0; */
+  background-color: ${({ main }) => (main ? 'orange' : '#c8aa9b')};
 `;
 const LoginBtn = styled.button`
   width: 110px;
@@ -18,7 +18,7 @@ const LoginBtn = styled.button`
   cursor: pointer;
   font-weight: 500;
   font-size: 15px;
-  color: ${({ main }) => (main === 'main' ? '#fff' : '#000')};
+  color: ${({ main }) => (main ? '#fff' : '#000')};
   z-index: 10;
   &:hover {
     cursor: pointer;
@@ -33,7 +33,7 @@ const LogoutBtn = styled.button`
   border: none;
   cursor: pointer;
   z-index: 10;
-  color: ${({ main }) => (main === 'main' ? '#fff' : '#000')};
+  color: ${({ main }) => (main ? '#fff' : '#000')};
   &:hover {
     cursor: pointer;
   }
@@ -45,7 +45,7 @@ const Greeting = styled.span`
   font-size: 13px;
   font-weight: 500;
   padding: 0 10px 0 0;
-  color: ${({ main }) => (main === 'main' ? '#fff' : '#000')};
+  color: ${({ main }) => (main ? '#fff' : '#000')};
 `;
 
 export default function TopBar({ isLogin, modalHandler, loginId, renderModal, main }) {

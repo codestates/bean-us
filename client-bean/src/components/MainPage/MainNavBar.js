@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { MdHomeFilled } from 'react-icons/md';
 import { MainHeader, Nav } from '../NavBar';
+import TopBar from '../TopBar';
 
 const MainHeaderNone = styled(MainHeader)`
   background-color: rgba(0, 0, 0, 0);
 `;
 
 const MainNav = styled(Nav)`
-  position: absolute;
-  background-color: none;
+  background-color: grey;
   > .link {
     color: #e67700;
     &:hover {
@@ -19,26 +19,47 @@ const MainNav = styled(Nav)`
   }
 `;
 
-export default function Header() {
+const Img = styled.img``;
+
+export default function MainNavBar({
+  isLogin,
+  loginHandler,
+  modalHandler,
+  saveLoginId,
+  loginId,
+  renderModal,
+  main,
+}) {
   return (
-    <MainHeaderNone>
-      <Link to='/' className='link'>
-        <img src='/asset/mainpage/logo.png' alt='logo' />
-      </Link>
-      <MainNav>
+    <>
+      <TopBar
+        isLogin={isLogin}
+        modalHandler={modalHandler}
+        loginHandler={loginHandler}
+        loginId={loginId}
+        saveLoginId={saveLoginId}
+        renderModal={renderModal}
+        main={main}
+      ></TopBar>
+      <MainHeaderNone>
         <Link to='/' className='link'>
-          <MdHomeFilled className='navicon' />
+          <Img src='/asset/mainpage/logo.png' alt='logo' />
         </Link>
-        <Link to='/posts' className='link'>
-          post
-        </Link>
-        <Link to='beans' className='link'>
-          beans
-        </Link>
-        <Link to='myPage' className='link'>
-          mypage
-        </Link>
-      </MainNav>
-    </MainHeaderNone>
+        <MainNav>
+          <Link to='/' className='link'>
+            <MdHomeFilled className='navicon' />
+          </Link>
+          <Link to='/posts' className='link'>
+            post
+          </Link>
+          <Link to='beans' className='link'>
+            beans
+          </Link>
+          <Link to='myPage' className='link'>
+            mypage
+          </Link>
+        </MainNav>
+      </MainHeaderNone>
+    </>
   );
 }
