@@ -211,16 +211,15 @@ module.exports = {
   },
 
   findByParams: async (req, res) => {
-    const {title} = req.query;
-    const accessTokenInfo = isAuthorized(req);
+    const {title, userId} = req.query;
     const paramWhere = {};
 
     if(title){
       paramWhere['title'] = {[Op.like]: `%${title}%`};
     }
 
-    if(accessTokenInfo){
-      paramWhere['userId'] = {}
+    if(userId){
+      paramWhere['userId'] = userId;
     }
 
     const postList = await post.findAll({
