@@ -1,5 +1,3 @@
-/*eslint-disable no-unused-vars*/
-
 import { useState } from 'react';
 
 export default function useBeanModal(beans) {
@@ -14,11 +12,11 @@ export default function useBeanModal(beans) {
     setOpenModal(true);
   };
 
-  const closeModal = () => {
-    setOpenModal(false);
+  const closeModal = (e, op) => {
+    if (op || e.target === e.currentTarget) {
+      setOpenModal(false);
+    }
   };
-
-  console.log(openModal, cardBeanInfo, cardPostInfo);
 
   return [openModal, cardBeanInfo, cardPostInfo, beanModal, closeModal];
 }
