@@ -41,7 +41,6 @@ export const postBeanLike = async (beanId, beanLike) => {
 
 export const statusCode = (code) => {
   if (code === 401) {
-    //* 로그인상태에서 401을 받는다면
     return '로그인이 만료되었습니다. 다시 로그인해 주세요';
   }
 

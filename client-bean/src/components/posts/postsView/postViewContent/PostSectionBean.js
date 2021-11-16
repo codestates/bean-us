@@ -45,15 +45,13 @@ const ContentInnerContainer = styled(ContentWrap)`
 
 export default function PostSectionBean({ postCotents }) {
   let { imageUrl, beanRatio, water, waterTemp } = postCotents;
-
   return (
     <BeanWrap>
       <ImgFrame
-        imgUrl={imageUrl}
+        imgUrl={imageUrl || '/asset/beans/bean10.jpg'}
         alt='postImg'
         width='450px'
         height='450px'
-        border={({ theme }) => theme.line.frame}
         marginRight='5rem'
       />
       <ContentContainer>

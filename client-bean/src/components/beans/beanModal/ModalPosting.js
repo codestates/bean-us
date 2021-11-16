@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import { FaChevronCircleDown } from 'react-icons/fa';
 import ModalPostingLi from './ModalPostingLi';
 
-//db
-// import { BeanPostdb } from '../../../db/beanPostdb';
-
 const BeanPostWrap = styled.div`
   display: inline-block;
   width: 100%;
@@ -63,7 +60,6 @@ function ModalPosting({ cardPostInfo }) {
         <FaChevronCircleDown className='down' onClick={postScroll} />
       </header>
       <ul>
-        {/* //! TODO 실제 서버 통신 시 / BeanPostdb => cardPostInfo */}
         {cardPostInfo.map((post, i) => (
           <ModalPostingLi key={post.postId} post={post} />
         ))}

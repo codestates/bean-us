@@ -6,8 +6,8 @@ export function useLoading(inital, httpService, arg) {
 
   useEffect(() => {
     setIsLoading(true);
-    //! TODO GET /post?post-id=postId
-    httpService
+    // TODO GET /post?post-id=postId
+    httpService()
       .then((res) => {
         setData(res);
         setIsLoading(false);

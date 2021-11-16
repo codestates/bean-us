@@ -113,7 +113,7 @@ const SignModal = ({ isLogin, modalHandler, saveLoginId, loginHandler }) => {
                     loginHandler={loginHandler}
                   />
                 </LoginWrapper>
-                <LoginImg src='asset/logins/signImg.jpg'></LoginImg>
+                <LoginImg src='/asset/logins/signImg.jpg'></LoginImg>
               </FlexWrapper>
             )}
           </div>
