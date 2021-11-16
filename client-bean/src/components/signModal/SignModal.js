@@ -73,7 +73,6 @@ const LoginImg = styled.img`
   margin-left: 30px;
   width: 300px;
   height: 450px;
-
   border-radius: 0 20px 20px 0;
 `;
 

@@ -11,10 +11,10 @@ const CardModalContainer = styled.div`
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
-
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 6;
 `;
 
 const ModalWrap = styled.div`

@@ -8,6 +8,8 @@ import MyInfo from '../components/myPage/MyInfo';
 import MyBeans from '../components/myPage/MyBeans';
 import MyPosts from '../components/myPage/MyPosts';
 
+import LoginRequest from '../components/myPage/LoginRequest';
+
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -44,7 +46,9 @@ const MyPageSideBars = styled.section`
   }
 `;
 
-export default function Main({ isLogin, loginHandler }) {
+export default function MyPage({ isLogin, loginHandler }) {
+  const [isLoading, setIsLoding] = useState(true);
+
   const [userId, setUserId] = useState('');
   const [email, setEmail] = useState('');
   const [social, setSocial] = useState('');
@@ -62,6 +66,7 @@ export default function Main({ isLogin, loginHandler }) {
         setUserId(res.data.informations.userId);
         setEmail(res.data.informations.email);
         setSocial(res.data.informations.social);
+        setIsLoding(false);
       }
     });
   }, [userId, email, social, isLogin]);
@@ -119,6 +124,7 @@ export default function Main({ isLogin, loginHandler }) {
                   userId={userId}
                   email={email}
                   social={social}
+                  isLoading={isLoading}
                   editEmailReq={editEmailReq}
                   loginHandler={loginHandler}
                 />
@@ -129,7 +135,7 @@ export default function Main({ isLogin, loginHandler }) {
           </Routes>
         </MainContainer>
       ) : (
-        <div>로그인을 해주세요!</div>
+        <LoginRequest></LoginRequest>
       )}
     </>
   );
