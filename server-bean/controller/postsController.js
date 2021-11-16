@@ -148,6 +148,7 @@ module.exports = {
   findAllPost: async (req, res) => {
     const postList = await post.findAll({
       raw: true,
+      order: ['createdAt', 'DESC']
     });
     const postbeanList = await postBean.findAll({
       raw: true,
@@ -220,6 +221,7 @@ module.exports = {
     const postList = await post.findAll({
       raw: true,
       where: paramWhere,
+      order: ['createdAt', 'DESC']
     });
     const postbeanList = await postBean.findAll({
       raw: true,
@@ -273,7 +275,8 @@ module.exports = {
     const commentAll = await postComment.findAll({
       raw: true,
       attributes: ['userId', 'commentId', 'comment', 'createdAt'],
-      where:{postId}
+      where:{postId},
+      order: ['createdAt', 'DESC']
     })
 
     const beanRatio = {};
@@ -337,7 +340,7 @@ module.exports = {
       });
     }
 
-    const { commentId } = req.body.data;
+    const { commentId } = req.body;
 
     postComment.destroy({ where: { commentId } }).then(() => {
       res.status(204).json({
