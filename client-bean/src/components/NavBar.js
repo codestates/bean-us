@@ -27,14 +27,15 @@ export const Nav = styled.nav`
   justify-content: flex-end;
   align-items: center;
   margin-right: 1.5vw;
-  background-color: #fff;
   > .link {
     padding: 4px 0 8px;
     width: 90px;
     flex: none;
     text-decoration: none;
     color: black;
-    font-weight: 500;
+    font-weight: 700;
+    font-size: 23px;
+    font-family: 'Cafe24Oneprettynight';
     box-sizing: border-box;
     text-align: center;
     &:hover {
@@ -47,7 +48,11 @@ export const Nav = styled.nav`
   }
 `;
 
-const Img = styled.img``;
+export const Img = styled.img`
+  position: absolute;
+  top: -8px;
+  left: 20px;
+`;
 
 export default function NavBar({
   isLogin,

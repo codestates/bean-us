@@ -9,7 +9,8 @@ import { signupReq, checkIdReq } from '../../../network/sign/signApi';
 import { idValidation, passwordValidation, emailValidation } from '../../../utils/validation';
 
 const ValidMessage = styled.p`
-  margin: 0 0 0 125px;
+  margin: 0 0 0 128px;
+  font-family: 'NotoSans';
   font-size: 12px;
   color: #95673d;
 `;
@@ -17,6 +18,7 @@ const ValidMessage = styled.p`
 const ReqErrorMessage = styled.p`
   margin-top: 15px;
   text-align: center;
+  font-family: 'NotoSans';
   color: #95673d;
 `;
 
@@ -103,6 +105,9 @@ export default function Signup({ renderSignupHandler }) {
     }
   };
 
+  //signup
+  //checkId
+
   return (
     <>
       <H2>Sign up</H2>
@@ -111,8 +116,8 @@ export default function Signup({ renderSignupHandler }) {
         title='아이디'
         marginTop='40px'
         inputHandler={inputHandler}
-        signup='true'
-        checkId='true'
+        signup
+        checkId
         checkDuplicate={checkDuplicate}
       />
       <ValidMessage>{isValidId}</ValidMessage>
@@ -121,7 +126,7 @@ export default function Signup({ renderSignupHandler }) {
         title='비밀번호'
         type='password'
         inputHandler={inputHandler}
-        signup='true'
+        signup
       />
       <ValidMessage>{isValidPassword}</ValidMessage>
       <InputLine
@@ -129,7 +134,7 @@ export default function Signup({ renderSignupHandler }) {
         title='비밀번호 확인'
         type='password'
         inputHandler={inputHandler}
-        signup='true'
+        signup
         blurHandler={blurHandler}
       />
       <ValidMessage>{nowValidPassword}</ValidMessage>
@@ -137,7 +142,7 @@ export default function Signup({ renderSignupHandler }) {
         name='email'
         title='이메일'
         inputHandler={inputHandler}
-        signup='true'
+        signup
         blurHandler={blurHandler}
       />
       <ValidMessage>{isValidEmail}</ValidMessage>

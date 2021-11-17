@@ -75,7 +75,7 @@ module.exports = {
       where: { userId, password: curPwd },
     });
 
-    if (!isMatched) return res.json({ data: false, message: '아이디와 비밀번호가 일치하지 않습니다' });
+    if (!isMatched) return res.json({ data: false, message: '현재 비밀번호와 일치하지 않습니다' });
 
     const data = await userInfo.update({ userId, password: newPwd }, { where: { password: curPwd } });
 

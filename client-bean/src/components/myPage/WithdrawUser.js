@@ -38,7 +38,7 @@ export const Background = styled.div`
 `;
 
 const Container = styled.div`
-  width: 468px;
+  width: 450px;
   height: ${({ social }) => (social === 'beanus' ? '350px' : '250px')};
   padding: 15px 0 0 25px;
   background-color: #eee;
@@ -64,10 +64,12 @@ const B = styled.b`
 
 const P = styled.p`
   width: 100px;
+  font-family: 'BMHANNAAir';
 `;
 
 const SubText = styled.p`
   text-align: center;
+  font-family: 'Cafe24Ohsquareair';
   margin-top: ${({ entered }) => (entered === 'entered' ? '0' : '25px')};
   margin-bottom: ${({ entered }) => (entered === 'entered' ? '25px' : '5px')};
 `;
@@ -131,11 +133,11 @@ export default function WithdrawUser({ userId, withdrawCilckHandler, loginHandle
   return (
     <Background>
       <Container social={social}>
-        <H2>정말로 탈퇴를 원히사나요?</H2>
+        <H2>정말로 탈퇴를 원히시나요?</H2>
         <SubText>
           <B>{`${userId}`}</B> 님과 함께한 순간을 잊지 않을게요
         </SubText>
-        <SubText entered='entered'>다시 뵐 날을 기대하겠습니다</SubText>
+        <SubText entered='entered'>다시 뵐 날을 기대합니다</SubText>
         {social === 'beanus' ? (
           <>
             <LineWrapper>

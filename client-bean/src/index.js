@@ -7,6 +7,7 @@ import GlobalStyle from './styles/globalstyles';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
+import './fonts/font.css';
 
 // import reportWebVitals from './reportWebVitals';
 

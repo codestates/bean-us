@@ -14,7 +14,6 @@ const MainContainer = styled.div`
   align-items: center;
   cursor: default;
   overflow-y: auto;
-  overflow-x: hidden;
 `;
 
 export default function Main({ isLogin, loginHandler, loginId, saveLoginId, modalHandler }) {

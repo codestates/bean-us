@@ -6,7 +6,8 @@ export const Button = styled.button`
   width: 150px;
   height: 40px;
   margin-left: ${({ marginLeft }) => marginLeft || 0};
-  font-size: 16px;
+  font-size: 17px;
+  font-family: 'BMHANNAAir';
   border: none;
   border-radius: 10px;
   background-color: RGB(249, 246, 245);

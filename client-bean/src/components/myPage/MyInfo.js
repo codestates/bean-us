@@ -28,6 +28,7 @@ const InfoTitle = styled.p`
   width: 5.5rem;
   font-size: 25px;
   font-weight: 600;
+  font-family: 'Cafe24SsurroundAir';
   border-right: 1px solid rgba(0, 0, 0, 0.4);
   margin-bottom: 20px;
 `;
@@ -35,6 +36,7 @@ const InfoTitle = styled.p`
 const InfoContent = styled.p`
   font-size: 25px;
   font-weight: 600;
+  font-family: 'NotoSans';
   margin-left: 20px;
   margin-bottom: 20px;
 `;
@@ -52,7 +54,9 @@ const EditButton = styled.button`
   border: none;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.5);
   margin-bottom: 20px;
+  font-size: 17px;
   font-weight: 500;
+  font-family: 'BMHANNAAir';
   &:hover {
     cursor: pointer;
     font-weight: 700;
@@ -66,6 +70,7 @@ const EditButton = styled.button`
 const EditInput = styled.input`
   font-size: 25px;
   font-weight: 700;
+  font-family: 'NotoSans';
   margin-left: 20px;
   margin-bottom: 20px;
   border: none;
@@ -96,6 +101,7 @@ const Button = styled.button`
   width: 170px;
   height: 50px;
   font-size: 20px;
+  font-family: 'BMHANNAAir';
   margin-left: ${({ margin }) => (margin ? '30px' : 'none')};
   background: rgba(255, 255, 255, 0.6);
   border: none;
@@ -157,7 +163,7 @@ export default function MyInfo({ userId, email, social, editEmailReq, loginHandl
         <LoadingPage>정보를 가져오는 중이에요...</LoadingPage>
       ) : (
         <InfoWrapper>
-          <CoffeeImg src='asset/beans/bean1.jpg' alt='커피' />
+          <CoffeeImg src='/asset/beans/bean1.jpg' alt='커피' />
           <InfoBox>
             <InfoLine>
               <InfoTitle title='title'>아이디</InfoTitle>

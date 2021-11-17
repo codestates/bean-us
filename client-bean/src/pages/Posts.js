@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import PostSearch from '../components/postspage/PostSearch';
 import PostCards from '../components/postspage/PostCards';
 import { MdPostAdd } from 'react-icons/md';
-import {getAllPosts} from '../network/postspage/http';
-import {getFilterdPost} from '../network/postspage/http';
+import { getAllPosts } from '../network/postspage/http';
+import { getFilterdPost } from '../network/postspage/http';
 import { Link } from 'react-router-dom';
 
 const PostsContainer = styled.div`
@@ -42,7 +42,7 @@ const CreatePost = styled.button`
   }
 `;
 
-export default function Posts({ isLogin, loginHandler, renderModal, modalHandler, saveLoginId }) {
+export default function Posts({ isLogin }) {
   const [posts, setPosts] = useState([]);
   const [value, setValue] = useState('');
   useEffect(() => {
@@ -58,24 +58,29 @@ export default function Posts({ isLogin, loginHandler, renderModal, modalHandler
     e.preventDefault();
     getFilterdPost(value).then((res) => {
       setPosts(res.postList);
-      console.log(res)
+      console.log(res);
     });
   };
 
   return (
     <>
       <PostsContainer>
-      <div className='title'>게시글</div>
-      <PostSearch handleClick={handleClick} handleInputChange={handleInputChange} posts={posts} value={value}/>
-        {isLogin ? 
-        <StyledLink to='/posts/create'>
-        <CreatePost>
-          <MdPostAdd className='postIcon' />
-        </CreatePost>
-      </StyledLink> : null  
-      }
-      <PostCards posts={posts} />
-    </PostsContainer>
+        <div className='title'>게시글</div>
+        <PostSearch
+          handleClick={handleClick}
+          handleInputChange={handleInputChange}
+          posts={posts}
+          value={value}
+        />
+        {isLogin ? (
+          <StyledLink to='/posts/create'>
+            <CreatePost>
+              <MdPostAdd className='postIcon' />
+            </CreatePost>
+          </StyledLink>
+        ) : null}
+        <PostCards posts={posts} />
+      </PostsContainer>
     </>
   );
 }

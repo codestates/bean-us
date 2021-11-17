@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { MdHomeFilled } from 'react-icons/md';
-import { MainHeader, Nav } from '../NavBar';
+import { MainHeader, Nav, Img } from '../NavBar';
 import TopBar from '../TopBar';
 
 const MainHeaderNone = styled(MainHeader)`
@@ -10,16 +10,16 @@ const MainHeaderNone = styled(MainHeader)`
 `;
 
 const MainNav = styled(Nav)`
-  background-color: grey;
+  background-color: rgba(0, 0, 0, 0);
   > .link {
     color: #e67700;
+    font-size: 23px;
+    font-family: 'Cafe24Oneprettynight';
     &:hover {
       background-color: grey;
     }
   }
 `;
-
-const Img = styled.img``;
 
 export default function MainNavBar({ isLogin, loginHandler, modalHandler, saveLoginId, loginId }) {
   return (
