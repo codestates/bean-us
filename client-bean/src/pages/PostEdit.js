@@ -12,6 +12,7 @@ import { Button } from '../styles/postspage/CreateBtn';
 import { Wrapper } from '../styles/postspage/OuterFrame';
 import {rewritePost, getBeans } from '../network/postsCreate/https';
 import {putPosts} from '../network/postEdit/https';
+import { sendImg } from '../network/postsCreate/https';
 import {useParams, useNavigate} from 'react-router-dom';
 import { MdPostAdd } from 'react-icons/md';
 // import {useNavigate} from 'react-router-dom';
@@ -85,6 +86,8 @@ function PostEdit() {
 
   const [value, setvalue] = useState([]); //input value
 
+  const [form, setForm] = useState('');
+
 	//수정시 사용할 값
 	const [postInfo, setPostInfo] = useState([]);
 
@@ -138,38 +141,59 @@ function PostEdit() {
 
   //게시글 생성
   const putPost = () => {
-    putPosts(id, inputs).then((res) => {
-			alert('수정되었습니다.')
-			navigate('/posts')
-		});
+    if(form !== '') {
+      putPosts(inputs).then(() => {
+        sendImg(form).then(() => {
+          alert('저장되었습니다.')
+          navigate('/posts')
+        })
+      })
+    } else {
+      putPosts(inputs).then(() => {
+        alert('저장되었습니다.')
+        navigate('/posts')
+      });
+    }
   }
 
   //slide3 drop박스 클릭
   const handleClick = (e) => {
+		// console.log(inputs.beanList.length)
+    let beanId = Number(e.target.getAttribute('id'));
+    let index = beans.findIndex((bean) => bean.beanId === beanId)
+    let beanArr = [...beans];
     if(inputs.beanList.length < 5) {
-			if(!value.includes(e.target.getAttribute('value'))) {
-				setvalue([...value, e.target.getAttribute('value')]);
-			} else {
-				setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
-			}
-			let beanId = Number(e.target.getAttribute('id'));
-			let index = beans.findIndex((bean) => bean.beanId === beanId)
-			let beanArr = [...beans];
-			beanArr[index] = {...beanArr[index], click : !(beanArr[index].click)}
-			setBeans(beanArr);
-			if((inputs.beanList.findIndex(el => el.beanId === beanId)) >= 0) {
-				let nBeanList = inputs.beanList.filter(el => el.beanId !== beanId);
-				setInputs({
-					...inputs,
-					beanList: [...nBeanList]
-				})
-			} else {
-				setInputs({
-					...inputs,
-					beanList: [...inputs.beanList, { beanId: beanId }],
-				});
-			}
-		} else return;
+      if(!value.includes(e.target.getAttribute('value'))) {
+        setvalue([...value, e.target.getAttribute('value')]);
+      } else {
+        setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
+      }
+      beanArr[index] = {...beanArr[index], click : !(beanArr[index].click)}
+      setBeans(beanArr);
+      if((inputs.beanList.findIndex(el => el.beanId === beanId)) >= 0) {
+        let nBeanList = inputs.beanList.filter(el => el.beanId !== beanId);
+        setInputs({
+          ...inputs,
+          beanList: [...nBeanList]
+        })
+      } else {
+        setInputs({
+          ...inputs,
+          beanList: [...inputs.beanList, { beanId: beanId }],
+        });
+      }
+    } else {
+      setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
+      let nBeanList = inputs.beanList.filter(el => el.beanId !== beanId);
+      setInputs({
+          ...inputs,
+          beanList: [...nBeanList]
+      })
+      if((inputs.beanList.findIndex(el => el.beanId === beanId)) >= 0) {
+        beanArr[index] = {...beanArr[index], click : !(beanArr[index].click)}
+        setBeans(beanArr);
+      }
+    }
   };
 
   //slide input 상태관리핸들러
@@ -188,10 +212,7 @@ function PostEdit() {
     } else if (e.target.files) {
       const formData = new FormData();
       formData.append('file', e.target.files[0]);
-      setInputs({
-        ...inputs,
-        [name]: formData,
-      });
+      setForm(formData);
     } else {
       setInputs({
         ...inputs,

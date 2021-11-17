@@ -56,7 +56,9 @@ function EditSlide2(props) {
   return(
     <Slide2Wrapper>
       <Question>2. 사진 업로드(선택)</Question>
+      <form>
       <input name='imgFile' type='file' accept='image/*' onChange={handleInputChange}></input>
+      </form>
       <div className="postBtn" onClick={() => slideScrollPost(0)}>
         <BsArrowUpCircle/>
       </div>

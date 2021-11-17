@@ -10,11 +10,9 @@ import Slide6 from '../components/postsCreate/Slide6';
 import Slide7 from '../components/postsCreate/Slide7';
 import { Button } from '../styles/postspage/CreateBtn';
 import { Wrapper } from '../styles/postspage/OuterFrame';
-import {createPosts , getBeans, sendImg } from '../network/postsCreate/https';
+import { getBeans, createPosts, sendImg } from '../network/postsCreate/https';
 import { useNavigate} from 'react-router-dom';
 import { MdPostAdd } from 'react-icons/md';
-
-// import {useNavigate} from 'react-router-dom';
 
 // 페이지 크기 조정
 const PostCreateCnt = styled.div`
@@ -82,7 +80,7 @@ function PostsCreate() {
 
   const [value, setvalue] = useState([]); //input value
 
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState('');
 
   useEffect(() => {
     getBeans().then((res) => {
@@ -115,14 +113,12 @@ function PostsCreate() {
 
   //게시글 생성
   const createPost = () => {
-    console.log(form);
-    console.log(inputs);
-    if(form) {
-      sendImg(form).then(() => {
-        createPosts(inputs)
-      }).then(() => {
-        alert('저장되었습니다.')
-        navigate('/posts')
+    if(form !== '') {
+      createPosts(inputs).then(() => {
+        sendImg(form).then(() => {
+          alert('저장되었습니다.')
+          navigate('/posts')
+        })
       })
     } else {
       createPosts(inputs).then(() => {
@@ -130,40 +126,46 @@ function PostsCreate() {
         navigate('/posts')
       });
     }
-    
-    // createPosts(inputs).then(() => {
-		// 	alert('저장되었습니다.')
-		// 	navigate('/posts')
-		// });
   }
 
   //slide3 drop박스 클릭
   const handleClick = (e) => {
-		console.log(inputs.beanList.length)
-		if(inputs.beanList.length < 5) {
-			if(!value.includes(e.target.getAttribute('value'))) {
-				setvalue([...value, e.target.getAttribute('value')]);
-			} else {
-				setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
-			}
-			let beanId = Number(e.target.getAttribute('id'));
-			let index = beans.findIndex((bean) => bean.beanId === beanId)
-			let beanArr = [...beans];
-			beanArr[index] = {...beanArr[index], click : !(beanArr[index].click)}
-			setBeans(beanArr);
-			if((inputs.beanList.findIndex(el => el.beanId === beanId)) >= 0) {
-				let nBeanList = inputs.beanList.filter(el => el.beanId !== beanId);
-				setInputs({
-					...inputs,
-					beanList: [...nBeanList]
-				})
-			} else {
-				setInputs({
-					...inputs,
-					beanList: [...inputs.beanList, { beanId: beanId }],
-				});
-			}
-		} else return;
+		// console.log(inputs.beanList.length)
+    let beanId = Number(e.target.getAttribute('id'));
+    let index = beans.findIndex((bean) => bean.beanId === beanId)
+    let beanArr = [...beans];
+    if(inputs.beanList.length < 5) {
+      if(!value.includes(e.target.getAttribute('value'))) {
+        setvalue([...value, e.target.getAttribute('value')]);
+      } else {
+        setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
+      }
+      beanArr[index] = {...beanArr[index], click : !(beanArr[index].click)}
+      setBeans(beanArr);
+      if((inputs.beanList.findIndex(el => el.beanId === beanId)) >= 0) {
+        let nBeanList = inputs.beanList.filter(el => el.beanId !== beanId);
+        setInputs({
+          ...inputs,
+          beanList: [...nBeanList]
+        })
+      } else {
+        setInputs({
+          ...inputs,
+          beanList: [...inputs.beanList, { beanId: beanId }],
+        });
+      }
+    } else {
+      setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
+      let nBeanList = inputs.beanList.filter(el => el.beanId !== beanId);
+      setInputs({
+          ...inputs,
+          beanList: [...nBeanList]
+      })
+      if((inputs.beanList.findIndex(el => el.beanId === beanId)) >= 0) {
+        beanArr[index] = {...beanArr[index], click : !(beanArr[index].click)}
+        setBeans(beanArr);
+      }
+    }
   };
 
   //slide input 상태관리핸들러
@@ -181,7 +183,7 @@ function PostsCreate() {
       });
     } else if (e.target.files) {
       const formData = new FormData();
-      formData.append('file', e.target.files[0]);
+      formData.append('file', e.target.files);
       setForm(formData);
     } else {
       setInputs({

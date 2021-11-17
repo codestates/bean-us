@@ -48,7 +48,7 @@ const CreatePost = styled.button`
 export default function Posts({ isLogin }) {
   // const [posts, setPosts] = useState([]);
   const [value, setValue] = useState('');
-  const [posts, isLoading, setPosts] = useLoading([], getAllPosts, isLogin)
+  const [posts, isLoading, setPosts] = useLoading([], getAllPosts)
   useEffect(() => {
     getAllPosts().then((res) => {
       setPosts(res.postList);
@@ -68,7 +68,7 @@ export default function Posts({ isLogin }) {
 
   return (
     <>
-      {isLoading ? <LoadingPage content='Loading...'/> : 
+      {isLoading ? <LoadingPage content='Loading...' spinner/> : 
       <PostsContainer>
       <div className='title'>게시글</div>
       <PostSearch
