@@ -32,17 +32,23 @@ const ModalWrap = styled.div`
   }
 `;
 
+const ModalInnerWrap = styled.div`
+  width: 740px;
+`;
+
 export default function BeanCardModal({ cardPostInfo, cardBeanInfo, closeModal }) {
   return (
-    <CardModalContainer>
+    <CardModalContainer onClick={closeModal}>
       <ModalWrap>
-        <ModalHeader cardBeanInfo={cardBeanInfo} closeModal={closeModal} />
-        <ModalBeanInfo cardBeanInfo={cardBeanInfo} />
-        {cardPostInfo ? (
-          <ModalPosting cardPostInfo={cardPostInfo} />
-        ) : (
-          <NoDataWrap>게시물이 없습니다</NoDataWrap>
-        )}
+        <ModalInnerWrap>
+          <ModalHeader cardBeanInfo={cardBeanInfo} closeModal={closeModal} />
+          <ModalBeanInfo cardBeanInfo={cardBeanInfo} />
+          {cardPostInfo ? (
+            <ModalPosting cardPostInfo={cardPostInfo} />
+          ) : (
+            <NoDataWrap>게시물이 없습니다</NoDataWrap>
+          )}
+        </ModalInnerWrap>
       </ModalWrap>
     </CardModalContainer>
   );

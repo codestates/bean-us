@@ -45,7 +45,7 @@ const PostHeadWrap = styled.div`
 `;
 
 export default function PostHeader({ postCotents, postId, loginId }) {
-  let { title, userId, createAt } = postCotents;
+  let { title, userId, createdAt } = postCotents;
 
   let navigate = useNavigate();
 
@@ -72,13 +72,13 @@ export default function PostHeader({ postCotents, postId, loginId }) {
             <span className='initial'>{userId.charAt(0)}</span>
             <ul>
               <li className='user'>작성자 : {userId}</li>
-              <li className='date'>{createAt}</li>
+              <li className='date'>{createdAt}</li>
             </ul>
           </div>
           {/* 본인 게시글인 경우만 loginId === userId */}
           {loginId === userId && (
             <div>
-              <BtnFrame content='수정' editPost={editPost} />
+              <BtnFrame content='수정' clickEvent={editPost} />
               <BtnFrame content='삭제' marginLeft='3px' clickEvent={deletePost} />
             </div>
           )}

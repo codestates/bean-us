@@ -8,7 +8,7 @@ import useBeanModal from '../../hooks/useBeanModal';
 import { useLoading } from '../../hooks/useLoading';
 
 function MyBeans({ loginId }) {
-  const [mybeans, isLoading] = useLoading([], getAllBeans(), loginId);
+  const [mybeans, isLoading] = useLoading([], getAllBeans, loginId);
   const [openModal, cardBeanInfo, cardPostInfo, beanModal, closeModal] = useBeanModal(
     mybeans.filter((my) => my.like)
   );

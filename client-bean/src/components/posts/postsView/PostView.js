@@ -12,8 +12,7 @@ import LoadingPage from '../../../pages/LoadingPage';
 export default function PostView({ loginId }) {
   let { id } = useParams();
 
-  //!실제 서버 통신
-  let [postContent, isLoading] = useLoading({}, getPostInfo(id), id);
+  let [postContent, isLoading] = useLoading({}, () => getPostInfo(id), id);
 
   const nonPost = () => {
     alert('해당 게시물이 없거나 삭제되었습니다');
