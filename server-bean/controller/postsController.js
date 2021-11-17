@@ -4,6 +4,8 @@ const {isAuthorized} = require('./functions/index.js');
 
 module.exports = {
   createPost: async (req, res) => {
+    console.log(req.body);
+    console.log(req.file);
     const accessTokenInfo = isAuthorized(req);
     if(!accessTokenInfo){
       res.status(400).json({
@@ -326,6 +328,8 @@ module.exports = {
         message: '로그인이 되어 있지 않습니다.',
       });
     }
+
+    console.log(req.body.data);
 
     const {commentId, comment} = req.body.data;
 
