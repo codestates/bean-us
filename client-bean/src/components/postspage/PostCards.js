@@ -128,7 +128,8 @@ export default function PostCards(props) {
                   />
                 </div>
                 <div className='contentTitle'>
-                  {post.title.length > 12 ? post.title.slice(0, 13) + '...' : post.title}
+                  {/* {post.title.length > 12 ? post.title.slice(0, 13) + '...' : post.title} */}
+                  {post.title}
                 </div>
                 <div className='beanInfo'>
                   {post.beans.map((bean) => (

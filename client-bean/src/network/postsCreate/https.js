@@ -12,7 +12,7 @@ export const createPosts = (data) => {
 
 //이미지 보내기
 export const sendImg = (data) => {
-  return axios.post(`${https}/posts`, {headers : {'Content-Type' : 'multipart/formdata'}} ,data)
+  return axios.post(`${https}/posts`,data, {headers : {'Content-Type' : 'multipart/form-data'}})
 }
 
 //게시글 수정
