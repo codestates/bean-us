@@ -20,7 +20,7 @@ const Slide3Wrapper = styled.div`
   top: 38%;
   left: 100%;
   font-size: 2rem;
-  color: #a46565;
+  color: rgba(121, 147, 105, 1);
   }
   & .nextBtn {
   border: none;
@@ -34,7 +34,7 @@ const Slide3Wrapper = styled.div`
   top: 48%;
   left: 100%;
   font-size: 2rem;
-  color: #a46565;
+  color: rgba(121, 147, 105, 1);
   }
 `;
 
@@ -42,7 +42,7 @@ const DropBox = styled.div`
   position: absolute;
   text-align: left;
   left: 10%;
-  top: 48%;
+  top: 52%;
   width: 80%;
   height: 200px;
   border-radius: 5px;
@@ -54,7 +54,7 @@ const DropBox = styled.div`
   font-size: 1rem;
   overflow: auto;
   /* background-color: rgba(255, 255, 255, 0.9); */
-  border: 1px solid rgba(0,0,0,0.2);
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
   display: ${({focus}) => (focus ? `grid` : `none`)};
 `;
 const Bean = styled.div`
@@ -64,7 +64,7 @@ const Bean = styled.div`
   border: 1px solid rgba(121, 147, 105, 1);
   border-radius: 25px;
   color: rgba(121, 147, 105, 1);
-
+  font-family: 'Cafe24SsurroundAir';
   &:hover {
   background-color: rgba(166,194,152,1);
   cursor: pointer;
@@ -97,12 +97,12 @@ export default function EditSlide3(props) {
           return <Bean value={bean.beanName} id={bean.beanId} onClick={handleClick} key={bean.beanId} click={bean.click}>#{bean.beanId} : {bean.beanName} </Bean>
         })}
       </DropBox>
-      <button className="postBtn" onClick={() => slideScrollPost(1)}>
+      <div className="postBtn" onClick={() => slideScrollPost(1)}>
         <BsArrowUpCircle/>
-      </button>
-      <button className="nextBtn" onClick={() => slideScrollNext(3)}>
+      </div>
+      <div className="nextBtn" onClick={() => slideScrollNext(3)}>
         <BsArrowDownCircle/>
-      </button>
+      </div>
     </Slide3Wrapper>
   );
 }

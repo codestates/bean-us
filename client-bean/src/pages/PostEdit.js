@@ -9,16 +9,16 @@ import EditSlide5 from '../components/postEdit/EditSlide5';
 import EditSlide6 from '../components/postEdit/EditSlide6';
 import EditSlide7 from '../components/postEdit/EditSlide7';
 import { Button } from '../styles/postspage/CreateBtn';
-import { BorderFrame, Wrapper } from '../styles/postspage/OuterFrame';
+import { Wrapper } from '../styles/postspage/OuterFrame';
 import {rewritePost, getBeans } from '../network/postsCreate/https';
 import {putPosts} from '../network/postEdit/https';
 import {useParams, useNavigate} from 'react-router-dom';
-
+import { MdPostAdd } from 'react-icons/md';
 // import {useNavigate} from 'react-router-dom';
 
 // 페이지 크기 조정
 const PostCreateCnt = styled.div`
-  width: 1099px;
+  width: 100%;
   height: 100vh;
   margin: 0 auto;
   display: flex;
@@ -30,20 +30,31 @@ const PostCreateCnt = styled.div`
 
 // 페이지 제목
 const PageTitle = styled.div`
+	background-color: white;
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
-  padding-top: 12px;
+	font-family: 'Cafe24Ohsquareair';
+  padding: 20px;
+	box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+	width: 1000px;
+	& .title-icon {
+		vertical-align: -10%;
+		font-size: 1.5rem;
+		margin-right: 5px;
+	}
 `;
 
 // slide영역 테두리
 const SlideFrame = styled.div`
   width: 1000px;
   height: 70vh;
-  background: rgba(255, 255, 255, 0.4);
+  /* background: rgba(255, 255, 255, 0.4); */
+	background-color: white;
   margin-top: 10px;
   position: relative;
   overflow-y: hidden;
+	box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
 `;
 
 // const StyledLink = styled(Link)`
@@ -84,8 +95,6 @@ function PostEdit() {
   //   })
   // }, [])
 	
-	
-	// console.log(location.pathname.split('/')[location.pathname.split('/').length -1])
 	useEffect(() => {
 			rewritePost(id).then((res) => {
 			setPostInfo(res.post)
@@ -137,35 +146,36 @@ function PostEdit() {
 
   //slide3 drop박스 클릭
   const handleClick = (e) => {
-		console.log(value)
-    if(!value.includes(e.target.getAttribute('value'))) {
-			setvalue([...value, e.target.getAttribute('value')]);
-		} else {
-			setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
-		}
-		let beanId = Number(e.target.getAttribute('id'));
-		let index = beans.findIndex((bean) => bean.beanId === beanId)
-		let beanArr = [...beans];
-		beanArr[index] = {...beanArr[index], click : !(beanArr[index].click)}
-		setBeans(beanArr);
-		if((inputs.beanList.findIndex(el => el.beanId === beanId)) >= 0) {
-			let nBeanList = inputs.beanList.filter(el => el.beanId !== beanId);
-			setInputs({
-				...inputs,
-				beanList: [...nBeanList]
-			})
-		} else {
-			setInputs({
-				...inputs,
-				beanList: [...inputs.beanList, { beanId: beanId }],
-			});
-		}
-		console.log(inputs);
+    if(inputs.beanList.length < 5) {
+			if(!value.includes(e.target.getAttribute('value'))) {
+				setvalue([...value, e.target.getAttribute('value')]);
+			} else {
+				setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
+			}
+			let beanId = Number(e.target.getAttribute('id'));
+			let index = beans.findIndex((bean) => bean.beanId === beanId)
+			let beanArr = [...beans];
+			beanArr[index] = {...beanArr[index], click : !(beanArr[index].click)}
+			setBeans(beanArr);
+			if((inputs.beanList.findIndex(el => el.beanId === beanId)) >= 0) {
+				let nBeanList = inputs.beanList.filter(el => el.beanId !== beanId);
+				setInputs({
+					...inputs,
+					beanList: [...nBeanList]
+				})
+			} else {
+				setInputs({
+					...inputs,
+					beanList: [...inputs.beanList, { beanId: beanId }],
+				});
+			}
+		} else return;
   };
 
   //slide input 상태관리핸들러
   const handleInputChange = (e) => {
     const { value, name } = e.target;
+    let trimed = value.trim();
     if (name === 'rate') {
       inputs.beanList[e.target.getAttribute('bean')] = {
         ...inputs.beanList[e.target.getAttribute('bean')],
@@ -185,19 +195,16 @@ function PostEdit() {
     } else {
       setInputs({
         ...inputs,
-        [name]: value,
+        [name]: trimed,
       });
     }
-    console.log(inputs);
   };
   // slide 안에 들어가야 할 input이 다 달라서... map함수를 쓸 수가 없다..
   // 정말 이게 최선인지 더 고민해볼것
   return (
     <PostCreateCnt>
       {isOpen ? <CancelModal closeModal={closeModal} /> : null}
-      <BorderFrame width='1000px' height='70px' padding='10px'>
-        <PageTitle>게시글 수정</PageTitle>
-      </BorderFrame>
+        <PageTitle><MdPostAdd/>게시글 수정</PageTitle>
       <SlideFrame>
         <div ref={el => (slideRef.current[0] = el)}>
           <EditSlide1 
@@ -258,6 +265,8 @@ function PostEdit() {
           slideScrollPost={slideScrollPost}
           handleInputChange={handleInputChange}
 					postInfo={postInfo}
+          inputs={inputs}
+					value={value}
           />
         </div>
       </SlideFrame>

@@ -20,7 +20,7 @@ const Slide2Wrapper = styled.div`
   top: 38%;
   left: 100%;
   font-size: 2rem;
-  color: #a46565;
+  color: rgba(121, 147, 105, 1);
   }
   & .nextBtn {
   border: none;
@@ -34,7 +34,7 @@ const Slide2Wrapper = styled.div`
   top: 48%;
   left: 100%;
   font-size: 2rem;
-  color: #a46565;
+  color: rgba(121, 147, 105, 1);
   }
   & input {
   width: 400px;
@@ -47,6 +47,7 @@ const Slide2Wrapper = styled.div`
   left: 24%;
   font-size: 1.3rem;
   padding: 0;
+  font-family: 'Cafe24SsurroundAir';
   }
 `;
 
@@ -56,12 +57,12 @@ function EditSlide2(props) {
     <Slide2Wrapper>
       <Question>2. 사진 업로드(선택)</Question>
       <input name='imgFile' type='file' accept='image/*' onChange={handleInputChange}></input>
-      <button className="postBtn" onClick={() => slideScrollPost(0)}>
+      <div className="postBtn" onClick={() => slideScrollPost(0)}>
         <BsArrowUpCircle/>
-      </button>
-      <button className="nextBtn" onClick={() => slideScrollNext(2)}>
+      </div>
+      <div className="nextBtn" onClick={() => slideScrollNext(2)}>
         <BsArrowDownCircle/>
-      </button>
+      </div>
     </Slide2Wrapper>
   );
 }

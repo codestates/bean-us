@@ -20,7 +20,7 @@ const Slide7Wrapper = styled.div`
   top: 38%;
   left: 100%;
   font-size: 2rem;
-  color: #a46565;
+  color: rgba(121, 147, 105, 1);
   }
   & .nextBtn {
   border: none;
@@ -34,13 +34,13 @@ const Slide7Wrapper = styled.div`
   top: 48%;
   left: 100%;
   font-size: 2rem;
-  color: #a46565;
+  color: rgba(121, 147, 105, 1);
   }
   & textarea {
   width: 500px;
   height: 200px;
   outline: none;
-  border: 1px solid #a46565;
+  border: 1px solid rgba(0,0,0,0.2);
   border-radius: 2px;
   background: none;
   position: absolute;
@@ -48,20 +48,36 @@ const Slide7Wrapper = styled.div`
   left: 18%;
   padding: 2;
   }
+  & .alert-message {
+    width: 250px;
+    height: 20px;
+    color: #977171;
+    position: absolute;
+    top: 86%;
+    left: 36%;
+  }
 `;
 
 export default function EditSlide7(props) {
-  const {handleInputChange, slideScrollNext, slideScrollPost, postInfo} = props;
+  const {handleInputChange, slideScrollNext, slideScrollPost, postInfo, inputs, value} = props;
   return(
     <Slide7Wrapper>
       <Question>7. 간단한 설명(필수)</Question>
       <textarea defaultValue={postInfo.content} name='content' onChange={handleInputChange}></textarea>
-      <button className="postBtn" onClick={() => slideScrollPost(5)}>
+      <div className="postBtn" onClick={() => slideScrollPost(5)}>
         <BsArrowUpCircle/>
-      </button>
-      <button className="nextBtn" onClick={() => slideScrollNext(6)}>
+      </div>
+      <div className="nextBtn" onClick={() => slideScrollNext(6)}>
         <BsArrowDownCircle/>
-      </button>
+      </div>
+      {
+        inputs.title &&
+        inputs.beanList.length === value.length &&
+        inputs.water &&
+        inputs.waterTemp &&
+        inputs.content ?
+        null : <div className='alert-message'>필수항목이 입력되지 않았습니다.</div>
+      }
     </Slide7Wrapper>
   );
 }

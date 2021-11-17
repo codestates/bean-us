@@ -53,7 +53,10 @@ function App() {
   const location = useLocation();
   return (
     <>
-      {location.pathname === '/' || location.pathname === '/posts/create' ? null : (
+      {location.pathname === '/' || 
+      location.pathname === '/posts/create' || 
+      location.pathname.includes('/posts/edit') ? 
+      null : (
         <NavBar
           isLogin={isLogin}
           modalHandler={modalHandler}
