@@ -22,12 +22,13 @@ export const Answer = styled.input`
   outline: none;
   background: none;
   border-radius: 5px;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   position: absolute;
   top: 40%;
   left: 24%;
   font-size: 1.3rem;
-  padding: 0;
+  padding: 0 15px;
+  box-sizing: border-box;
   font-family: 'Cafe24SsurroundAir';
   &::placeholder {
     font-size: 1.2rem;
@@ -36,12 +37,6 @@ export const Answer = styled.input`
   }
 `;
 
-
-
 export default function InputFrame() {
-  return(
-    <div>
-        
-    </div>
-  );
+  return <div></div>;
 }

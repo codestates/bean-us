@@ -20,5 +20,5 @@ export default function KakaoCallback({ loginHandler }) {
     });
   }, []);
 
-  return <LoadingPage content='깃허브로 소셜 로그인 진행중입니다' />;
+  return <LoadingPage content='Github로 로그인 진행중입니다' width='1000px' spinner />;
 }

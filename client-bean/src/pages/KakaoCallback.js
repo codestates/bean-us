@@ -22,5 +22,5 @@ export default function KakaoCallback({ loginHandler, saveLoginId }) {
     });
   }, []);
 
-  return <LoadingPage content='카카오로 소셜 로그인 진행중입니다' />;
+  return <LoadingPage content='카카오로 로그인 진행중입니다' width='1000px' spinner />;
 }
