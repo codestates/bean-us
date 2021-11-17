@@ -7,8 +7,12 @@ import MainNavBar from '../MainNavBar';
 const beanRotation = keyframes`
   from {
     transform: rotate(0deg);
-  } to {
-    transform: rotate(360deg);
+  } 30% {
+    transform: rotate(45deg);
+  } 70% {
+    transform : rotate(-45deg);
+  } 100% {
+    transform: rotate(0deg);
   }
 `;
 
@@ -43,7 +47,7 @@ const SectionIntroCnt = styled.div`
   }
   > .beanimg {
     width: 200px;
-    animation: ${beanRotation} 8s 0.2s infinite ;
+    animation: ${beanRotation} 8s Linear infinite ;
   }
 `;
 

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import { BsArrowUpCircle, BsArrowDownCircle } from "react-icons/bs";
 import { Question, Answer } from '../../styles/postspage/InputFrame';
 
@@ -56,19 +56,28 @@ const DropBox = styled.div`
   /* background-color: rgba(255, 255, 255, 0.9); */
   border: 1px solid rgba(0,0,0,0.2);
   display: ${({focus}) => (focus ? `grid` : `none`)};
-  & div {
-    text-align: center;
-    padding: 10px;
-    width: auto;
-    border: 1px solid rgba(121, 147, 105, 1);
-    border-radius: 25px;
-    color: rgba(121, 147, 105, 1);
-  }
+`;
 
-  & div:hover {
-    background-color: rgba(166,194,152,1);
-    cursor: pointer;
-    color: white;
+const Bean = styled.div`
+  text-align: center;
+  padding: 10px;
+  width: auto;
+  border: 1px solid rgba(121, 147, 105, 1);
+  border-radius: 25px;
+  color: rgba(121, 147, 105, 1);
+
+  &:hover {
+  background-color: rgba(166,194,152,1);
+  cursor: pointer;
+  color: white;
+  }
+  
+  ${props => 
+    props.click && 
+    css`
+      color: #fff;
+      background-color: rgba(121, 147, 105, 1);
+    `
   }
 `;
 
@@ -86,7 +95,7 @@ export default function Slide3(props) {
       <Answer autoComplete='off' value={value} onFocus={inputFoucs} onChange={handleInputChange} name='bean' placeholder='원두를 선택해주세요.'></Answer>
       <DropBox focus={onInputFocus} >
         {beans.map((bean) => {
-          return <div value={bean.beanName} id={bean.beanId} onClick={handleClick} key={bean.beanId}>#{bean.beanId} : {bean.beanName} </div>
+          return <Bean value={bean.beanName} id={bean.beanId} onClick={handleClick}  key={bean.beanId} click={bean.click}>#{bean.beanId} : {bean.beanName} </Bean>
         })}
       </DropBox>
       <button className="postBtn" onClick={() => slideScrollPost(1)}>
