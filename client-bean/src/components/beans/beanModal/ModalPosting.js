@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import { FaChevronCircleDown } from 'react-icons/fa';
 import ModalPostingLi from './ModalPostingLi';
 
-//db
-// import { BeanPostdb } from '../../../db/beanPostdb';
-
 const BeanPostWrap = styled.div`
   display: inline-block;
   width: 100%;
@@ -44,15 +41,11 @@ const BeanPostWrap = styled.div`
 
 function ModalPosting({ cardPostInfo }) {
   const [isPost, setIsPost] = useState(false);
-
   let postRef = useRef(null);
 
   const postScroll = () => {
-    if (!isPost) {
-      postRef.current.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      postRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    }
+    if (!isPost) postRef.current.scrollIntoView({ behavior: 'smooth' });
+    else postRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     setIsPost(!isPost);
   };
 
@@ -63,8 +56,7 @@ function ModalPosting({ cardPostInfo }) {
         <FaChevronCircleDown className='down' onClick={postScroll} />
       </header>
       <ul>
-        {/* //! TODO 실제 서버 통신 시 / BeanPostdb => cardPostInfo */}
-        {cardPostInfo.map((post, i) => (
+        {cardPostInfo.map((post) => (
           <ModalPostingLi key={post.postId} post={post} />
         ))}
       </ul>

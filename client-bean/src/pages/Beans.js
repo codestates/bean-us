@@ -1,3 +1,5 @@
+/*eslint-disable no-unused-vars*/
+
 import React, { useEffect, useState } from 'react';
 import BeanCards from '../components/beans/beanCards/BeanCards';
 import BeanSearch from '../components/beans/BeanSearch';
@@ -11,7 +13,7 @@ import LoadingPage from './LoadingPage';
 export default function Beans({ loginId }) {
   const [allBeanName, setAllBeanName] = useState([]);
 
-  const [beans, isLoading, setBeans] = useLoading([], getAllBeans(), loginId);
+  const [beans, isLoading, setBeans] = useLoading([], getAllBeans, loginId);
   const [openModal, cardBeanInfo, cardPostInfo, beanModal, closeModal] = useBeanModal(beans);
 
   useEffect(() => {

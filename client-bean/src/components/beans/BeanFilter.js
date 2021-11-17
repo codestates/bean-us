@@ -7,8 +7,6 @@ import { getFilterBeans } from '../../network/beans/http';
 const num = [1, 2, 3, 4, 5];
 const content = ['Fragrance', 'Acidity', 'Sweetness', 'Bitterness', 'Body'];
 
-const FilterContainer = styled.div``;
-
 const FilterUL = styled.ul`
   text-align: center;
   width: 800px;
@@ -91,7 +89,7 @@ export default function BeanFilter({ getBeanCards }) {
   };
 
   return (
-    <FilterContainer>
+    <div>
       <div className='subtitle'>분류 보기</div>
       <FilterUL>
         {content.map((value, i) => (
@@ -106,6 +104,6 @@ export default function BeanFilter({ getBeanCards }) {
           </li>
         ))}
       </FilterUL>
-    </FilterContainer>
+    </div>
   );
 }

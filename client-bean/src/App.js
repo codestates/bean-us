@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import TopBar from './components/TopBar';
 import NavBar from './components/NavBar';
 import Main from './pages/Main';
@@ -18,6 +18,7 @@ import GithubCallback from './pages/GithubCallback';
 import SignModal from './components/signModal/SignModal';
 
 import { checkToken } from './network/sign/checkToken';
+import EmptyPage from './pages/EmptyPage';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -76,8 +77,8 @@ function App() {
           }
         />
         <Route path='/posts/view/:id' element={<PostsView loginId={loginId} />} />
-        <Route path='/posts/create' element={<PostsCreate />} />
         <Route path='/posts/edit/:id' element={<PostEdit />} />
+        <Route path='/posts/create' element={<PostsCreate />} />
         <Route path='/posts' element={<Posts isLogin={isLogin} />} />
         <Route path='/beans' element={<Beans loginId={loginId} />} />
         <Route
@@ -92,6 +93,7 @@ function App() {
           path='/auth/github-callback'
           element={<GithubCallback loginHandler={loginHandler} saveLoginId={saveLoginId} />}
         />
+        <Route path='*' element={<EmptyPage />} />
       </Routes>
       {renderModal ? (
         <SignModal

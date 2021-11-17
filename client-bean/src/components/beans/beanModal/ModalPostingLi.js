@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { TagFrame } from '../../../styles/basicFrame/TagFrame';
 
-//[{postId, title, beans: [beanName, beanName, beanName], userId(작성자), createAt}]
-// 최신순으로 정렬
-
 const BeanPostList = styled.li`
   display: flex;
   align-items: center;
