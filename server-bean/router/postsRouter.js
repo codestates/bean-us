@@ -28,7 +28,7 @@ router.get('/all-posts', post.findAllPost);
 router.get('/getPost', post.findByPostId);
 router.get('/', post.findByParams);
 router.get('/post', post.findPostByPostId);
-router.post('/', upload.single('imgFile'), post.createPost);
+router.post('/', upload.single('file'), post.createPost);
 router.put('/', post.updatePost);
 router.delete('/', post.deletePost);
 
