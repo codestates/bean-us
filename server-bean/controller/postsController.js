@@ -1,13 +1,6 @@
 const {post, postBean, beanInfo, postComment} = require('./../models');
 const {Op} = require('sequelize');
 const {isAuthorized} = require('./functions/index.js');
-const AWS = require('aws-sdk');
-const fs = require('fs');
-
-let s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-});
 
 module.exports = {
   createPost: async (req, res) => {
@@ -361,7 +354,6 @@ module.exports = {
   },
 
   imageUpload: (req, res) => {
-    console.log(req.body);
     res.status(200).send('오나');
   }
 };
