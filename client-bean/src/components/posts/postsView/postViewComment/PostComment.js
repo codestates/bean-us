@@ -11,11 +11,13 @@ const CommentUl = styled.ul`
 export default function PostComment({ comments, postId, loginId }) {
   const [allComments, setAllComments] = useState([...comments]);
 
-  const addComment = (commentText) => {
+  const addComment = (data) => {
+    let { comment, commentId, createdAt, userId } = data;
     let newComment = {
-      comment: commentText,
-      userId: loginId,
-      createdAt: new Date().toISOString().split('T')[0],
+      comment,
+      commentId: commentId,
+      userId,
+      createdAt: createdAt.split('T')[0],
     };
     setAllComments([{ ...newComment }, ...allComments]);
   };
