@@ -1,10 +1,7 @@
-/* eslint-disable no-unused-vars*/
-
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import TopBar from './components/TopBar';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Main from './pages/Main';
 import Posts from './pages/Posts';
@@ -53,10 +50,9 @@ function App() {
   const location = useLocation();
   return (
     <>
-      {location.pathname === '/' || 
-      location.pathname === '/posts/create' || 
-      location.pathname.includes('/posts/edit') ? 
-      null : (
+      {location.pathname === '/' ||
+      location.pathname === '/posts/create' ||
+      location.pathname.includes('/posts/edit') ? null : (
         <NavBar
           isLogin={isLogin}
           modalHandler={modalHandler}

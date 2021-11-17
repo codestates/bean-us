@@ -78,6 +78,7 @@ const CardsLi = styled.li`
     padding: 2px;
     border-radius: 5px;
     flex: none;
+    font-size: 14px;
     font-family: 'Cafe24SsurroundAir';
   }
   & .userInfo {
