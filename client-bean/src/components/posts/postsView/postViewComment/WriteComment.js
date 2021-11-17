@@ -32,8 +32,8 @@ export default function WriteComment({ addComment, postId, loginId }) {
       return;
     }
     // POST /posts/comment
-    postComment(postId, commentText).then(() => {
-      addComment(commentText);
+    postComment(postId, commentText).then((res) => {
+      addComment(res);
       setCommentText('');
       textRef.current.rows = 1;
     });

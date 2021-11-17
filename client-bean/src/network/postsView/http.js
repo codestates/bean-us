@@ -20,12 +20,12 @@ export const delPost = async (postId) => {
 //TODO POST /posts/comments
 export const postComment = async (postId, comment) => {
   const res = await axios.post(`${http}/posts/comments`, { data: { postId, comment } });
-  console.log(res.data);
   return res.data;
 };
 
 //TODO PUT /posts/comments
 export const editPutComment = async (postId, commentId, editComment) => {
+  console.log(postId, commentId, editComment);
   const res = await axios.put(`${http}/posts/comments`, {
     data: { postId, commentId, comment: editComment },
   });
