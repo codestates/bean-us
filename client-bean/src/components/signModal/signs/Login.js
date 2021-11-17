@@ -64,6 +64,10 @@ const GithubP = styled.p`
   font-family: 'NotoSans';
 `;
 
+const MarginH2 = styled(H2)`
+  margin-left: 15px;
+`;
+
 export default function Login({ modalHandler, renderSignupHandler, loginHandler, saveLoginId }) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
@@ -106,7 +110,7 @@ export default function Login({ modalHandler, renderSignupHandler, loginHandler,
 
   return (
     <>
-      <H2>Log in</H2>
+      <MarginH2>Log in</MarginH2>
       <InputLine name='userId' title='아이디' marginTop='40px' inputHandler={inputHandler} />
       <InputLine name='password' title='비밀번호' type='password' inputHandler={inputHandler} />
       <ErrorMessage>{loginError}</ErrorMessage>
