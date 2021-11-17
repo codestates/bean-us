@@ -7,11 +7,11 @@ export const TextAreaFrame = styled.textarea`
   border: none;
   border-radius: 5px;
 
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+    display: none;
   }
   &:focus {
     outline: 0;

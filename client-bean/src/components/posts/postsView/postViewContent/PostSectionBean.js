@@ -23,7 +23,7 @@ const ContentContainer = styled.div`
 const ContentInnerContainer = styled(ContentWrap)`
   display: inline;
   width: 450px;
-  flex-basis: ${({ bean }) => (bean ? '62%' : '35%')};
+  flex-basis: ${({ bean }) => (bean ? '70%' : '28%')};
 
   ${({ bean }) =>
     bean &&

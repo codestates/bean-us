@@ -72,7 +72,7 @@ export default function BeanInput({ beanName, getBeanCards }) {
 
   const nameSubmit = (e) => {
     e.preventDefault();
-    //TODO GET 요청
+    // GET 요청
     getBeanName(inputName).then((res) => {
       getBeanCards(res);
     });

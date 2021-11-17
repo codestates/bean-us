@@ -42,7 +42,7 @@ function ViewComment({ comment, postId, loginId, deleteComment }) {
 
   const setRows = (e) => {
     let previousRows = e.target.rows;
-    e.target.rows = 1; // reset number of rows in textarea
+    e.target.rows = 1;
     let boxHeight = e.target.scrollHeight;
     let currentRows = Math.floor(boxHeight / 16);
     if (currentRows === previousRows) e.target.rows = currentRows;

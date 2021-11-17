@@ -1,5 +1,3 @@
-/*eslint-disable no-unused-vars*/
-
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaHeart } from 'react-icons/fa';
@@ -55,7 +53,7 @@ export default function BeanCard({ bean, beanModal, loginId }) {
   const cardClick = (e, beanId) => {
     let { tagName } = e.target;
     if (tagName === 'svg' || tagName === 'path') return;
-    //! TODO GET /bean?beanId=beanId 해당 원두와 관련된 게시글 요청
+    // GET /bean?beanId=beanId 해당 원두와 관련된 게시글 요청
     getBeanPost(beanId).then((res) => {
       beanModal(beanId, res);
     });
@@ -65,7 +63,7 @@ export default function BeanCard({ bean, beanModal, loginId }) {
     if (!loginId) {
       alert('로그인 회원만 사용 가능합니다. 로그인해 주세요');
     } else {
-      // TODO POST /bean/like
+      // POST /bean/like
       postBeanLike(id, !beanlike)
         .then((res) => statusCode(res))
         .then((result) => {

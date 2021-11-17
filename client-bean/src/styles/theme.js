@@ -13,6 +13,3 @@ export const theme = {
     frame: '1px solid rgba(44, 42, 40, 0.3)',
   },
 };
-
-// 사용방법
-// color: ${({ theme }) => theme.color.darkGreen};
