@@ -10,7 +10,7 @@ const Container = styled.div`
 
 const CoffeeWrap = styled.div`
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -50,6 +50,14 @@ const CoffeeWrap = styled.div`
     height: 60px;
     background: linear-gradient(to right, #f9f9f9, #d9d9d9);
     border-radius: 50%;
+  }
+
+  .logo {
+    position: absolute;
+    width: 150px;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .circle {
@@ -166,7 +174,7 @@ const CoffeeWrap = styled.div`
 export default function EmptyPage(props) {
   return (
     <Container>
-      <LoadingPage content='This is Emtpy Page' />
+      <LoadingPage content='This is Emtpy Page' width='800px' />
       <CoffeeWrap>
         <div className='wrapper'>
           <span className='example'></span>
@@ -177,6 +185,7 @@ export default function EmptyPage(props) {
         <div className='container'>
           <div className='plate'></div>
           <div className='cup'>
+            <img src='/asset/mainpage/logo.png' alt='logo' className='logo' />
             <div className='top'>
               <div className='vapour'>
                 <span style={{ '--i': 1 }}></span>

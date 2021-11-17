@@ -8,6 +8,7 @@ const ModalHead = styled.div`
   align-items: center;
   font-size: 1.5rem;
   font-weight: bold;
+  font-family: 'Cafe24Ohsquareair';
 
   & .closeIcon {
     font-size: 2rem;

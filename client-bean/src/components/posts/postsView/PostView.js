@@ -22,7 +22,7 @@ export default function PostView({ loginId }) {
   return (
     <>
       {isLoading ? (
-        <LoadingPage content='Loading...' />
+        <LoadingPage content='Loading...' spinner />
       ) : (
         <>
           {postContent ? (

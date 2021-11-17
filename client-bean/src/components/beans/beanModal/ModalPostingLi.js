@@ -14,6 +14,7 @@ const BeanPostList = styled.li`
   & .firstDiv {
     display: flex;
     align-items: center;
+    flex-basis: 75%;
 
     & .postTitle {
       width: 450px;
@@ -37,6 +38,7 @@ const BeanPostList = styled.li`
     width: 130px;
     font-size: 0.9rem;
     color: rgba(0, 0, 0, 0.6);
+    flex-basis: 20%;
 
     & div {
       margin-bottom: 0.5rem;

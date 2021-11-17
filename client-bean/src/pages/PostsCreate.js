@@ -10,8 +10,8 @@ import Slide6 from '../components/postsCreate/Slide6';
 import Slide7 from '../components/postsCreate/Slide7';
 import { Button } from '../styles/postspage/CreateBtn';
 import { BorderFrame, Wrapper } from '../styles/postspage/OuterFrame';
-import {createPosts , getBeans } from '../network/postsCreate/https';
-import { useNavigate} from 'react-router-dom';
+import { createPosts, getBeans } from '../network/postsCreate/https';
+import { useNavigate } from 'react-router-dom';
 
 // import {useNavigate} from 'react-router-dom';
 
@@ -45,12 +45,11 @@ const SlideFrame = styled.div`
   overflow-y: hidden;
 `;
 
-
 //state관리(title, photo, beans, ratio, water, temp)
 function PostsCreate() {
-	let navigate = useNavigate();
-  
-	const slideRef = useRef([]);
+  let navigate = useNavigate();
+
+  const slideRef = useRef([]);
   //-----상태관리-----
   // 모달
   const [isOpen, setOpen] = useState(false);
@@ -70,15 +69,14 @@ function PostsCreate() {
 
   const [value, setvalue] = useState([]); //input value
 
-
   useEffect(() => {
     getBeans().then((res) => {
-			for(let i = 0; i < res.beans.length; i++) {
-				res.beans[i].click = false
-			}
-			setBeans(res.beans)
-		})
-  }, [])
+      for (let i = 0; i < res.beans.length; i++) {
+        res.beans[i].click = false;
+      }
+      setBeans(res.beans);
+    });
+  }, []);
 
   //-----이벤트 핸들러-----
   // 이전 위치로 가는 이벤트
@@ -103,37 +101,37 @@ function PostsCreate() {
   //게시글 생성
   const createPost = () => {
     createPosts(inputs).then(() => {
-			alert('저장되었습니다.')
-			navigate('/posts')
-		});
-  }
+      alert('저장되었습니다.');
+      navigate('/posts');
+    });
+  };
 
   //slide3 drop박스 클릭
   const handleClick = (e) => {
-		console.log(value)
-    if(!value.includes(e.target.getAttribute('value'))) {
-			setvalue([...value, e.target.getAttribute('value')]);
-		} else {
-			setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
-		}
-		let beanId = Number(e.target.getAttribute('id'));
-		let index = beans.findIndex((bean) => bean.beanId === beanId)
-		let beanArr = [...beans];
-		beanArr[index] = {...beanArr[index], click : !(beanArr[index].click)}
-		setBeans(beanArr);
-		if((inputs.beanList.findIndex(el => el.beanId === beanId)) >= 0) {
-			let nBeanList = inputs.beanList.filter(el => el.beanId !== beanId);
-			setInputs({
-				...inputs,
-				beanList: [...nBeanList]
-			})
-		} else {
-			setInputs({
-				...inputs,
-				beanList: [...inputs.beanList, { beanId: beanId }],
-			});
-		}
-		console.log(inputs);
+    console.log(value);
+    if (!value.includes(e.target.getAttribute('value'))) {
+      setvalue([...value, e.target.getAttribute('value')]);
+    } else {
+      setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
+    }
+    let beanId = Number(e.target.getAttribute('id'));
+    let index = beans.findIndex((bean) => bean.beanId === beanId);
+    let beanArr = [...beans];
+    beanArr[index] = { ...beanArr[index], click: !beanArr[index].click };
+    setBeans(beanArr);
+    if (inputs.beanList.findIndex((el) => el.beanId === beanId) >= 0) {
+      let nBeanList = inputs.beanList.filter((el) => el.beanId !== beanId);
+      setInputs({
+        ...inputs,
+        beanList: [...nBeanList],
+      });
+    } else {
+      setInputs({
+        ...inputs,
+        beanList: [...inputs.beanList, { beanId: beanId }],
+      });
+    }
+    console.log(inputs);
   };
 
   //slide input 상태관리핸들러
@@ -172,58 +170,58 @@ function PostsCreate() {
         <PageTitle>게시글 작성</PageTitle>
       </BorderFrame>
       <SlideFrame>
-        <div ref={el => (slideRef.current[0] = el)}>
-          <Slide1 
-          inputs={inputs}
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
+        <div ref={(el) => (slideRef.current[0] = el)}>
+          <Slide1
+            inputs={inputs}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
           />
         </div>
         <div ref={(el) => (slideRef.current[1] = el)}>
           <Slide2
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
           />
         </div>
         <div ref={(el) => (slideRef.current[2] = el)}>
           <Slide3
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
-          beans={beans}
-          value={value}
-          handleClick={handleClick}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
+            beans={beans}
+            value={value}
+            handleClick={handleClick}
           />
         </div>
         <div ref={(el) => (slideRef.current[3] = el)}>
           <Slide4
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
-					value={value}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
+            value={value}
           />
         </div>
         <div ref={(el) => (slideRef.current[4] = el)}>
           <Slide5
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
           />
         </div>
         <div ref={(el) => (slideRef.current[5] = el)}>
           <Slide6
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
           />
         </div>
         <div ref={(el) => (slideRef.current[6] = el)}>
           <Slide7
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
           />
         </div>
       </SlideFrame>
