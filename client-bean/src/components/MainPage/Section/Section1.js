@@ -8,9 +8,9 @@ const beanRotation = keyframes`
   from {
     transform: rotate(0deg);
   } 30% {
-    transform: rotate(45deg);
+    transform: rotate(20deg);
   } 70% {
-    transform : rotate(-45deg);
+    transform : rotate(-20deg);
   } 100% {
     transform: rotate(0deg);
   }
@@ -40,6 +40,8 @@ const SectionIntroCnt = styled.div`
   > .introMain {
     font-size: 5rem;
     margin-bottom: 20px;
+    font-family: 'Cafe24Ohsquareair';
+    font-weight: bold;
   }
   > .logoimg {
     width: 300px;
@@ -47,7 +49,8 @@ const SectionIntroCnt = styled.div`
   }
   > .beanimg {
     width: 200px;
-    animation: ${beanRotation} 8s Linear infinite ;
+    animation: ${beanRotation} 4s Linear infinite ;
+    animation-fill-mode: forwards;
   }
 `;
 

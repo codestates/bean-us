@@ -20,7 +20,7 @@ const Slide6Wrapper = styled.div`
   top: 38%;
   left: 100%;
   font-size: 2rem;
-  color: #a46565;
+  color: rgba(121, 147, 105, 1);
   }
   & .nextBtn {
   border: none;
@@ -34,7 +34,7 @@ const Slide6Wrapper = styled.div`
   top: 48%;
   left: 100%;
   font-size: 2rem;
-  color: #a46565;
+  color: rgba(121, 147, 105, 1);
   }
 `;
 
@@ -44,12 +44,12 @@ export default function EditSlide6(props) {
     <Slide6Wrapper>
       <Question>6. 물 온도(필수)</Question>
       <Answer defaultValue={postInfo.waterTemp} onChange={handleInputChange} name='waterTemp' placeholder='적정 물온도를 입력해주세요.' type='number' max='500'></Answer>
-      <button className="postBtn" onClick={() => slideScrollPost(4)}>
+      <div className="postBtn" onClick={() => slideScrollPost(4)}>
         <BsArrowUpCircle/>
-      </button>
-      <button className="nextBtn" onClick={() => slideScrollNext(6)}>
+      </div>
+      <div className="nextBtn" onClick={() => slideScrollNext(6)}>
         <BsArrowDownCircle/>
-      </button>
+      </div>
     </Slide6Wrapper>
   );
 }

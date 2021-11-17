@@ -9,16 +9,18 @@ import Slide5 from '../components/postsCreate/Slide5';
 import Slide6 from '../components/postsCreate/Slide6';
 import Slide7 from '../components/postsCreate/Slide7';
 import { Button } from '../styles/postspage/CreateBtn';
-import { BorderFrame, Wrapper } from '../styles/postspage/OuterFrame';
-import { createPosts, getBeans } from '../network/postsCreate/https';
-import { useNavigate } from 'react-router-dom';
+import { Wrapper } from '../styles/postspage/OuterFrame';
+import {createPosts , getBeans, sendImg } from '../network/postsCreate/https';
+import { useNavigate} from 'react-router-dom';
+import { MdPostAdd } from 'react-icons/md';
 
 // import {useNavigate} from 'react-router-dom';
 
 // 페이지 크기 조정
 const PostCreateCnt = styled.div`
-  width: 1099px;
+  width: 100%;
   height: 100vh;
+	/* background-color: white; */
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -29,20 +31,31 @@ const PostCreateCnt = styled.div`
 
 // 페이지 제목
 const PageTitle = styled.div`
+	background-color: white;
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
-  padding-top: 12px;
+	font-family: 'Cafe24Ohsquareair';
+  padding: 20px;
+	box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+	width: 1000px;
+	& .title-icon {
+		vertical-align: -10%;
+		font-size: 1.5rem;
+		margin-right: 5px;
+	}
 `;
 
 // slide영역 테두리
 const SlideFrame = styled.div`
   width: 1000px;
   height: 70vh;
-  background: rgba(255, 255, 255, 0.4);
+  /* background: rgba(255, 255, 255, 0.4); */
+	background-color: white;
   margin-top: 10px;
   position: relative;
   overflow-y: hidden;
+	box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
 `;
 
 //state관리(title, photo, beans, ratio, water, temp)
@@ -68,6 +81,8 @@ function PostsCreate() {
   const [beans, setBeans] = useState([]);
 
   const [value, setvalue] = useState([]); //input value
+
+  const [form, setForm] = useState({});
 
   useEffect(() => {
     getBeans().then((res) => {
@@ -100,43 +115,61 @@ function PostsCreate() {
 
   //게시글 생성
   const createPost = () => {
-    createPosts(inputs).then(() => {
-      alert('저장되었습니다.');
-      navigate('/posts');
-    });
-  };
+    console.log(form);
+    console.log(inputs);
+    if(form) {
+      sendImg(form).then(() => {
+        createPosts(inputs)
+      }).then(() => {
+        alert('저장되었습니다.')
+        navigate('/posts')
+      })
+    } else {
+      createPosts(inputs).then(() => {
+        alert('저장되었습니다.')
+        navigate('/posts')
+      });
+    }
+    
+    // createPosts(inputs).then(() => {
+		// 	alert('저장되었습니다.')
+		// 	navigate('/posts')
+		// });
+  }
 
   //slide3 drop박스 클릭
   const handleClick = (e) => {
-    console.log(value);
-    if (!value.includes(e.target.getAttribute('value'))) {
-      setvalue([...value, e.target.getAttribute('value')]);
-    } else {
-      setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
-    }
-    let beanId = Number(e.target.getAttribute('id'));
-    let index = beans.findIndex((bean) => bean.beanId === beanId);
-    let beanArr = [...beans];
-    beanArr[index] = { ...beanArr[index], click: !beanArr[index].click };
-    setBeans(beanArr);
-    if (inputs.beanList.findIndex((el) => el.beanId === beanId) >= 0) {
-      let nBeanList = inputs.beanList.filter((el) => el.beanId !== beanId);
-      setInputs({
-        ...inputs,
-        beanList: [...nBeanList],
-      });
-    } else {
-      setInputs({
-        ...inputs,
-        beanList: [...inputs.beanList, { beanId: beanId }],
-      });
-    }
-    console.log(inputs);
+		console.log(inputs.beanList.length)
+		if(inputs.beanList.length < 5) {
+			if(!value.includes(e.target.getAttribute('value'))) {
+				setvalue([...value, e.target.getAttribute('value')]);
+			} else {
+				setvalue(value.filter((el) => el !== e.target.getAttribute('value')));
+			}
+			let beanId = Number(e.target.getAttribute('id'));
+			let index = beans.findIndex((bean) => bean.beanId === beanId)
+			let beanArr = [...beans];
+			beanArr[index] = {...beanArr[index], click : !(beanArr[index].click)}
+			setBeans(beanArr);
+			if((inputs.beanList.findIndex(el => el.beanId === beanId)) >= 0) {
+				let nBeanList = inputs.beanList.filter(el => el.beanId !== beanId);
+				setInputs({
+					...inputs,
+					beanList: [...nBeanList]
+				})
+			} else {
+				setInputs({
+					...inputs,
+					beanList: [...inputs.beanList, { beanId: beanId }],
+				});
+			}
+		} else return;
   };
 
   //slide input 상태관리핸들러
   const handleInputChange = (e) => {
     const { value, name } = e.target;
+		let trimed = value.trim();
     if (name === 'rate') {
       inputs.beanList[e.target.getAttribute('bean')] = {
         ...inputs.beanList[e.target.getAttribute('bean')],
@@ -149,26 +182,20 @@ function PostsCreate() {
     } else if (e.target.files) {
       const formData = new FormData();
       formData.append('file', e.target.files[0]);
-      setInputs({
-        ...inputs,
-        [name]: formData,
-      });
+      setForm(formData);
     } else {
       setInputs({
         ...inputs,
-        [name]: value,
+        [name]: trimed,
       });
     }
-    console.log(inputs);
   };
   // slide 안에 들어가야 할 input이 다 달라서... map함수를 쓸 수가 없다..
   // 정말 이게 최선인지 더 고민해볼것
   return (
     <PostCreateCnt>
       {isOpen ? <CancelModal closeModal={closeModal} /> : null}
-      <BorderFrame width='1000px' height='70px' padding='10px'>
-        <PageTitle>게시글 작성</PageTitle>
-      </BorderFrame>
+        <PageTitle><MdPostAdd className='title-icon'/>게시글 작성</PageTitle>
       <SlideFrame>
         <div ref={(el) => (slideRef.current[0] = el)}>
           <Slide1
@@ -219,9 +246,11 @@ function PostsCreate() {
         </div>
         <div ref={(el) => (slideRef.current[6] = el)}>
           <Slide7
-            slideScrollNext={slideScrollNext}
-            slideScrollPost={slideScrollPost}
-            handleInputChange={handleInputChange}
+          slideScrollNext={slideScrollNext}
+          slideScrollPost={slideScrollPost}
+          handleInputChange={handleInputChange}
+					inputs={inputs}
+					value={value}
           />
         </div>
       </SlideFrame>

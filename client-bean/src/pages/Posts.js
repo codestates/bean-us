@@ -6,6 +6,8 @@ import { MdPostAdd } from 'react-icons/md';
 import { getAllPosts } from '../network/postspage/http';
 import { getFilterdPost } from '../network/postspage/http';
 import { Link } from 'react-router-dom';
+import { useLoading } from '../hooks/useLoading';
+import LoadingPage from './LoadingPage';
 
 const PostsContainer = styled.div`
   position: relative;
@@ -19,6 +21,7 @@ const PostsContainer = styled.div`
     padding: 1rem 0;
     font-size: 2rem;
     font-weight: bold;
+    font-family: 'Cafe24Ohsquareair';
   }
 `;
 
@@ -43,8 +46,9 @@ const CreatePost = styled.button`
 `;
 
 export default function Posts({ isLogin }) {
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
   const [value, setValue] = useState('');
+  const [posts, isLoading, setPosts] = useLoading([], getAllPosts, isLogin)
   useEffect(() => {
     getAllPosts().then((res) => {
       setPosts(res.postList);
@@ -64,23 +68,25 @@ export default function Posts({ isLogin }) {
 
   return (
     <>
+      {isLoading ? <LoadingPage content='Loading...'/> : 
       <PostsContainer>
-        <div className='title'>게시글</div>
-        <PostSearch
-          handleClick={handleClick}
-          handleInputChange={handleInputChange}
-          posts={posts}
-          value={value}
-        />
-        {isLogin ? (
-          <StyledLink to='/posts/create'>
-            <CreatePost>
-              <MdPostAdd className='postIcon' />
-            </CreatePost>
-          </StyledLink>
-        ) : null}
-        <PostCards posts={posts} />
-      </PostsContainer>
+      <div className='title'>게시글</div>
+      <PostSearch
+        handleClick={handleClick}
+        handleInputChange={handleInputChange}
+        posts={posts}
+        value={value}
+      />
+      {isLogin ? (
+        <StyledLink to='/posts/create'>
+          <CreatePost>
+            <MdPostAdd className='postIcon' />
+          </CreatePost>
+        </StyledLink>
+      ) : null}
+      <PostCards posts={posts} />
+    </PostsContainer>
+      }
     </>
   );
 }

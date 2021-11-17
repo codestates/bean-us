@@ -10,12 +10,6 @@ const Slide1Wrapper = styled.div`
   height: 70vh;
   margin: 0 auto;
   position: relative;
-  & .rePostBtn {
-    position: absolute;
-    top: 39%;
-    left: 70%;
-    height: 30px;
-  }
   & .postBtn {
   border: none;
   width: 40px;
@@ -28,7 +22,7 @@ const Slide1Wrapper = styled.div`
   top: 38%;
   left: 100%;
   font-size: 2rem;
-  color: #a46565;
+  color: rgba(121, 147, 105, 1);
   }
   & .nextBtn {
   border: none;
@@ -42,7 +36,7 @@ const Slide1Wrapper = styled.div`
   top: 48%;
   left: 100%;
   font-size: 2rem;
-  color: #a46565;
+  color: rgba(121, 147, 105, 1);
   }
 `;
 
@@ -65,8 +59,8 @@ function EditSlide1(props) {
       <Question>1. 제목 입력(필수)</Question>
       <Answer placeholder='제목은 20글자 이하로 작성해주세요' onChange={handleInputChange} name='title' defaultValue={postInfo.title}></Answer>
       {inputs.title.length > 20 ? <AlertMessage>제목은 20글자 이하여야 합니다</AlertMessage> : null}
-      <button className='postBtn' onClick={() => slideScrollPost(0)}><BsArrowUpCircle/></button>
-      <button className='nextBtn' onClick={() => slideScrollNext(1)}><BsArrowDownCircle /></button>
+      <div className='postBtn' onClick={() => slideScrollPost(0)}><BsArrowUpCircle/></div>
+      <div className='nextBtn' onClick={() => slideScrollNext(1)}><BsArrowDownCircle /></div>
     </Slide1Wrapper>
   );
 }

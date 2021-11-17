@@ -30,7 +30,7 @@ const CardsLi = styled.li`
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
     padding: 20px 0 10px 20px;
-    height: 350px;
+    height: 400px;
   }
 
   & .imgWrap {
@@ -64,6 +64,7 @@ const CardsLi = styled.li`
     font-weight: bold;
     margin-right: 20px;
     padding: 10px;
+    font-family: 'Cafe24Ohsquareair';
   }
 
   & .beanInfo {
@@ -77,6 +78,7 @@ const CardsLi = styled.li`
     padding: 2px;
     border-radius: 5px;
     flex: none;
+    font-family: 'Cafe24SsurroundAir';
   }
   & .userInfo {
     /* background-color: magenta; */
@@ -86,6 +88,7 @@ const CardsLi = styled.li`
     margin-right: 18px;
     font-size: 0.8rem;
     padding: 2px;
+    font-family: 'Cafe24SsurroundAir';
   }
   & .createdAt {
     position: absolute;

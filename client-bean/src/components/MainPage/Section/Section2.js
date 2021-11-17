@@ -19,6 +19,26 @@ const imgTransform = keyframes`
   }
 `;
 
+const descTransformUP = keyframes`
+  from {
+    opacity: 1;
+    transform: translate(-30%);
+    } to {
+      transform : translate(20%);
+      opacity: 0;
+    }
+`;
+
+const imgTransformUP = keyframes`
+  from {
+    opacity: 1;
+    transform: translate(30%);
+  } to {
+    transform : translate(-20%);
+    opacity: 0;
+  }
+`;
+
 const MainSection2 = styled.section`
   width: 100vw;
   height: 100vh;
@@ -37,11 +57,18 @@ const ImgContainer = styled.div`
   opacity: 0;
   ${props => 
     props.scrollY > 375 && css`
-      animation: ${imgTransform} 3s;
+      animation: ${imgTransform} 2s;
       animation-fill-mode: forwards;
-      transition: all 1s linear;
+      transition: all 0s linear;
     ` 
-    }
+    };
+  ${props => 
+    (props.scrollY <= 375) && css`
+    animation: ${imgTransformUP} 2s;
+    transition: all 0s linear;
+    animation-fill-mode: forwards;
+    `
+  }  
 `;
 const Description = styled.div`
   opacity: 0;
@@ -60,16 +87,23 @@ const Description = styled.div`
       animation-fill-mode: forwards;
       transition: all 1s linear;
     ` 
-    }
+    };
+  ${props => 
+    props.scrollY < 375 && css`
+      animation : ${descTransformUP} 3s;
+      transition: all 1s linear;
+    `
+  }
   > p {
     flex: none;
     width: 470px;
-    font-weight: 500;
+    font-weight: 600;
     font-size : 1.4rem;
     padding: 20px;
     line-height: 2rem;
     border-radius: 2px;
-    background-color: rgba(255,255,255,0.5);  
+    background-color: rgba(255,255,255,0.5); 
+    font-family: 'Cafe24SsurroundAir'; 
   }
   > ul {
       width: 470px;
@@ -87,17 +121,19 @@ const Description = styled.div`
           > .coffee-icon {
               max-width: 80px;
               max-height: 80px;
-              vertical-align: bottom;
+              margin-left: 10px;
+              margin-right: 3px;
           }
           > p {
               flex: none;
               padding-left: 10px;
+              font-family: 'Cafe24SsurroundAir';
               font-weight: 500;
               font-size: 1.1rem;
               line-height: 1.2rem;
               > span {
                   font-size: 1.4rem;
-                  font-weight: 500;
+                  font-weight: 600;
                   color: #94673f;
               }
           }
@@ -107,10 +143,11 @@ const Description = styled.div`
 const DescTitle = styled.div`
   width: 300px;
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: bold;
   border-bottom: 1px solid #65452a;
   color: #65452a;
   margin-left: 20px;
+  font-family: 'Cafe24Ohsquareair';
 `;
 
 export default function Section2 (props) {
@@ -136,14 +173,16 @@ export default function Section2 (props) {
               <p>
                   <span>Share your recipe</span><br />
                   원두 꿀 조합을 공유해주세요! <br/>
-                  게시글을 작성할 때 원두 꿀 조합 선택이 가능합니다.
+                  게시글을 작성할 때 <br/>
+                  원두 꿀 조합 선택이 가능합니다.
               </p>
           </li>
           <li>
               <img src="asset/mainpage/coffee-mug.png" alt="" className="coffee-icon"/>
               <p>
                   <span>Find sepcial coffee beans</span><br />
-                  나는 어떤 커피 취향일까? 세세하고 보기쉬운 필터링 <br/> 
+                  나는 어떤 커피 취향일까?<br /> 
+                  세세하고 보기쉬운 필터링 <br/> 
                   기능을 통해 커피의 세계를 탐험해보세요!
               </p>
           </li>
