@@ -31,7 +31,7 @@ export default function WriteComment({ addComment, postId, loginId }) {
       e.preventDefault();
       return;
     }
-    //! POST /posts/comment
+    // POST /posts/comment
     postComment(postId, commentText).then(() => {
       addComment(commentText);
       setCommentText('');
@@ -41,7 +41,7 @@ export default function WriteComment({ addComment, postId, loginId }) {
 
   const setRows = (e) => {
     let previousRows = e.target.rows;
-    e.target.rows = 1; // reset number of rows in textarea
+    e.target.rows = 1;
     let boxHeight = e.target.scrollHeight;
     let currentRows = Math.floor(boxHeight / 16);
     if (currentRows === previousRows) e.target.rows = currentRows;

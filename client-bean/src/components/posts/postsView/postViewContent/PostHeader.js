@@ -1,4 +1,3 @@
-/*eslint-disable no-unused-vars*/
 import React from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
@@ -51,7 +50,7 @@ export default function PostHeader({ postCotents, postId, loginId }) {
 
   const deletePost = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      // TODO DELETE /posts/ 게시물 삭제 요청
+      // DELETE /posts/ 게시물 삭제 요청
       delPost(postId).then(() => {
         alert('삭제되었습니다');
         navigate('/posts', { replace: true });

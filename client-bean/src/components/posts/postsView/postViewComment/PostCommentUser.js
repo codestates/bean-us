@@ -12,7 +12,7 @@ function PostCommentUser({
   editComplete,
 }) {
   const deleteCommentClick = (comId) => {
-    //Todo Delete /posts/comments
+    // Delete /posts/comments
     if (window.confirm('정말 삭제하시겠습니까?')) {
       delComment(postId, comId).then(() => {
         deleteComment(comId);

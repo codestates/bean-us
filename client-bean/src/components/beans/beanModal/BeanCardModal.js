@@ -26,9 +26,9 @@ const ModalWrap = styled.div`
   background-color: white;
   overflow: scroll;
   overflow-x: auto;
-  -ms-overflow-style: none; // IE에서 스크롤바 감춤
+  -ms-overflow-style: none;
   &::-webkit-scrollbar {
-    display: none; // 윈도우 크롬 등
+    display: none;
   }
 `;
 
