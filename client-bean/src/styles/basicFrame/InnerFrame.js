@@ -7,6 +7,7 @@ export const InnerFrame = styled.div`
   margin-bottom: 1rem;
 
   & .subtitle {
+    font-family: 'Cafe24Ohsquareair';
     padding-bottom: 1.5rem;
     font-size: 1.2rem;
     font-weight: bold;
@@ -22,5 +23,6 @@ export const InnerFrame = styled.div`
     display: flex;
     flex-wrap: wrap;
     font-size: 0.8rem;
+    font-family: 'Cafe24SsurroundAir';
   }
 `;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 
 import { getMyInfos } from '../network/myPage/myPage';
 import { theme } from '../styles/theme';
@@ -49,7 +49,7 @@ const LinkButton = styled.button`
   font-family: 'Cafe24Ohsquareair';
   transition: 0.2s;
   color: #000;
-  box-shadow: ${({ clicked }) => (clicked ? `0 3px 8px 2px ${lightGreen}` : 'none')};
+  box-shadow: ${({ active }) => (active ? `0 3px 8px 2px ${lightGreen}` : 'none')};
   &:hover {
     box-shadow: 0 3px 8px 2px #6d686f;
   }
@@ -59,6 +59,8 @@ const LinkButton = styled.button`
 `;
 
 export default function MyPage({ isLogin, loginHandler }) {
+  const location = useLocation();
+
   const [isLoading, setIsLoding] = useState(true);
 
   const [userId, setUserId] = useState('');
@@ -82,23 +84,21 @@ export default function MyPage({ isLogin, loginHandler }) {
     });
   }, [userId, email, social, isLogin]);
 
-  const clieckedTitle = (e) => {
-    console.log(e.target);
-    console.log(e.target.name);
-    const name = e.target.name;
+  useEffect(() => {
+    const pathName = location.pathname;
+    let path = pathName.replace('/myPage/', '');
+    if (path === '/myPage') path = 'myInfo';
     setClickedLink({
       myInfo: false,
       myBeans: false,
       myPosts: false,
-      [name]: true,
+      [path]: true,
     });
-  };
+  }, [location.pathname]);
 
   const editEmailReq = (data) => {
     setEmail(data);
   };
-
-  console.log(clickedLink.myInfo);
 
   return (
     <>
@@ -106,17 +106,17 @@ export default function MyPage({ isLogin, loginHandler }) {
         <MainContainer>
           <MyPageSideBars>
             <Link to=''>
-              <LinkButton name='myInfo' clicked={clickedLink.myInfo} onClick={clieckedTitle}>
+              <LinkButton name='myInfo' active={clickedLink.myInfo}>
                 나의 정보
               </LinkButton>
             </Link>
             <Link to='myBeans'>
-              <LinkButton name='myBeans' clicked={clickedLink.myBeans} onClick={clieckedTitle}>
+              <LinkButton name='myBeans' active={clickedLink.myBeans}>
                 나의 원두
               </LinkButton>
             </Link>
             <Link to='myPosts'>
-              <LinkButton name='myPosts' clicked={clickedLink.myPosts} onClick={clieckedTitle}>
+              <LinkButton name='myPosts' active={clickedLink.myPosts}>
                 나의 글
               </LinkButton>
             </Link>

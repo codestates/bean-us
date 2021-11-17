@@ -1,5 +1,3 @@
-/*eslint-disable no-unused-vars*/
-
 import React, { useEffect, useState } from 'react';
 import BeanCards from '../components/beans/beanCards/BeanCards';
 import BeanSearch from '../components/beans/BeanSearch';
@@ -25,22 +23,24 @@ export default function Beans({ loginId }) {
 
   return (
     <>
-      {isLoading ? (
-        <LoadingPage content='Loading...' />
-      ) : (
-        <TopFrame>
-          <div className='title'>원두</div>
-          <BeanSearch getBeanCards={getBeanCards} beanName={allBeanName} />
-          <BeanCards beans={beans} beanModal={beanModal} loginId={loginId} />
-          {openModal && (
-            <BeanCardModal
-              cardPostInfo={cardPostInfo}
-              cardBeanInfo={cardBeanInfo}
-              closeModal={closeModal}
-            />
-          )}
-        </TopFrame>
-      )}
+      <TopFrame>
+        {isLoading ? (
+          <LoadingPage content='Loading...' spinner />
+        ) : (
+          <>
+            <div className='title'>원두</div>
+            <BeanSearch getBeanCards={getBeanCards} beanName={allBeanName} />
+            <BeanCards beans={beans} beanModal={beanModal} loginId={loginId} />
+            {openModal && (
+              <BeanCardModal
+                cardPostInfo={cardPostInfo}
+                cardBeanInfo={cardBeanInfo}
+                closeModal={closeModal}
+              />
+            )}
+          </>
+        )}
+      </TopFrame>
     </>
   );
 }

@@ -58,12 +58,11 @@ const SlideFrame = styled.div`
 	box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
 `;
 
-
 //state관리(title, photo, beans, ratio, water, temp)
 function PostsCreate() {
-	let navigate = useNavigate();
-  
-	const slideRef = useRef([]);
+  let navigate = useNavigate();
+
+  const slideRef = useRef([]);
   //-----상태관리-----
   // 모달
   const [isOpen, setOpen] = useState(false);
@@ -85,15 +84,14 @@ function PostsCreate() {
 
   const [form, setForm] = useState({});
 
-
   useEffect(() => {
     getBeans().then((res) => {
-			for(let i = 0; i < res.beans.length; i++) {
-				res.beans[i].click = false
-			}
-			setBeans(res.beans)
-		})
-  }, [])
+      for (let i = 0; i < res.beans.length; i++) {
+        res.beans[i].click = false;
+      }
+      setBeans(res.beans);
+    });
+  }, []);
 
   //-----이벤트 핸들러-----
   // 이전 위치로 가는 이벤트
@@ -166,8 +164,6 @@ function PostsCreate() {
 				});
 			}
 		} else return;
-    
-		
   };
 
   //slide input 상태관리핸들러
@@ -201,51 +197,51 @@ function PostsCreate() {
       {isOpen ? <CancelModal closeModal={closeModal} /> : null}
         <PageTitle><MdPostAdd className='title-icon'/>게시글 작성</PageTitle>
       <SlideFrame>
-        <div ref={el => (slideRef.current[0] = el)}>
-          <Slide1 
-          inputs={inputs}
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
+        <div ref={(el) => (slideRef.current[0] = el)}>
+          <Slide1
+            inputs={inputs}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
           />
         </div>
         <div ref={(el) => (slideRef.current[1] = el)}>
           <Slide2
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
           />
         </div>
         <div ref={(el) => (slideRef.current[2] = el)}>
           <Slide3
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
-          beans={beans}
-          value={value}
-          handleClick={handleClick}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
+            beans={beans}
+            value={value}
+            handleClick={handleClick}
           />
         </div>
         <div ref={(el) => (slideRef.current[3] = el)}>
           <Slide4
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
-					value={value}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
+            value={value}
           />
         </div>
         <div ref={(el) => (slideRef.current[4] = el)}>
           <Slide5
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
           />
         </div>
         <div ref={(el) => (slideRef.current[5] = el)}>
           <Slide6
-          slideScrollNext={slideScrollNext}
-          slideScrollPost={slideScrollPost}
-          handleInputChange={handleInputChange}
+            slideScrollNext={slideScrollNext}
+            slideScrollPost={slideScrollPost}
+            handleInputChange={handleInputChange}
           />
         </div>
         <div ref={(el) => (slideRef.current[6] = el)}>

@@ -146,7 +146,7 @@ module.exports = {
 
     const postList = await post.findAll({
       raw: true,
-      attributes: ['postId', 'title', 'content', 'userid', 'createdAt'],
+      attributes: ['postId', 'title', 'content', 'userId', 'createdAt'],
       where: postWhere,
     });
 
