@@ -1,6 +1,13 @@
 const {post, postBean, beanInfo, postComment} = require('./../models');
 const {Op} = require('sequelize');
 const {isAuthorized} = require('./functions/index.js');
+const AWS = require('aws-sdk');
+const fs = require('fs');
+
+let s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
 
 module.exports = {
   createPost: async (req, res) => {
@@ -77,7 +84,7 @@ module.exports = {
           }
 
           res.status(201).json({
-            message: '게시글이 등록되었습니다.',
+            message: '게시글이 수정되었습니다.',
             post,
             beanList,
           });
@@ -188,7 +195,7 @@ module.exports = {
     const {postId} = req.query;
 
     const postOne = await post.findOne({
-      attributes: ['postId', 'title', 'content', 'water', 'waterTemp', 'userid', 'createdAt'],
+      attributes: ['postId', 'title', 'content', 'water', 'waterTemp', 'userId', 'createdAt'],
       where: {postId}
     });
     const postBeans = await postBean.findAll({
@@ -352,4 +359,9 @@ module.exports = {
       });
     });
   },
+
+  imageUpload: (req, res) => {
+    console.log(req.body);
+    res.status(200).send('오나');
+  }
 };

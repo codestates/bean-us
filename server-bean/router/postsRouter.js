@@ -17,4 +17,6 @@ router.delete('/comments', post.deletePostComment);
 
 router.get('/getBeans', bean.beanForPost);
 
+router.post('/imageUpload', post.imageUpload);
+
 module.exports = router;
