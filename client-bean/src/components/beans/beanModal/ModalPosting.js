@@ -14,6 +14,7 @@ const BeanPostWrap = styled.div`
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 2rem;
+    font-family: 'Cafe24Ohsquareair';
   }
 
   & .down {

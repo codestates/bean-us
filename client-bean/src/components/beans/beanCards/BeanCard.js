@@ -9,6 +9,7 @@ import ImgFrame from '../../../styles/basicFrame/ImgFrame';
 
 const CardLI = styled.li`
   position: relative;
+  font-family: 'Cafe24SsurroundAir';
 
   &:hover {
     cursor: pointer;

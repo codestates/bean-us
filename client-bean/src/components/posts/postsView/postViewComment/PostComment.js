@@ -12,7 +12,11 @@ export default function PostComment({ comments, postId, loginId }) {
   const [allComments, setAllComments] = useState([...comments]);
 
   const addComment = (commentText) => {
-    let newComment = { comment: commentText, userId: loginId, createdAt: new Date().toISOString() };
+    let newComment = {
+      comment: commentText,
+      userId: loginId,
+      createdAt: new Date().toISOString().split('T')[0],
+    };
     setAllComments([{ ...newComment }, ...allComments]);
   };
 

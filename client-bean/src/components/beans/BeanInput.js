@@ -79,8 +79,7 @@ export default function BeanInput({ beanName, getBeanCards }) {
     setFilterName([]);
   };
 
-  const searchBeanName = (e) => {
-    let text = e.target.value;
+  const searchBeanName = (text) => {
     setInputName(text);
 
     if (!text) {
@@ -91,32 +90,24 @@ export default function BeanInput({ beanName, getBeanCards }) {
     }
   };
 
-  const clickName = (e) => {
-    setInputName(e.target.textContent);
-  };
-
-  const inputFoucs = (e) => {
-    setOnInputFocus(!onInputFocus);
-  };
-
   return (
     <SearchContainer focus={onInputFocus} name={filterName.length}>
       <div className='subtitle'>원두 검색</div>
       <form onSubmit={nameSubmit}>
         <input
-          ref={inpuRef}
           type='text'
-          onChange={searchBeanName}
+          ref={inpuRef}
           value={inputName}
-          onFocus={inputFoucs}
-          onBlur={inputFoucs}
+          onChange={(e) => searchBeanName(e.target.value)}
+          onFocus={() => setOnInputFocus(!onInputFocus)}
+          onBlur={() => setOnInputFocus(!onInputFocus)}
         />
         <button>
           <FaSearch />
         </button>
         <DropText focus={onInputFocus}>
           {filterName.map((name, i) => (
-            <li key={i} onMouseDown={clickName}>
+            <li key={i} onMouseDown={(e) => setInputName(e.target.textContent)}>
               {name}
             </li>
           ))}

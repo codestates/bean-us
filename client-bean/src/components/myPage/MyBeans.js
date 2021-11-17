@@ -16,7 +16,7 @@ function MyBeans({ loginId }) {
   return (
     <>
       {isLoading ? (
-        <LoadingPage />
+        <LoadingPage content='Loading...' spinner />
       ) : (
         <TopFrame>
           <BeanCards

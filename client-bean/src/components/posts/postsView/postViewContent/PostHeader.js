@@ -75,7 +75,6 @@ export default function PostHeader({ postCotents, postId, loginId }) {
               <li className='date'>{createdAt}</li>
             </ul>
           </div>
-          {/* 본인 게시글인 경우만 loginId === userId */}
           {loginId === userId && (
             <div>
               <BtnFrame content='수정' clickEvent={editPost} />

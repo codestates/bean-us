@@ -86,7 +86,7 @@ function ViewComment({ comment, postId, loginId, deleteComment }) {
       ) : (
         <FixedComment>{editComment}</FixedComment>
       )}
-      <div className='date'>{comment.createdAt}</div>
+      <div className='date'>{comment.createdAt.split('T')[0]}</div>
     </CommentLi>
   );
 }
