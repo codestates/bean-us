@@ -87,14 +87,14 @@ const CardsLi = styled.li`
     top: 80%;
     margin-top: 10px;
     margin-right: 18px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     padding: 2px;
     font-family: 'Cafe24SsurroundAir';
   }
   & .createdAt {
     position: absolute;
     top: 90%;
-    right: 0;
+    left: 31%;
     text-align: right;
     margin-right: 18px;
     font-size: 0.7rem;
@@ -140,7 +140,7 @@ export default function PostCards(props) {
                   ))}
                 </div>
                 <div className='userInfo'>작성자: {post.userId}</div>
-                <div className='createdAt'>{post.createdAt.split('T')[0]}</div>
+                <div className='createdAt'>{post.createdAt}</div>
               </div>
             </CardsLi>
           ))}

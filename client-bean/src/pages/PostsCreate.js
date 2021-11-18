@@ -114,9 +114,7 @@ function PostsCreate() {
   //게시글 생성
   const createPost = () => {
     if(form !== '') {
-      createPosts(inputs).then((res) => {
-        setForm(form.append('postId', res.data.post.postId));
-        console.log(form);
+      createPosts(inputs).then(() => {
         sendImg(form).then(() => {
           alert('저장되었습니다.')
           navigate('/posts')
