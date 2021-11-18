@@ -398,8 +398,8 @@ module.exports = {
     console.log(req.body.postId);
     console.log(req.file.location);
     postImage.create({
-      where: {postId: req.body.postId},
-      default: {imageUrl: req.file.location}
+      postId: req.body.postId,
+      imageUrl: req.file.location
     }).then(() => {
       res.status(200).send('이미지 업로드가 완료되었습니다.');
     });
