@@ -161,7 +161,8 @@ module.exports = {
     });
     const postImages = await postImage.findAll({
       raw: true,
-      attributes: ['postId', 'imageUrl']
+      attributes: ['postId', 'imageUrl'],
+      order: [['createdAt', 'DESC']]
     });
 
     for (let postIdx of postList) {
@@ -212,7 +213,8 @@ module.exports = {
     });
     const postImageOne = await postImage.findOne({
       attributes: ['imageUrl'],
-      where: {postId}
+      where: {postId},
+      order: [['createdAt', 'DESC']]
     });
 
     const beans = [];
@@ -255,7 +257,8 @@ module.exports = {
     });
     const postImages = await postImage.findAll({
       raw: true,
-      attributes: ['postId', 'imageUrl']
+      attributes: ['postId', 'imageUrl'],
+      order: [['createdAt', 'DESC']]
     });
 
     for (let postIdx of postList) {
@@ -313,7 +316,8 @@ module.exports = {
     });
     const postImageOne = await postImage.findOne({
       attributes: ['imageUrl'],
-      where: {postId}
+      where: {postId},
+      order: [['createdAt', 'DESC']]
     });
 
     const beanRatio = {};
@@ -393,7 +397,7 @@ module.exports = {
   imageUpload: (req, res) => {
     console.log(req.body.postId);
     console.log(req.file.location);
-    postImage.findOrCreate({
+    postImage.create({
       where: {postId: req.body.postId},
       default: {imageUrl: req.file.location}
     }).then(() => {
