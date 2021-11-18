@@ -87,6 +87,7 @@ module.exports = {
   },
 
   updatePost: (req, res) => {
+    console.log(req.body);
     const { postId, title, content, water, waterTemp, beanList } = req.body;
     post.findOne({
       where: { postId },
@@ -390,6 +391,8 @@ module.exports = {
   },
 
   imageUpload: (req, res) => {
+    console.log(req.body.postId);
+    console.log(req.file.location);
     postImage.findOrCreate({
       where: {postId: req.body.postId},
       default: {imageUrl: req.file.location}
