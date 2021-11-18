@@ -1,11 +1,9 @@
-const {post, postBean, beanInfo, postComment} = require('./../models');
+const {post, postBean, beanInfo, postComment, postImage} = require('./../models');
 const {Op} = require('sequelize');
 const {isAuthorized} = require('./functions/index.js');
 
 module.exports = {
   createPost: async (req, res) => {
-    console.log(req.body);
-    console.log(req.file);
     const accessTokenInfo = isAuthorized(req);
     if(!accessTokenInfo){
       res.status(400).json({
@@ -160,6 +158,10 @@ module.exports = {
       raw: true,
       attributes: ['beanId', 'beanName'],
     });
+    const postImages = await postImage.findAll({
+      raw: true,
+      attributes: ['postId', 'imageUrl']
+    });
 
     for (let postIdx of postList) {
       delete postIdx.id;
@@ -174,6 +176,13 @@ module.exports = {
               break;
             }
           }
+        }
+      }
+
+      for(let postImageIdx of postImages){
+        if(postIdx['postId'] === postImageIdx['postId']){
+          postIdx['imageUrl'] = postImageIdx['imageUrl'];
+          break;
         }
       }
 
@@ -200,6 +209,10 @@ module.exports = {
         attributes: ['beanName'],
       }],
     });
+    const postImageOne = await postImage.findOne({
+      attributes: ['imageUrl'],
+      where: {postId}
+    });
 
     const beans = [];
     for(let postBeansIdx of postBeans){
@@ -207,6 +220,8 @@ module.exports = {
     }
     
     postOne.dataValues['beans'] = beans;
+    postOne.dataValues['imageUrl'] = postImageOne.dataValues['imageUrl'];
+
     res.status(200).json({
       post: postOne,
     });
@@ -237,6 +252,10 @@ module.exports = {
       raw: true,
       attributes: ['beanId', 'beanName'],
     });
+    const postImages = await postImage.findAll({
+      raw: true,
+      attributes: ['postId', 'imageUrl']
+    });
 
     for (let postIdx of postList) {
       delete postIdx.id;
@@ -251,6 +270,13 @@ module.exports = {
               break;
             }
           }
+        }
+      }
+
+      for(let postImageIdx of postImages){
+        if(postIdx['postId'] === postImageIdx['postId']){
+          postIdx['imageUrl'] = postImageIdx['imageUrl'];
+          break;
         }
       }
 
@@ -284,12 +310,17 @@ module.exports = {
       where:{postId},
       order: [['createdAt', 'DESC']]
     })
+    const postImageOne = await postImage.findOne({
+      attributes: ['imageUrl'],
+      where: {postId}
+    });
 
     const beanRatio = {};
     for(let postBeanAllIdx of postBeanAll){
       beanRatio[postBeanAllIdx['beanInfo.beanName']] = postBeanAllIdx['rate'];
     }
     postOne['beanRatio'] = beanRatio;
+    postOne['imageUrl'] = postImageOne.dataValues['imageUrl'];
 
     res.status(200).json({
       postCotents: postOne,
@@ -329,8 +360,6 @@ module.exports = {
       });
     }
 
-    console.log(req.body.data);
-
     const {commentId, comment} = req.body.data;
 
     postComment.update({ comment }, { where: { commentId } }).then(() => {
@@ -358,7 +387,11 @@ module.exports = {
   },
 
   imageUpload: (req, res) => {
-    console.log(req.file);
-    res.status(200).send('오나');
+    postImage.findOrCreate({
+      where: {postId: req.body.postId},
+      default: {imageUrl: req.file.location}
+    }).then(() => {
+      res.status(200).send('이미지 업로드가 완료되었습니다.');
+    });
   }
 };
