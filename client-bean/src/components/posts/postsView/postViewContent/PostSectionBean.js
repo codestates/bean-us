@@ -48,7 +48,7 @@ export default function PostSectionBean({ postCotents }) {
   return (
     <BeanWrap>
       <ImgFrame
-        imgUrl={imageUrl || '/asset/beans/bean10.jpg'}
+        imgUrl={imageUrl || '/asset/postspage/post-no-img.jpg'}
         alt='postImg'
         width='450px'
         height='450px'
