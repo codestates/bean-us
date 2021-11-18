@@ -93,7 +93,7 @@ module.exports = {
       where: { userId, password },
     });
 
-    if (!isMatched) return res.json({ data: false, message: '아이디와 비밀번호가 일치하지 않습니다' });
+    if (!isMatched) return res.json({ data: false, message: '현재 비밀번호와 다릅니다' });
 
     const data = await userInfo.destroy({ where: { userId, password } });
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
+import { BiUser } from 'react-icons/bi';
 import { emailValidation } from '../../utils/validation';
 import { editMyEmail } from '../../network/myPage/myPage';
 import EditPassword from './EditPassword';
@@ -13,11 +13,21 @@ const InfoWrapper = styled.section`
   width: 1000px;
 `;
 
-const CoffeeImg = styled.img`
-  width: 19rem;
-  height: 19rem;
+// const CoffeeImg = styled.img`
+//   width: 19rem;
+//   height: 19rem;
+//   margin-right: 100px;
+//   border-radius: 50%;
+// `;
+
+const IconWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 23rem;
+  height: 18rem;
   margin-right: 100px;
-  border-radius: 50%;
+  font-size: 250px;
 `;
 
 const InfoBox = styled.div`
@@ -163,7 +173,9 @@ export default function MyInfo({ userId, email, social, editEmailReq, loginHandl
         <LoadingPage>정보를 가져오는 중이에요...</LoadingPage>
       ) : (
         <InfoWrapper>
-          <CoffeeImg src='/asset/beans/bean1.jpg' alt='커피' />
+          <IconWrapper>
+            <BiUser />
+          </IconWrapper>
           <InfoBox>
             <InfoLine>
               <InfoTitle title='title'>아이디</InfoTitle>

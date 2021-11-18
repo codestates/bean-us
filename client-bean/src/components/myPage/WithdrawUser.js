@@ -53,7 +53,7 @@ const Container = styled.div`
 
 const LineWrapper = styled.div`
   margin-left: 40px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
 `;
@@ -89,7 +89,7 @@ const Input = styled.input`
 `;
 
 const ValidMessage = styled.p`
-  margin: 0 0 0 158px;
+  margin: 0 0 0 145px;
   font-size: 12px;
   color: #95673d;
 `;
@@ -149,7 +149,7 @@ export default function WithdrawUser({ userId, withdrawCilckHandler, loginHandle
         ) : null}
         <SignButton
           marginLeft='45px'
-          marginTop='20px'
+          marginTop='40px'
           leftBtn='한 번 더 만나요'
           rightBtn='회원 탈퇴'
           leftBtnHandler={withdrawCilckHandler}

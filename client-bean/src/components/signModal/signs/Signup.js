@@ -22,6 +22,10 @@ const ReqErrorMessage = styled.p`
   color: #95673d;
 `;
 
+const MarginH2 = styled(H2)`
+  margin-left: 15px;
+`;
+
 export default function Signup({ renderSignupHandler }) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
@@ -105,12 +109,9 @@ export default function Signup({ renderSignupHandler }) {
     }
   };
 
-  //signup
-  //checkId
-
   return (
     <>
-      <H2>Sign up</H2>
+      <MarginH2>Sign up</MarginH2>
       <InputLine
         name='userId'
         title='아이디'
