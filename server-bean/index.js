@@ -25,7 +25,7 @@ app.use(
     origin: [
       'https://localhost:3000', 'http://localhost:3000',
       'https://www.beanus.tk', 'http://www.beanus.tk',
-      'https://practice.beanus.tk', 'http://practice.beanus.tk'
+      'https://cafe.beanus.tk', 'http://cafe.beanus.tk'
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
