@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import backgroundimg from '../../../backgroundimg.jpg';
 import MainNavBar from '../MainNavBar';
 // import TopBar from '../../TopBar';
@@ -49,7 +49,7 @@ const SectionIntroCnt = styled.div`
   }
   > .beanimg {
     width: 200px;
-    animation: ${beanRotation} 4s Linear infinite ;
+    animation: ${beanRotation} 4s Linear infinite;
     animation-fill-mode: forwards;
   }
 `;
@@ -65,8 +65,8 @@ export default function Section1({ isLogin, loginHandler, modalHandler, loginId,
         modalHandler={modalHandler}
       />
       <SectionIntroCnt>
-        <img src='asset/mainpage/logowhite.png' alt='' className='logoimg' />
-        <img src='asset/mainpage/coffeebeans.png' alt='' className='beanimg' />
+        <img src='asset/mainpage/logowhite.png' alt='logoImg' className='logoimg' />
+        <img src='asset/mainpage/coffeebeans.png' alt='beanImg' className='beanimg' />
         <span className='introMain'>Special coffee beans</span>
         <span>In our website you can find sepecial flavor coffee beans,</span>
         <span>and you can share your own recipe with other people!</span>

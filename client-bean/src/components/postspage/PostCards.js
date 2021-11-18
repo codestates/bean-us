@@ -134,7 +134,7 @@ export default function PostCards(props) {
                 </div>
                 <div className='beanInfo'>
                   {post.beans.map((bean) => (
-                    <div key='' className='beanLabel'>
+                    <div key={bean.beanId} className='beanLabel'>
                       #{bean.beanName}
                     </div>
                   ))}

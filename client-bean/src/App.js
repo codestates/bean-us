@@ -26,9 +26,12 @@ function App() {
     setIsLogin(data);
   };
 
-  const modalHandler = () => {
-    console.log('handle');
+  const modalHandler = (e) => {
     setRenderModal(!renderModal);
+  };
+
+  const closeModal = (e) => {
+    if (e.target === e.currentTarget) return setRenderModal(!renderModal);
   };
 
   const saveLoginId = (data) => {
@@ -100,6 +103,7 @@ function App() {
           modalHandler={modalHandler}
           saveLoginId={saveLoginId}
           loginHandler={loginHandler}
+          closeModal={closeModal}
         />
       ) : null}
     </>
