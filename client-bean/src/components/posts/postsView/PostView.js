@@ -1,25 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { InnerFrame } from '../../../styles/basicFrame/InnerFrame';
-import PostHeader from './postViewContent.js/PostHeader';
-import PostComment from './postViewContent.js/PostComment';
-import PostSection from './postViewContent.js/PostSection';
+import React from 'react';
 import { useParams } from 'react-router';
 import { Navigate } from 'react-router-dom';
-// import { getPostInfo } from '../../../network/postsView/postView';
+import { InnerFrame } from '../../../styles/basicFrame/InnerFrame';
+import PostHeader from './postViewContent/PostHeader';
+import PostComment from './postViewComment/PostComment';
+import PostSection from './postViewContent/PostSection';
+import { getPostInfo } from '../../../network/postsView/http';
+import { useLoading } from '../../../hooks/useLoading';
+import LoadingPage from '../../../pages/LoadingPage';
 
-//db 더미 데이
-import { postView } from '../../../db/postView';
-
-export default function PostView(props) {
-  const [postInfo, setPostInfo] = useState({ ...postView });
-
+export default function PostView({ loginId }) {
   let { id } = useParams();
 
-  useEffect(() => {
-    //! TODO GET /post?post-id=postId 요청
-    // getPostInfo(postId).then((res) => setPostInfo(res));
-    setPostInfo({ ...postView });
-  }, []);
+  let [postContent, isLoading] = useLoading({}, () => getPostInfo(id), id);
 
   const nonPost = () => {
     alert('해당 게시물이 없거나 삭제되었습니다');
@@ -28,16 +21,22 @@ export default function PostView(props) {
 
   return (
     <>
-      {postInfo ? (
-        <InnerFrame>
-          <PostHeader postCotents={postInfo.postCotents} postId={id} />
-          <PostSection postCotents={postInfo.postCotents} />
-          <PostComment comments={postInfo.comments} />
-        </InnerFrame>
+      {isLoading ? (
+        <LoadingPage content='Loading...' spinner />
       ) : (
         <>
-          {/* alert('삭제되거나 없는 게시물입니다') */}
-          {nonPost()}
+          {postContent ? (
+            <>
+              <div className='title'>게시물 열람</div>
+              <InnerFrame>
+                <PostHeader postCotents={postContent.postCotents} postId={id} loginId={loginId} />
+                <PostSection postCotents={postContent.postCotents} />
+                <PostComment comments={postContent.comments} postId={id} loginId={loginId} />
+              </InnerFrame>
+            </>
+          ) : (
+            <>{nonPost()}</>
+          )}
         </>
       )}
     </>

@@ -3,8 +3,9 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import LoadingPage from './LoadingPage';
 
-export default function KakaoCallback({ loginHandler }) {
+export default function KakaoCallback({ loginHandler, saveLoginId }) {
   const navigate = useNavigate();
   const getKakaoAccessToken = () => {
     const http = process.env.REACT_APP_HTTPURL;
@@ -14,10 +15,12 @@ export default function KakaoCallback({ loginHandler }) {
 
   useEffect(() => {
     getKakaoAccessToken().then((res) => {
-      loginHandler();
-      navigate(-1);
+      console.log(res.data);
+      saveLoginId(res.data.userId);
+      loginHandler(true);
+      navigate('/', { replace: true });
     });
   }, []);
 
-  return <div></div>;
+  return <LoadingPage content='카카오로 로그인 진행중입니다' width='1000px' spinner />;
 }

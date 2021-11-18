@@ -20,7 +20,7 @@ const Slide4Wrapper = styled.div`
   top: 38%;
   left: 100%;
   font-size: 2rem;
-  color: #a46565;
+  color: rgba(121, 147, 105, 1);
   }
   & .nextBtn {
   border: none;
@@ -34,21 +34,42 @@ const Slide4Wrapper = styled.div`
   top: 48%;
   left: 100%;
   font-size: 2rem;
-  color: #a46565;
+  color: rgba(121, 147, 105, 1);
+  }
+  & .inputBox {
+    position: absolute;
+    top: 43%;
+    left: 25%;
+    width: 400px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 80px);
+    grid-gap: 5px;
+    justify-content: space-between;
+  }
+  & input {
+    width: 100px;
+    height: 40px;
+    outline: none;
+    font-family: 'Cafe24SsurroundAir';
   }
 `;
 
 export default function Slide4(props) {
-  const {slideScrollNext, slideScrollPost} = props;
+  const {handleInputChange, slideScrollNext, slideScrollPost, value} = props;
   return(
     <Slide4Wrapper>
       <Question>4. 원두 비율(필수)</Question>
-      <button className="postBtn" onClick={() => slideScrollPost(2)}>
+      <div className='inputBox'>
+      {value.map((el, index) => (
+        <input key={index} onChange={handleInputChange} name='rate' bean={index} type='number' placeholder={el + 'g'} max='1000'></input>
+      ))}
+      </div>
+      <div className="postBtn" onClick={() => slideScrollPost(2)}>
         <BsArrowUpCircle/>
-      </button>
-      <button className="nextBtn" onClick={() => slideScrollNext(4)}>
+      </div>
+      <div className="nextBtn" onClick={() => slideScrollNext(4)}>
         <BsArrowDownCircle/>
-      </button>
+      </div>
     </Slide4Wrapper>
   );
 }

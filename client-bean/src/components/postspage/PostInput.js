@@ -2,6 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SearchContainer = styled.div`
+  & .subtitle {
+    padding-bottom: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: 'Cafe24Ohsquareair';
+    border-bottom: 1px solid rgba(44, 42, 40, 0.3);
+  }
   & form {
     position: relative;
     text-align: center;

@@ -1,19 +1,18 @@
-/* eslint-disable no-unused-vars */
-
 // package
 import React, { useState } from 'react';
 import styled from 'styled-components';
 // component
 import { H2 } from '../../../styles/signs/SignTitle';
 import InputLine from '../../../styles/signs/InputLine';
-import SignButton, { Button } from '../../../styles/signs/SignButton';
+import SignButton from '../../../styles/signs/SignButton';
 
 // functions
 import { loginReq } from '../../../network/sign/signApi';
 
 const ErrorMessage = styled.p`
   text-align: center;
-  margin: 3px 0 0 0;
+  margin: 3px 0 0 25px;
+  font-family: 'NotoSans';
   font-size: 13px;
   color: #95673d;
 `;
@@ -60,10 +59,16 @@ const GuthubImg = styled.img`
 const GithubP = styled.p`
   margin-left: 78px;
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'NotoSans';
 `;
 
-export default function Login({ modalHandler, renderSignupHandler }) {
+const MarginH2 = styled(H2)`
+  margin-left: 15px;
+`;
+
+export default function Login({ modalHandler, renderSignupHandler, loginHandler, saveLoginId }) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -76,12 +81,16 @@ export default function Login({ modalHandler, renderSignupHandler }) {
     }
   };
 
-  const btnLoginClick = () => {
+  const btnLoginClick = (e) => {
+    e.preventDefault();
     loginReq(userId, password).then((res) => {
+      console.log(res.data.data);
       if (res.data.data) {
+        saveLoginId(userId);
         setUserId('');
         setPassword('');
         setLoginError('');
+        loginHandler(true);
         modalHandler();
       } else {
         setLoginError(res.data.message);
@@ -101,12 +110,12 @@ export default function Login({ modalHandler, renderSignupHandler }) {
 
   return (
     <>
-      <H2>Log in</H2>
+      <MarginH2>Log in</MarginH2>
       <InputLine name='userId' title='아이디' marginTop='40px' inputHandler={inputHandler} />
       <InputLine name='password' title='비밀번호' type='password' inputHandler={inputHandler} />
       <ErrorMessage>{loginError}</ErrorMessage>
       <SignButton
-        leftBtn='회원가입?'
+        leftBtn='회원가입 하기'
         rightBtn='로그인'
         leftBtnHandler={renderSignupHandler}
         rightBtnHandler={btnLoginClick}

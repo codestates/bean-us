@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NoDataWrap } from '../../../styles/basicFrame/NoDataWrap';
 import ModalBeanInfo from './ModalBeanInfo';
 import ModalHeader from './ModalHeader';
 import ModalPosting from './ModalPosting';
@@ -11,10 +12,10 @@ const CardModalContainer = styled.div`
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
-
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 6;
 `;
 
 const ModalWrap = styled.div`
@@ -25,19 +26,29 @@ const ModalWrap = styled.div`
   background-color: white;
   overflow: scroll;
   overflow-x: auto;
-  -ms-overflow-style: none; // IE에서 스크롤바 감춤
+  -ms-overflow-style: none;
   &::-webkit-scrollbar {
-    display: none; // 윈도우 크롬 등
+    display: none;
   }
+`;
+
+const ModalInnerWrap = styled.div`
+  width: 740px;
 `;
 
 export default function BeanCardModal({ cardPostInfo, cardBeanInfo, closeModal }) {
   return (
-    <CardModalContainer>
+    <CardModalContainer onClick={closeModal}>
       <ModalWrap>
-        <ModalHeader cardBeanInfo={cardBeanInfo} closeModal={closeModal} />
-        <ModalBeanInfo cardBeanInfo={cardBeanInfo} />
-        <ModalPosting cardPostInfo={cardPostInfo} />
+        <ModalInnerWrap>
+          <ModalHeader cardBeanInfo={cardBeanInfo} closeModal={closeModal} />
+          <ModalBeanInfo cardBeanInfo={cardBeanInfo} />
+          {cardPostInfo ? (
+            <ModalPosting cardPostInfo={cardPostInfo} />
+          ) : (
+            <NoDataWrap>게시물이 없습니다</NoDataWrap>
+          )}
+        </ModalInnerWrap>
       </ModalWrap>
     </CardModalContainer>
   );

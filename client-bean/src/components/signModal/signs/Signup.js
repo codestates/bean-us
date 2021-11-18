@@ -1,19 +1,16 @@
-/* eslint-disable no-unused-vars */
-
-// package
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// component
+
 import { H2 } from '../../../styles/signs/SignTitle';
 import InputLine from '../../../styles/signs/InputLine';
-import SignButton, { Button } from '../../../styles/signs/SignButton';
+import SignButton from '../../../styles/signs/SignButton';
 
-// functions
 import { signupReq, checkIdReq } from '../../../network/sign/signApi';
 import { idValidation, passwordValidation, emailValidation } from '../../../utils/validation';
 
 const ValidMessage = styled.p`
-  margin: 0 0 0 125px;
+  margin: 0 0 0 128px;
+  font-family: 'NotoSans';
   font-size: 12px;
   color: #95673d;
 `;
@@ -21,7 +18,12 @@ const ValidMessage = styled.p`
 const ReqErrorMessage = styled.p`
   margin-top: 15px;
   text-align: center;
+  font-family: 'NotoSans';
   color: #95673d;
+`;
+
+const MarginH2 = styled(H2)`
+  margin-left: 15px;
 `;
 
 export default function Signup({ renderSignupHandler }) {
@@ -57,14 +59,16 @@ export default function Signup({ renderSignupHandler }) {
   };
 
   const checkDuplicate = () => {
-    checkIdReq(userId).then((res) => {
-      console.log(res.data);
-      if (res.data.data) {
-        setIsValidId(res.data.message);
-      } else {
-        setIsValidId(res.data.message);
-      }
-    });
+    if (!isValidId) {
+      checkIdReq(userId).then((res) => {
+        console.log(res.data);
+        if (res.data.data) {
+          setIsValidId(res.data.message);
+        } else {
+          setIsValidId(res.data.message);
+        }
+      });
+    }
   };
 
   const btnSignupClick = () => {
@@ -109,14 +113,14 @@ export default function Signup({ renderSignupHandler }) {
 
   return (
     <>
-      <H2>Sign up</H2>
+      <MarginH2>Sign up</MarginH2>
       <InputLine
         name='userId'
         title='아이디'
         marginTop='40px'
         inputHandler={inputHandler}
-        signup='true'
-        checkId='true'
+        signup
+        checkId
         checkDuplicate={checkDuplicate}
       />
       <ValidMessage>{isValidId}</ValidMessage>
@@ -125,7 +129,7 @@ export default function Signup({ renderSignupHandler }) {
         title='비밀번호'
         type='password'
         inputHandler={inputHandler}
-        signup='true'
+        signup
       />
       <ValidMessage>{isValidPassword}</ValidMessage>
       <InputLine
@@ -133,7 +137,7 @@ export default function Signup({ renderSignupHandler }) {
         title='비밀번호 확인'
         type='password'
         inputHandler={inputHandler}
-        signup='true'
+        signup
         blurHandler={blurHandler}
       />
       <ValidMessage>{nowValidPassword}</ValidMessage>
@@ -141,13 +145,13 @@ export default function Signup({ renderSignupHandler }) {
         name='email'
         title='이메일'
         inputHandler={inputHandler}
-        signup='true'
+        signup
         blurHandler={blurHandler}
       />
       <ValidMessage>{isValidEmail}</ValidMessage>
       <ReqErrorMessage>{signupError}</ReqErrorMessage>
       <SignButton
-        leftBtn='로그인?'
+        leftBtn='로그인 하기'
         rightBtn='회원가입'
         leftBtnHandler={renderSignupHandler}
         rightBtnHandler={btnSignupClick}

@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import { FaChevronCircleDown } from 'react-icons/fa';
 import ModalPostingLi from './ModalPostingLi';
 
-//db
-import { BeanPostdb } from '../../../db/beanPostdb';
-
 const BeanPostWrap = styled.div`
   display: inline-block;
   width: 100%;
@@ -17,6 +14,7 @@ const BeanPostWrap = styled.div`
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 2rem;
+    font-family: 'Cafe24Ohsquareair';
   }
 
   & .down {
@@ -35,37 +33,32 @@ const BeanPostWrap = styled.div`
     height: 550px;
     overflow: scroll;
     overflow-x: auto;
-    -ms-overflow-style: none; // IE에서 스크롤바 감춤
+    -ms-overflow-style: none;
     &::-webkit-scrollbar {
-      display: none; // 윈도우 크롬 등
+      display: none;
     }
   }
 `;
 
 function ModalPosting({ cardPostInfo }) {
   const [isPost, setIsPost] = useState(false);
-
-  let downRef = useRef(null);
+  let postRef = useRef(null);
 
   const postScroll = () => {
-    if (!isPost) {
-      downRef.current.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      downRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    }
+    if (!isPost) postRef.current.scrollIntoView({ behavior: 'smooth' });
+    else postRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     setIsPost(!isPost);
   };
 
   return (
     <BeanPostWrap isPost={isPost}>
       <header>
-        <div ref={downRef}>게시글</div>
+        <div ref={postRef}>게시글</div>
         <FaChevronCircleDown className='down' onClick={postScroll} />
       </header>
       <ul>
-        {/* //! TODO 실제 서버 통신 시 / BeanPostdb => cardPostInfo */}
-        {BeanPostdb.map((res) => (
-          <ModalPostingLi key={res.postId} res={res} />
+        {cardPostInfo.map((post) => (
+          <ModalPostingLi key={post.postId} post={post} />
         ))}
       </ul>
     </BeanPostWrap>

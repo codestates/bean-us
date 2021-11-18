@@ -3,6 +3,7 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import LoadingPage from './LoadingPage';
 
 export default function KakaoCallback({ loginHandler }) {
   const navigate = useNavigate();
@@ -19,5 +20,5 @@ export default function KakaoCallback({ loginHandler }) {
     });
   }, []);
 
-  return <div></div>;
+  return <LoadingPage content='Github로 로그인 진행중입니다' width='1000px' spinner />;
 }

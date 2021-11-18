@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { TagFrame } from '../../../styles/basicFrame/TagFrame';
 
-//[{postId, title, beans: [beanName, beanName, beanName], userId(작성자), createAt}]
-// 최신순으로 정렬
-
 const BeanPostList = styled.li`
   display: flex;
   align-items: center;
@@ -17,6 +14,7 @@ const BeanPostList = styled.li`
   & .firstDiv {
     display: flex;
     align-items: center;
+    flex-basis: 75%;
 
     & .postTitle {
       width: 450px;
@@ -40,6 +38,7 @@ const BeanPostList = styled.li`
     width: 130px;
     font-size: 0.9rem;
     color: rgba(0, 0, 0, 0.6);
+    flex-basis: 20%;
 
     & div {
       margin-bottom: 0.5rem;
@@ -52,7 +51,7 @@ const StyledLink = styled(Link)`
   color: black;
 `;
 
-function ModalPostingLi({ res }) {
+function ModalPostingLi({ post }) {
   return (
     <BeanPostList>
       <div className='firstDiv'>
@@ -60,12 +59,12 @@ function ModalPostingLi({ res }) {
         <div>
           <StyledLink
             to={{
-              pathname: `/posts/view/${res.postId}`,
+              pathname: `/posts/view/${post.postId}`,
             }}
           >
-            <div className='postTitle'>{res.title}</div>
+            <div className='postTitle'>{post.title}</div>
           </StyledLink>
-          {res.beans.map((name) => (
+          {post.beans.map((name) => (
             <TagFrame key={name} color='rgba(121, 147, 105, 0.5)'>
               #{name}
             </TagFrame>
@@ -73,8 +72,8 @@ function ModalPostingLi({ res }) {
         </div>
       </div>
       <div className='subContent'>
-        <div>작성자 : {res.userId}</div>
-        <span>{res.createAt}</span>
+        <div>작성자 : {post.userId}</div>
+        <span>{post.createAt}</span>
       </div>
     </BeanPostList>
   );

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 export const Button = styled.button`
   flex: none;
   border: none;
-  background-color: ${({backgroundColor}) => backgroundColor || 'none'};
+  background-color: none;
   width: ${({width}) => width || '50px'};
   height: ${({height}) => height || '20px'};
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, .3);

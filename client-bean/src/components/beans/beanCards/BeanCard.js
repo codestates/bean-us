@@ -1,5 +1,3 @@
-/*eslint-disable no-unused-vars*/
-
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaHeart } from 'react-icons/fa';
@@ -9,6 +7,7 @@ import ImgFrame from '../../../styles/basicFrame/ImgFrame';
 
 const CardLI = styled.li`
   position: relative;
+  font-family: 'Cafe24SsurroundAir';
 
   &:hover {
     cursor: pointer;
@@ -45,63 +44,41 @@ const ContentUL = styled.ul`
   }
 `;
 
-export default function BeanCard({ bean, beanModal }) {
+export default function BeanCard({ bean, beanModal, loginId }) {
   const { beanId, beanImage, beanName, origin, likeCount, like } = bean;
 
-  //! 이후 bean에서 실제 데이터를 받아온다.
-  // let like = false;
   const [beanlike, setBeanLike] = useState(like);
   const [likeNum, setLikeNum] = useState(likeCount);
 
   const cardClick = (e, beanId) => {
     let { tagName } = e.target;
     if (tagName === 'svg' || tagName === 'path') return;
-    //! TODO GET /bean?beanId=beanId 해당 원두와 관련된 게시글 요청
-
-    // getBeanPost(beanId).then((res) => {
-    //   console.log(res);
-    //   beanModal(beanId, res);
-    // });
-
-    beanModal(beanId, 'get 통신 결과 bean과 관련된 post 정보');
+    // GET /bean?beanId=beanId 해당 원두와 관련된 게시글 요청
+    getBeanPost(beanId).then((res) => {
+      beanModal(beanId, res);
+    });
   };
 
   const heartClick = (id) => {
-    let isLogin = true;
-
-    if (!isLogin) {
+    if (!loginId) {
       alert('로그인 회원만 사용 가능합니다. 로그인해 주세요');
     } else {
-      //! TODO POST /bean/like
-      // postBeanLike(id, !beanlike)
-      //   .then((res) => statusCode(res))
-      //   .then((result) => {
-      //     if (result === 200) {
-      //       setBeanLike(!beanlike);
-      //       let num = likeNum;
-      //       if (!beanlike) {
-      //         setLikeNum(++num);
-      //       } else {
-      //         setLikeNum(--num);
-      //       }
-      //     } else {
-      //       alert(result);
-      //     }
-      //   });
-
-      let result = statusCode(200);
-      if (result === 200) {
-        setBeanLike(!beanlike);
-
-        let num = likeNum;
-        if (!beanlike) {
-          setLikeNum(++num);
-        } else {
-          setLikeNum(--num);
-        }
-      } else {
-        alert(result);
-      }
+      // POST /bean/like
+      postBeanLike(id, !beanlike)
+        .then((res) => statusCode(res))
+        .then((result) => {
+          if (result === 200) {
+            setBeanLike(!beanlike);
+            let num = likeNum;
+            if (!beanlike) {
+              setLikeNum(++num);
+            } else {
+              setLikeNum(--num);
+            }
+          } else {
+            alert(result);
+          }
+        });
     }
   };
 
@@ -117,7 +94,7 @@ export default function BeanCard({ bean, beanModal }) {
           transform='scale(1.05)'
           border='5px solid rgba(157, 156, 147, 0.5)'
         />
-        <ContentUL beanName={beanName} beanlike={beanlike}>
+        <ContentUL beanName={beanName} beanlike={+beanlike}>
           <li className='beanName'>{beanName}</li>
           <li>{origin}</li>
           <li>{likeNum}</li>

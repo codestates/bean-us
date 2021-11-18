@@ -1,10 +1,32 @@
 import React from 'react';
-import { FaCircle } from 'react-icons/fa';
 import styled from 'styled-components';
+import { FaCircle } from 'react-icons/fa';
 import ImgFrame from '../../../styles/basicFrame/ImgFrame';
 
 const BeanInfoWrap = styled.section`
   padding: 2rem 0;
+  & .desc {
+    border-bottom: 1px solid;
+    padding-bottom: 2rem;
+    line-height: 1.9rem;
+  }
+`;
+
+const BeanIfnoWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2rem;
+
+  & .beaninfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  & .name {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
 
   & li {
     padding-bottom: 1rem;
@@ -19,32 +41,8 @@ const BeanInfoWrap = styled.section`
     margin-right: 0.2rem;
     color: #799369;
   }
-
-  & .beanInfoWrap {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 2rem;
-
-    & .beaninfo {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    & .name {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-  }
-
-  & .desc {
-    border-bottom: 1px solid;
-    padding-bottom: 2rem;
-    line-height: 1.9rem;
-  }
 `;
 
-// li 태그 반복 개선 필요
 function ModalBeanInfo({ cardBeanInfo }) {
   let {
     acidity,
@@ -61,9 +59,7 @@ function ModalBeanInfo({ cardBeanInfo }) {
 
   const circleList = (repeat) => {
     let liTag = [];
-    for (let i = 0; i < repeat; i++) {
-      liTag.push(<FaCircle className='circleIcon' />);
-    }
+    for (let i = 0; i < repeat; i++) liTag.push(<FaCircle className='circleIcon' />);
     return liTag;
   };
 
@@ -78,7 +74,7 @@ function ModalBeanInfo({ cardBeanInfo }) {
 
   return (
     <BeanInfoWrap>
-      <div className='beanInfoWrap'>
+      <BeanIfnoWrap>
         <ImgFrame
           imgUrl={beanImage}
           alt='beanImg'
@@ -98,7 +94,7 @@ function ModalBeanInfo({ cardBeanInfo }) {
             {categoryLi('Body', body)}
           </ul>
         </ul>
-      </div>
+      </BeanIfnoWrap>
       <div className='desc'>{desc}</div>
     </BeanInfoWrap>
   );

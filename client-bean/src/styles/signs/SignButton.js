@@ -5,11 +5,19 @@ import { Wrapper } from './InputLine';
 export const Button = styled.button`
   width: 150px;
   height: 40px;
-  margin-left: ${({ marginLeft }) => marginLeft};
-
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+  margin-left: ${({ marginLeft }) => marginLeft || 0};
+  font-size: 17px;
+  font-family: 'BMHANNAAir';
+  border: none;
+  border-radius: 10px;
+  background-color: RGB(249, 246, 245);
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
+  transition: 0.2s;
   &:hover {
     cursor: pointer;
+    font-weight: 700;
+    background-color: rgba(160, 72, 6);
+    color: #fff;
   }
   &:active {
     box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.4);

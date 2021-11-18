@@ -1,10 +1,19 @@
-const {post, postBean, beanInfo} = require('./../models');
+const {post, postBean, beanInfo, postComment, postImage} = require('./../models');
+const {Op} = require('sequelize');
+const {isAuthorized} = require('./functions/index.js');
 
 module.exports = {
   createPost: async (req, res) => {
-    const {title, content, water, waterTemp, userId, beanList} = req.body;
+    const accessTokenInfo = isAuthorized(req);
+    if(!accessTokenInfo){
+      res.status(400).json({
+        message: '로그인이 되어있지 않습니다.',
+      });
+    }
+
+    const {title, content, water, waterTemp, beanList} = req.body;
     const createPost = await post.create({
-      title, content, water, waterTemp, userId
+      title, content, water, waterTemp, userId: accessTokenInfo.userId
     });
 
     createPost.update({
@@ -38,29 +47,32 @@ module.exports = {
   },
 
   updatePost: (req, res) => {
-    const {postId, title, content, water, waterTemp, beanList} = req.body;
+    const { postId, title, content, water, waterTemp, beanList } = req.body;
     post.findOne({
-      where: {postId}
-    }).then(result => {
+      where: { postId },
+    }).then((result) => {
       result.update({
-        title, content, water, waterTemp
-      }).then(async result => {
+        title,
+        content,
+        water,
+        waterTemp,
+      }).then(async (result) => {
         await postBean.destroy({
-          where: {postId}
+          where: { postId },
         });
 
-        for(let bean of beanList){
+        for (let bean of beanList) {
           bean['postId'] = postId;
         }
 
-        postBean.bulkCreate(beanList).then(postBeans => {
+        postBean.bulkCreate(beanList).then((postBeans) => {
           const post = result.dataValues;
           delete post.id;
           delete post.updatedAt;
 
           let beanList = [];
-  
-          for(let beanItem of [...postBeans]){
+
+          for (let beanItem of [...postBeans]) {
             delete beanItem.dataValues.id;
             delete beanItem.dataValues.createdAt;
             delete beanItem.dataValues.updatedAt;
@@ -70,7 +82,7 @@ module.exports = {
           res.status(201).json({
             message: '게시글이 수정되었습니다.',
             post,
-            beanList
+            beanList,
           });
         });
       });
@@ -78,14 +90,14 @@ module.exports = {
   },
 
   deletePost: async (req, res) => {
-    const {postId} = req.params
+    const { postId } = req.body;
 
     await post.destroy({
-      where: {postId}
+      where: { postId },
     });
 
     await postBean.destroy({
-      where: {postId}
+      where: { postId },
     });
 
     res.status(200).json({
@@ -93,32 +105,45 @@ module.exports = {
     });
   },
 
-  findAll: async (req, res) => {
+  findAllPost: async (req, res) => {
     const postList = await post.findAll({
-      raw: true
+      raw: true,
+      order: [['createdAt', 'DESC']]
     });
     const postbeanList = await postBean.findAll({
       raw: true,
-      attributes: ['postId', 'beanId']
+      attributes: ['postId', 'beanId'],
     });
     const beanList = await beanInfo.findAll({
       raw: true,
-      attributes: ['beanId', 'beanName']
+      attributes: ['beanId', 'beanName'],
+    });
+    const postImages = await postImage.findAll({
+      raw: true,
+      attributes: ['postId', 'imageUrl'],
+      order: [['createdAt', 'DESC']]
     });
 
-    for(let postIdx of postList){
+    for (let postIdx of postList) {
       delete postIdx.id;
       delete postIdx.updatedAt;
 
       const beans = [];
-      for(let postBeanIdx of postbeanList){
-        if(postIdx['postId'] === postBeanIdx['postId']){
-          for(let beanIdx of beanList){
-            if(postBeanIdx['beanId'] === beanIdx['beanId']){
-              beans.push({beanId: beanIdx['beanId'], beanName: beanIdx['beanName']});
+      for (let postBeanIdx of postbeanList) {
+        if (postIdx['postId'] === postBeanIdx['postId']) {
+          for (let beanIdx of beanList) {
+            if (postBeanIdx['beanId'] === beanIdx['beanId']) {
+              beans.push({ beanId: beanIdx['beanId'], beanName: beanIdx['beanName'] });
               break;
             }
           }
+        }
+      }
+
+      for(let postImageIdx of postImages){
+        if(postIdx['postId'] === postImageIdx['postId']){
+          postIdx['imageUrl'] = postImageIdx['imageUrl'];
+          break;
         }
       }
 
@@ -127,19 +152,217 @@ module.exports = {
 
     res.status(200).json({
       message: 'success',
-      postList
+      postList,
     });
   },
 
-  findById: (req, res) => {
+  findByPostId: async (req, res) => {
+    const {postId} = req.query;
+
+    const postOne = await post.findOne({
+      attributes: ['postId', 'title', 'content', 'water', 'waterTemp', 'userId', 'createdAt'],
+      where: {postId}
+    });
+    const postBeans = await postBean.findAll({
+      where: {postId},
+      include: [{
+        model: beanInfo,
+        attributes: ['beanName'],
+      }],
+    });
+    const postImageOne = await postImage.findOne({
+      attributes: ['imageUrl'],
+      where: {postId},
+      order: [['createdAt', 'DESC']]
+    });
+
+    const beans = [];
+    for(let postBeansIdx of postBeans){
+      beans.push({beanId: postBeansIdx['beanId'], beanName: postBeansIdx.beanInfo['beanName']});
+    }
+    
+    postOne.dataValues['beans'] = beans;
+    if(postImageOne){
+      postOne.dataValues['imageUrl'] = postImageOne.dataValues['imageUrl'];
+    }
+    
     res.status(200).json({
-      message: 'success',
+      post: postOne,
     });
   },
 
-  findByParams: (req, res) => {
+  findByParams: async (req, res) => {
+    const {title, userId} = req.query;
+    const paramWhere = {};
+
+    if(title){
+      paramWhere['title'] = {[Op.like]: `%${title}%`};
+    }
+
+    if(userId){
+      paramWhere['userId'] = userId;
+    }
+
+    const postList = await post.findAll({
+      raw: true,
+      where: paramWhere,
+      order: [['createdAt', 'DESC']]
+    });
+    const postbeanList = await postBean.findAll({
+      raw: true,
+      attributes: ['postId', 'beanId'],
+    });
+    const beanList = await beanInfo.findAll({
+      raw: true,
+      attributes: ['beanId', 'beanName'],
+    });
+    const postImages = await postImage.findAll({
+      raw: true,
+      attributes: ['postId', 'imageUrl'],
+      order: [['createdAt', 'DESC']]
+    });
+
+    for (let postIdx of postList) {
+      delete postIdx.id;
+      delete postIdx.updatedAt;
+
+      const beans = [];
+      for (let postBeanIdx of postbeanList) {
+        if (postIdx['postId'] === postBeanIdx['postId']) {
+          for (let beanIdx of beanList) {
+            if (postBeanIdx['beanId'] === beanIdx['beanId']) {
+              beans.push({ beanId: beanIdx['beanId'], beanName: beanIdx['beanName'] });
+              break;
+            }
+          }
+        }
+      }
+
+      for(let postImageIdx of postImages){
+        if(postIdx['postId'] === postImageIdx['postId']){
+          postIdx['imageUrl'] = postImageIdx['imageUrl'];
+          break;
+        }
+      }
+
+      postIdx['beans'] = beans;
+    }
+    
     res.status(200).json({
-      message: 'success'
+      postList,
     });
   },
+
+  findPostByPostId: async (req, res) => {
+    const postId = req.query['post-id'];
+    const postOne = await post.findOne({
+      raw: true,
+      attributes: ['postId', 'title', 'water', 'waterTemp', 'content', 'userId', 'createdAt'],
+      where: {postId}
+    });
+    const postBeanAll = await postBean.findAll({
+      raw: true,
+      attributes: ['rate'],
+      include: [{
+        model: beanInfo,
+        attributes: ['beanName']
+      }],
+      where: {postId}
+    });
+    const commentAll = await postComment.findAll({
+      raw: true,
+      attributes: ['userId', 'commentId', 'comment', 'createdAt'],
+      where:{postId},
+      order: [['createdAt', 'DESC']]
+    });
+    const postImageOne = await postImage.findOne({
+      attributes: ['imageUrl'],
+      where: {postId},
+      order: [['createdAt', 'DESC']]
+    });
+
+    const beanRatio = {};
+    for(let postBeanAllIdx of postBeanAll){
+      beanRatio[postBeanAllIdx['beanInfo.beanName']] = postBeanAllIdx['rate'];
+    }
+    postOne['beanRatio'] = beanRatio;
+    console.log(postImage);
+    if(postImageOne){
+      postOne['imageUrl'] = postImageOne.dataValues['imageUrl'];
+    }
+
+    res.status(200).json({
+      postCotents: postOne,
+      comments: commentAll,
+    });
+  },
+
+  createPostComment: async (req, res) => {
+    const accessTokenInfo = isAuthorized(req);
+    if(!accessTokenInfo){
+      res.status(400).json({
+        message: '로그인이 되어 있지 않습니다.',
+      });
+    }
+
+    const {postId, comment} = req.body.data;
+    const buildComment = await postComment.build({postId, userId: accessTokenInfo.userId, comment});
+    const lastComment = await postComment.findOne({order:[['commentId', 'DESC']]});
+
+    buildComment.dataValues['commentId'] = lastComment.dataValues['commentId'] + 1;
+    buildComment.save();
+
+    res.status(200).json({
+      message: '댓글이 등록 되었습니다.',
+      userId: buildComment.userId,
+      commentId: buildComment.commentId,
+      comment: buildComment.comment,
+      createdAt: buildComment.createdAt,
+    });
+  },
+
+  updatePostComment: (req, res) => {
+    const accessTokenInfo = isAuthorized(req);
+    if(!accessTokenInfo){
+      res.status(400).json({
+        message: '로그인이 되어 있지 않습니다.',
+      });
+    }
+
+    const {commentId, comment} = req.body.data;
+
+    postComment.update({ comment }, { where: { commentId } }).then(() => {
+      res.status(204).json({
+        message: '댓글이 수정 되었습니다.',
+      });
+    });
+  },
+
+  deletePostComment: (req, res) => {
+    const accessTokenInfo = isAuthorized(req);
+    if(!accessTokenInfo){
+      res.status(400).json({
+        message: '로그인이 되어 있지 않습니다.',
+      });
+    }
+
+    const { commentId } = req.body;
+
+    postComment.destroy({ where: { commentId } }).then(() => {
+      res.status(204).json({
+        message: '댓글이 삭제 되었습니다.',
+      });
+    });
+  },
+
+  imageUpload: (req, res) => {
+    console.log(req.body.postId);
+    console.log(req.file.location);
+    postImage.create({
+      postId: req.body.postId,
+      imageUrl: req.file.location
+    }).then(() => {
+      res.status(200).send('이미지 업로드가 완료되었습니다.');
+    });
+  }
 };

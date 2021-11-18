@@ -1,183 +1,261 @@
-const {beanInfo, userBean} = require('./../models');
-const {Op, fn, col, literal} = require('sequelize');
-const {isAuthorized} = require('./functions/index.js');
+const { beanInfo, userBean, postBean, post } = require('./../models');
+const { Op, fn, col, literal } = require('sequelize');
+const { isAuthorized } = require('./functions/index.js');
 
 module.exports = {
   allBeans: (req, res) => {
-    const userBeanWhere = {[Op.or]:[{userId: null}]}
-    const accessTokenInfo = isAuthorized(req);
-    console.log(accessTokenInfo);
-    const attributes = [
-      'beanId', 'beanName', 'origin', 'fragrance',
-      'acidity', 'sweetness', 'bitterness', 'body',
-      'beanImage', ['description', 'desc']
-    ];
+    const userBeanWhere = { [Op.or]: [{ userId: null }] };
+    const attributes = ['beanId', 'beanName', 'origin', 'fragrance', 'acidity', 'sweetness', 'bitterness', 'body', 'beanImage', ['description', 'desc']];
 
-    if(accessTokenInfo !== null){
-      userBeanWhere[Op.or].push({userId: accessTokenInfo.userId});
-      attributes.push(
-        [literal(`CASE WHEN userBeans.userId = '${accessTokenInfo.userId}' THEN true ELSE false END`), 'like']
-      );
-    }else{
-      attributes.push(
-        [fn('COALESCE', col('userBeans.userId'), String(1)), 'like']
-      );
+    try{
+      const accessTokenInfo = isAuthorized(req);
+      if (accessTokenInfo !== null) {
+        userBeanWhere[Op.or].push({ userId: accessTokenInfo.userId });
+        attributes.push([literal(`CASE WHEN userBeans.userId = '${accessTokenInfo.userId}' THEN true ELSE false END`), 'like']);
+      } else {
+        attributes.push([fn('COALESCE', col('userBeans.userId'), String(0)), 'like']);
+      }
+    } catch(error) {
+      console.log(error);
     }
 
-    console.log(attributes);
-
-    beanInfo.findAll({
-      raw: true,
-      attributes: attributes,
-      include: [
-        {
-          model: userBean,
-          required: false,
-          attributes: [],
-          where: userBeanWhere
-        },
-      ],
-      order: [['beanId', 'asc']],
-    }).then(result => {
-      const beanInfoList = [...result];
-
-      userBean.findAll({
+    beanInfo
+      .findAll({
         raw: true,
-        attributes: ['beanId', [fn('COUNT', col('userId')), 'likeCount']],
-        group: ['beanId'],
-        order: ['beanId']
-      }).then(result => {
-        for(let i in beanInfoList){
-          for(let j in result){
-            if(beanInfoList[i].beanId === result[j].beanId){
-              beanInfoList[i]['likeCount'] = result[j]['likeCount'];
-              break;
-            }else{
-              beanInfoList[i]['likeCount'] = 0;
-            }
-          }
-        }
+        attributes: attributes,
+        include: [
+          {
+            model: userBean,
+            required: false,
+            attributes: [],
+            where: userBeanWhere,
+          },
+        ],
+        order: [['beanId', 'asc']],
+      })
+      .then((result) => {
+        const beanInfoList = [...result];
 
-        res.status(200).json({
-          message: 'success',
-          beanList: beanInfoList,
-        });
+        userBean
+          .findAll({
+            raw: true,
+            attributes: ['beanId', [fn('COUNT', col('userId')), 'likeCount']],
+            group: ['beanId'],
+            order: ['beanId'],
+          })
+          .then((result) => {
+            for (let i in beanInfoList) {
+              for (let j in result) {
+                if (beanInfoList[i].beanId === result[j].beanId) {
+                  beanInfoList[i]['likeCount'] = result[j]['likeCount'];
+                  break;
+                } else {
+                  beanInfoList[i]['likeCount'] = 0;
+                }
+              }
+            }
+
+            res.status(200).json({
+              message: 'success',
+              beanList: beanInfoList,
+            });
+          }, error => {
+            console.log(error);
+            res.status(400).send('에러 발생');
+          });
+      }, error => {
+        console.log(error);
+        res.status(400).send('에러 발생');
       });
-    });
   },
 
   filterBeans: (req, res) => {
     const params = req.query;
     const beanInfoWhere = {};
-    const userBeanWhere = {[Op.or]:[{userId: null}]}
-    const accessTokenInfo = isAuthorized(req);
-    console.log(accessTokenInfo);
-    const attributes = [
-      'beanId', 'beanName', 'origin', 'fragrance',
-      'acidity', 'sweetness', 'bitterness', 'body',
-      'beanImage', ['description', 'desc']
-    ];
-    
-    if(accessTokenInfo !== null){
-      userBeanWhere[Op.or].push({userId: accessTokenInfo.userId});
-      attributes.push(
-        [literal(`CASE WHEN userBeans.userId = '${accessTokenInfo.userId}' THEN true ELSE false END`), 'like']
-      );
-    }else{
-      attributes.push(
-        [fn('COALESCE', col('userBeans.userId'), String(1)), 'like']
-      );
-    }
+    const userBeanWhere = { [Op.or]: [{ userId: null }] };
+    const attributes = ['beanId', 'beanName', 'origin', 'fragrance', 'acidity', 'sweetness', 'bitterness', 'body', 'beanImage', ['description', 'desc']];
 
-    console.log(attributes);
-
-    for(let param in params){
-      if(param === 'bean' && params['bean'] !== ''){
-        beanInfoWhere['beanName'] = {[Op.like] : `%${params[param]}%`}
-      }else{
-        if(params[param] !== ''){
-          beanInfoWhere[param] = {
-              [Op.or]: params[param].split(',').map(item => {
-                return Number(item)
-              })
-            };
-        }
+    try{
+      const accessTokenInfo = isAuthorized(req);
+      if (accessTokenInfo !== null) {
+        userBeanWhere[Op.or].push({ userId: accessTokenInfo.userId });
+        attributes.push([literal(`CASE WHEN userBeans.userId = '${accessTokenInfo.userId}' THEN true ELSE false END`), 'like']);
+      } else {
+        attributes.push([fn('COALESCE', col('userBeans.userId'), String(0)), 'like']);
       }
-    }
 
-    beanInfo.findAll({
-      raw: true,
-      attributes: attributes,
-      include: [
-        {
-          model: userBean,
-          required: false,
-          attributes: [],
-          where: userBeanWhere
-        },
-      ],
-      where: beanInfoWhere,
-      order: [['beanId', 'asc']],
-    }).then(result => {
-      const beanInfoList = [...result];
-
-      userBean.findAll({
-        raw: true,
-        attributes: ['beanId', [fn('COUNT', col('userId')), 'likeCount']],
-        group: ['beanId'],
-        order: ['beanId']
-      }).then(result => {
-        for(let i in beanInfoList){
-          for(let j in result){
-            if(beanInfoList[i].beanId === result[j].beanId){
-              beanInfoList[i]['likeCount'] = result[j]['likeCount'];
-              break;
-            }else{
-              beanInfoList[i]['likeCount'] = 0;
-            }
+      for (let param in params) {
+        if (param === 'bean' && params['bean'] !== '') {
+          beanInfoWhere['beanName'] = { [Op.like]: `%${params[param]}%` };
+        } else {
+          if (params[param] !== '') {
+            beanInfoWhere[param] = {
+              [Op.or]: params[param].split(',').map((item) => {
+                return Number(item);
+              }),
+            };
           }
         }
+      }
+    } catch(error) {
+      console.log(error);
+    }
+    
 
-        res.status(200).json({
-          message: 'success',
-          beanList: beanInfoList,
+    beanInfo
+      .findAll({
+        raw: true,
+        attributes: attributes,
+        include: [
+          {
+            model: userBean,
+            required: false,
+            attributes: [],
+            where: userBeanWhere,
+          },
+        ],
+        where: beanInfoWhere,
+        order: [['beanId', 'asc']],
+      })
+      .then((result) => {
+        const beanInfoList = [...result];
+
+        userBean
+          .findAll({
+            raw: true,
+            attributes: ['beanId', [fn('COUNT', col('userId')), 'likeCount']],
+            group: ['beanId'],
+            order: ['beanId'],
+          })
+          .then((result) => {
+            for (let i in beanInfoList) {
+              for (let j in result) {
+                if (beanInfoList[i].beanId === result[j].beanId) {
+                  beanInfoList[i]['likeCount'] = result[j]['likeCount'];
+                  break;
+                } else {
+                  beanInfoList[i]['likeCount'] = 0;
+                }
+              }
+            }
+
+            res.status(200).json({
+              message: 'success',
+              beanList: beanInfoList,
+            });
+          }, error => {
+            console.log(error);
+            res.status(400).json({
+              message: error,
+            });
+          });
+      }, error => {
+        console.log(error);
+        res.status(400).json({
+          message: error,
         });
       });
-    });
   },
 
-  findBeanPost: (req, res) => {
-
+  findBeanPost: async (req, res) => {
+    try{
+      const postBeans = await postBean.findAll({
+        raw: true,
+        where: { beanId: req.query['bean-id'] },
+        order: [['createdAt', 'DESC']],
+      });
+  
+      const postWhere = { [Op.or]: [] };
+      for (let postBeanIdx of postBeans) {
+        postWhere[Op.or].push({ postId: postBeanIdx['postId'] });
+      }
+  
+      const postList = await post.findAll({
+        raw: true,
+        attributes: ['postId', 'title', 'content', 'userId', 'createdAt'],
+        where: postWhere,
+      });
+  
+      const postBeansByPostId = await postBean.findAll({
+        raw: false,
+        where: postWhere,
+        include: [
+          {
+            model: beanInfo,
+            attributes: ['beanName']
+          }
+        ],
+      });
+  
+      for (let postItem of postList) {
+        const beans = [];
+        for(let postBeanInfo of postBeansByPostId){
+          if(postItem['postId'] === postBeanInfo.dataValues['postId']){
+            beans.push(postBeanInfo.dataValues.beanInfo['beanName']);
+          }
+        }
+        postItem['beans'] = beans;
+      }
+  
+      res.status(200).json({
+        posts: postList,
+      });
+    } catch(error){
+      console.log(error);
+      res.status(400).json({
+        error
+      });
+    }
   },
 
   beanLike: (req, res) => {
-    const accessTokenInfo = isAuthorized(req);
+    const { beanId, beanLike } = req.body.data;
+    const accessTokenInfo = isAuthorized(req);    
     if(!accessTokenInfo){
       res.status(400).json({
-        message: '로그인이 되어 있지 않습니다.'
+        message: '로그인이 되어 있지 않습니다.',
       });
     }
 
-    if(req.body.beanLike){
-      userBean.create({
-        userId: accessTokenInfo.userId,
-        beanId: req.body.beanId
-      }).then(() => {
-        res.status(200).json({
-          message: 'success'
-        });
-      });
-    }else{
-      userBean.destroy({
-        where: {
+    if (beanLike) {
+      userBean
+        .create({
           userId: accessTokenInfo.userId,
-          beanId: req.body.beanId
-        }
-      }).then(() => {
-        res.status(200).json({
-          message: 'success'
+          beanId,
+        })
+        .then(() => {
+          res.status(200).json({
+            message: 'success',
+          });
+        }, error => {
+          console.log(error);
+          res.status(200).json({
+            error
+          });
         });
-      });
+    } else {
+      userBean
+        .destroy({
+          where: {
+            userId: accessTokenInfo.userId,
+            beanId,
+          },
+        })
+        .then(() => {
+          res.status(200).json({
+            message: 'success',
+          });
+        });
     }
+  },
+
+  beanForPost: (req, res) => {
+    beanInfo.findAll({
+      attributes: ['beanId', 'beanName'],
+    }).then(result => {
+      res.status(200).json({
+        beans: result
+      });
+    });
   },
 };

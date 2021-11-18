@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { getBeanName } from '../../network/beans/http';
+import { FaSearch } from 'react-icons/fa';
 
 const SearchContainer = styled.div`
   & form {
@@ -71,17 +72,14 @@ export default function BeanInput({ beanName, getBeanCards }) {
 
   const nameSubmit = (e) => {
     e.preventDefault();
-    //TODO GET 요청
+    // GET 요청
     getBeanName(inputName).then((res) => {
       getBeanCards(res);
     });
-
     setFilterName([]);
-    // inpuRef.current.focus();
   };
 
-  const searchBeanName = (e) => {
-    let text = e.target.value;
+  const searchBeanName = (text) => {
     setInputName(text);
 
     if (!text) {
@@ -92,23 +90,24 @@ export default function BeanInput({ beanName, getBeanCards }) {
     }
   };
 
-  const clickName = (e) => {
-    setInputName(e.target.textContent);
-  };
-
-  const inputFoucs = (e) => {
-    setOnInputFocus(!onInputFocus);
-  };
-
   return (
     <SearchContainer focus={onInputFocus} name={filterName.length}>
-      <div className="subtitle">원두 검색</div>
+      <div className='subtitle'>원두 검색</div>
       <form onSubmit={nameSubmit}>
-        <input ref={inpuRef} type="text" onChange={searchBeanName} value={inputName} onFocus={inputFoucs} onBlur={inputFoucs} />
-        <button>click</button>
+        <input
+          type='text'
+          ref={inpuRef}
+          value={inputName}
+          onChange={(e) => searchBeanName(e.target.value)}
+          onFocus={() => setOnInputFocus(!onInputFocus)}
+          onBlur={() => setOnInputFocus(!onInputFocus)}
+        />
+        <button>
+          <FaSearch />
+        </button>
         <DropText focus={onInputFocus}>
           {filterName.map((name, i) => (
-            <li key={i} onMouseDown={clickName}>
+            <li key={i} onMouseDown={(e) => setInputName(e.target.textContent)}>
               {name}
             </li>
           ))}

@@ -1,9 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import backgroundimg from '../../../backgroundimg.jpg';
 import MainNavBar from '../MainNavBar';
-// import MainTopBar from '../MainTopBar';
-import TopBar from '../../TopBar';
+// import TopBar from '../../TopBar';
+
+const beanRotation = keyframes`
+  from {
+    transform: rotate(0deg);
+  } 30% {
+    transform: rotate(20deg);
+  } 70% {
+    transform : rotate(-20deg);
+  } 100% {
+    transform: rotate(0deg);
+  }
+`;
 
 const MainSection1 = styled.section`
   width: 100vw;
@@ -29,6 +40,8 @@ const SectionIntroCnt = styled.div`
   > .introMain {
     font-size: 5rem;
     margin-bottom: 20px;
+    font-family: 'Cafe24Ohsquareair';
+    font-weight: bold;
   }
   > .logoimg {
     width: 300px;
@@ -36,24 +49,24 @@ const SectionIntroCnt = styled.div`
   }
   > .beanimg {
     width: 200px;
+    animation: ${beanRotation} 4s Linear infinite;
+    animation-fill-mode: forwards;
   }
 `;
 
 export default function Section1({ isLogin, loginHandler, modalHandler, loginId, saveLoginId }) {
   return (
     <MainSection1>
-      <TopBar
+      <MainNavBar
         isLogin={isLogin}
-        modalHandler={modalHandler}
         loginHandler={loginHandler}
         loginId={loginId}
         saveLoginId={saveLoginId}
-        main='main'
+        modalHandler={modalHandler}
       />
-      <MainNavBar />
       <SectionIntroCnt>
-        <img src='asset/mainpage/logowhite.png' alt='' className='logoimg' />
-        <img src='asset/mainpage/coffeebeans.png' alt='' className='beanimg' />
+        <img src='asset/mainpage/logowhite.png' alt='logoImg' className='logoimg' />
+        <img src='asset/mainpage/coffeebeans.png' alt='beanImg' className='beanimg' />
         <span className='introMain'>Special coffee beans</span>
         <span>In our website you can find sepecial flavor coffee beans,</span>
         <span>and you can share your own recipe with other people!</span>

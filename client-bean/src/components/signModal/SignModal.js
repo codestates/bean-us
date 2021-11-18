@@ -21,13 +21,13 @@ const fadeIn = keyframes`
   }
 `;
 
-const Background = styled.div`
+export const Background = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,10 +54,12 @@ const SignWrapper = styled.section`
     }
   }}
   position: relative;
-  background: #eee;
+  border-radius: 20px;
+  background: #f9f9f9;
   box-sizing: border-box;
   animation: ${slideUp} 0.25s ease-out;
   transition: all 0.5s;
+  z-index: 999;
 `;
 
 const LoginWrapper = styled.div`
@@ -72,24 +74,29 @@ const LoginImg = styled.img`
   margin-left: 30px;
   width: 300px;
   height: 450px;
+  border-radius: 0 20px 20px 0;
 `;
 
 const FlexWrapper = styled.div`
   display: flex;
 `;
 
-const SignModal = ({ isLogin, modalHandler }) => {
+const SignModal = ({ isLogin, modalHandler, saveLoginId, loginHandler, closeModal }) => {
   const [renderSignup, setRenderSignup] = useState(false);
   const renderSignupHandler = () => {
     setRenderSignup(!renderSignup);
   };
 
   return (
-    <Background>
+    <Background name='background' onClick={closeModal}>
       <SignWrapper isLogin={isLogin} renderSignup={renderSignup}>
         {isLogin ? (
           <LogoutWrapper>
-            <Logout modalHandler={modalHandler} />
+            <Logout
+              modalHandler={modalHandler}
+              loginHandler={loginHandler}
+              saveLoginId={saveLoginId}
+            />
           </LogoutWrapper>
         ) : (
           <div>
@@ -100,9 +107,14 @@ const SignModal = ({ isLogin, modalHandler }) => {
             ) : (
               <FlexWrapper>
                 <LoginWrapper>
-                  <Login modalHandler={modalHandler} renderSignupHandler={renderSignupHandler} />
+                  <Login
+                    modalHandler={modalHandler}
+                    renderSignupHandler={renderSignupHandler}
+                    saveLoginId={saveLoginId}
+                    loginHandler={loginHandler}
+                  />
                 </LoginWrapper>
-                <LoginImg src='asset/logins/signImg.jpg'></LoginImg>
+                <LoginImg src='/asset/logins/signImg.jpg'></LoginImg>
               </FlexWrapper>
             )}
           </div>

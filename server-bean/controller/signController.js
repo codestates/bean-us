@@ -57,13 +57,19 @@ module.exports = {
   },
 
   logout: (req, res) => {
-    res.clearCookie('accessToken').send('로그아웃 되었습니다');
+    res
+      .clearCookie('accessToken', {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
+      })
+      .send('로그아웃 되었습니다');
   },
 
   checkToken: (req, res) => {
     const accessToken = isAuthorized(req);
     if (!accessToken) return res.json({ data: false, loginId: null, message: '로그아웃 상태입니다' });
-    const loginId = accessToken.userId || '';
+    const loginId = accessToken.userId;
     res.json({ data: true, loginId: loginId, message: '로그인 상태입니다' });
   },
 };

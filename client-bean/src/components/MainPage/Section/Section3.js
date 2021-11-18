@@ -25,24 +25,28 @@ const MainSection3 = styled.section`
 `;
 
 const MainSectionDesc = styled.div`
-	width: 350px;
+	width: 360px;
 	height: 100vh;
 	padding-top: 200px;
 	flex: none;
 		> h1 {
 			text-align: center;
 			color: #41352f;
+			font-family: 'Cafe24Ohsquareair';
+			font-weight: bold;
 		}
 		> div {
 			padding-left: 16px;
 			text-align: center;
 			font-size: 1.1rem;
-			font-weight: 600;
+			font-weight: 800;
 			color: #725e53;
+			font-family: 'Cafe24SsurroundAir';
 		}
 		> p {
 			padding-left: 30px;
-			font-weight: 500;
+			font-weight: 600;
+			font-family: 'Cafe24SsurroundAir';
 		}
 `;
 
