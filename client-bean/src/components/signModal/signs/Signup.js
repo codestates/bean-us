@@ -59,14 +59,16 @@ export default function Signup({ renderSignupHandler }) {
   };
 
   const checkDuplicate = () => {
-    checkIdReq(userId).then((res) => {
-      console.log(res.data);
-      if (res.data.data) {
-        setIsValidId(res.data.message);
-      } else {
-        setIsValidId(res.data.message);
-      }
-    });
+    if (!isValidId) {
+      checkIdReq(userId).then((res) => {
+        console.log(res.data);
+        if (res.data.data) {
+          setIsValidId(res.data.message);
+        } else {
+          setIsValidId(res.data.message);
+        }
+      });
+    }
   };
 
   const btnSignupClick = () => {
