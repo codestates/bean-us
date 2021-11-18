@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 const Input = styled.input`
-  width: ${({ checkId }) => (checkId ? '170px' : '250px')};
+  width: ${({ checkId }) => (checkId ? '160px' : '250px')};
   height: 35px;
   ${({ type }) =>
     type === 'text' &&
@@ -11,7 +11,7 @@ const Input = styled.input`
       font-family: 'Cafe24Simplehae';
     `}
   border: none;
-  padding: 10px;
+  padding: 0 10px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
