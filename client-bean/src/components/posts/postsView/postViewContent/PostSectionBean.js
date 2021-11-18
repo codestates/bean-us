@@ -53,6 +53,7 @@ export default function PostSectionBean({ postCotents }) {
         width='450px'
         height='450px'
         marginRight='5rem'
+        viewPost
       />
       <ContentContainer>
         <ContentInnerContainer bean>

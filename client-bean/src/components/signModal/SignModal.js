@@ -59,6 +59,7 @@ const SignWrapper = styled.section`
   box-sizing: border-box;
   animation: ${slideUp} 0.25s ease-out;
   transition: all 0.5s;
+  z-index: 999;
 `;
 
 const LoginWrapper = styled.div`
@@ -80,14 +81,14 @@ const FlexWrapper = styled.div`
   display: flex;
 `;
 
-const SignModal = ({ isLogin, modalHandler, saveLoginId, loginHandler }) => {
+const SignModal = ({ isLogin, modalHandler, saveLoginId, loginHandler, closeModal }) => {
   const [renderSignup, setRenderSignup] = useState(false);
   const renderSignupHandler = () => {
     setRenderSignup(!renderSignup);
   };
 
   return (
-    <Background>
+    <Background name='background' onClick={closeModal}>
       <SignWrapper isLogin={isLogin} renderSignup={renderSignup}>
         {isLogin ? (
           <LogoutWrapper>

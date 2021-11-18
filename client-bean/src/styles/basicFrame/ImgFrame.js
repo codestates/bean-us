@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const ImgWrap = styled.div`
   position: relative;
@@ -10,12 +10,19 @@ export const ImgWrap = styled.div`
   border-radius: ${({ borderRadius }) => borderRadius || '5px'};
   transition: all 0.3s;
   margin-right: ${({ marginRight }) => marginRight || null};
-
   & img {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    ${({ viewPost }) =>
+      viewPost &&
+      css`
+        position: relative;
+        width: 100%;
+        heigt: 100%;
+        object-fit: cover;
+      `}
   }
 
   &:hover {
@@ -32,9 +39,11 @@ export default function ImgFrame({
   borderRadius,
   marginRight,
   transform,
+  viewPost,
 }) {
   return (
     <ImgWrap
+      viewPost={viewPost}
       width={width}
       height={height}
       border={border}
