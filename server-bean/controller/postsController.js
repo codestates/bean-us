@@ -309,7 +309,7 @@ module.exports = {
       attributes: ['userId', 'commentId', 'comment', 'createdAt'],
       where:{postId},
       order: [['createdAt', 'DESC']]
-    })
+    });
     const postImageOne = await postImage.findOne({
       attributes: ['imageUrl'],
       where: {postId}
@@ -320,7 +320,10 @@ module.exports = {
       beanRatio[postBeanAllIdx['beanInfo.beanName']] = postBeanAllIdx['rate'];
     }
     postOne['beanRatio'] = beanRatio;
-    postOne['imageUrl'] = postImageOne.dataValues['imageUrl'];
+    console.log(postImage);
+    if(postImageOne){
+      postOne['imageUrl'] = postImageOne.dataValues['imageUrl'];
+    }
 
     res.status(200).json({
       postCotents: postOne,
