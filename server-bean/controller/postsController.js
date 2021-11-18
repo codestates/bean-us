@@ -47,46 +47,6 @@ module.exports = {
   },
 
   updatePost: (req, res) => {
-    const {postId, title, content, water, waterTemp, beanList} = req.body;
-    post.findOne({
-      where: {postId}
-    }).then(result => {
-      result.update({
-        title, content, water, waterTemp
-      }).then(async result => {
-        await postBean.destroy({
-          where: {postId}
-        });
-
-        for(let bean of beanList){
-          bean['postId'] = postId;
-        }
-
-        postBean.bulkCreate(beanList).then((postBeans) => {
-          const post = result.dataValues;
-          delete post.id;
-          delete post.updatedAt;
-
-          let beanList = [];
-
-          for (let beanItem of [...postBeans]) {
-            delete beanItem.dataValues.id;
-            delete beanItem.dataValues.createdAt;
-            delete beanItem.dataValues.updatedAt;
-            beanList = [...beanList, beanItem.dataValues];
-          }
-
-          res.status(201).json({
-            message: '게시글이 수정되었습니다.',
-            post,
-            beanList,
-          });
-        });
-      });
-    });
-  },
-
-  updatePost: (req, res) => {
     const { postId, title, content, water, waterTemp, beanList } = req.body;
     post.findOne({
       where: { postId },
@@ -160,7 +120,8 @@ module.exports = {
     });
     const postImages = await postImage.findAll({
       raw: true,
-      attributes: ['postId', 'imageUrl']
+      attributes: ['postId', 'imageUrl'],
+      order: [['createdAt', 'DESC']]
     });
 
     for (let postIdx of postList) {
@@ -211,7 +172,8 @@ module.exports = {
     });
     const postImageOne = await postImage.findOne({
       attributes: ['imageUrl'],
-      where: {postId}
+      where: {postId},
+      order: [['createdAt', 'DESC']]
     });
 
     const beans = [];
@@ -220,8 +182,10 @@ module.exports = {
     }
     
     postOne.dataValues['beans'] = beans;
-    postOne.dataValues['imageUrl'] = postImageOne.dataValues['imageUrl'];
-
+    if(postImageOne){
+      postOne.dataValues['imageUrl'] = postImageOne.dataValues['imageUrl'];
+    }
+    
     res.status(200).json({
       post: postOne,
     });
@@ -254,7 +218,8 @@ module.exports = {
     });
     const postImages = await postImage.findAll({
       raw: true,
-      attributes: ['postId', 'imageUrl']
+      attributes: ['postId', 'imageUrl'],
+      order: [['createdAt', 'DESC']]
     });
 
     for (let postIdx of postList) {
@@ -309,10 +274,11 @@ module.exports = {
       attributes: ['userId', 'commentId', 'comment', 'createdAt'],
       where:{postId},
       order: [['createdAt', 'DESC']]
-    })
+    });
     const postImageOne = await postImage.findOne({
       attributes: ['imageUrl'],
-      where: {postId}
+      where: {postId},
+      order: [['createdAt', 'DESC']]
     });
 
     const beanRatio = {};
@@ -320,7 +286,10 @@ module.exports = {
       beanRatio[postBeanAllIdx['beanInfo.beanName']] = postBeanAllIdx['rate'];
     }
     postOne['beanRatio'] = beanRatio;
-    postOne['imageUrl'] = postImageOne.dataValues['imageUrl'];
+    console.log(postImage);
+    if(postImageOne){
+      postOne['imageUrl'] = postImageOne.dataValues['imageUrl'];
+    }
 
     res.status(200).json({
       postCotents: postOne,
@@ -387,9 +356,11 @@ module.exports = {
   },
 
   imageUpload: (req, res) => {
-    postImage.findOrCreate({
-      where: {postId: req.body.postId},
-      default: {imageUrl: req.file.location}
+    console.log(req.body.postId);
+    console.log(req.file.location);
+    postImage.create({
+      postId: req.body.postId,
+      imageUrl: req.file.location
     }).then(() => {
       res.status(200).send('이미지 업로드가 완료되었습니다.');
     });

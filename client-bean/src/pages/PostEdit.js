@@ -104,6 +104,7 @@ function PostEdit() {
 			setPostInfo(res.post)
       setInputs({
         ...inputs,
+        postId: res.post.postId,
         content: res.post.content,
         title: res.post.title,
         water: res.post.water,
@@ -143,7 +144,8 @@ function PostEdit() {
   //게시글 생성
   const putPost = () => {
     if(form !== '') {
-      putPosts(inputs).then(() => {
+      putPosts(inputs).then((res) => {
+        setForm(form.append('postId', res.data.post.postId));
         sendImg(form).then(() => {
           alert('저장되었습니다.')
           navigate('/posts')
