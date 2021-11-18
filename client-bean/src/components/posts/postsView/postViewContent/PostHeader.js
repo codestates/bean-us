@@ -71,7 +71,7 @@ export default function PostHeader({ postCotents, postId, loginId }) {
             <span className='initial'>{userId.charAt(0)}</span>
             <ul>
               <li className='user'>작성자 : {userId}</li>
-              <li className='date'>{createdAt}</li>
+              <li className='date'>{createdAt.split('T')[0]}</li>
             </ul>
           </div>
           {loginId === userId && (

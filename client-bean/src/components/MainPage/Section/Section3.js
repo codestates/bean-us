@@ -148,7 +148,7 @@ export default function Section3 () {
 					</div>
 					<div className="java-label label">
 						<h4>Indonesia-Java</h4>
-						<p>java coffee description</p>
+						<p>스파이시하고 강한 바디감과 함께 섬세한 꽃향기, 낮은 산도가 특징</p>
 					</div>
 				</JavaSpot>
 				<SupremoSpot className="coffee-spot">
@@ -157,7 +157,7 @@ export default function Section3 () {
 					</div>
 					<div className="supremo-label label">
 						<h4>Colombia-Supremo</h4>
-						<p>Supremo coffee description</p>
+						<p>감미로운 아로마 향과 독특한 호두향이 풍부</p>
 					</div>
 				</SupremoSpot>
 				<KenyaSpot className="coffee-spot">
@@ -166,7 +166,7 @@ export default function Section3 () {
 					</div>
 					<div className="kenya-label label">
 						<h4>Kenya-KenyaAA</h4>
-						<p>Kenya coffee description</p>
+						<p>감귤류의 산미가 연상되고 단맛의 여운, 미디엄 바디, 깔끔한 애프터까지 훌륭한 커피</p>
 					</div>
 				</KenyaSpot>
 				<MexicoSpot className="coffee-spot">
@@ -175,7 +175,7 @@ export default function Section3 () {
 					</div>
 					<div className="kenya-label label">
 						<h4>Mexico-Altura</h4>
-						<p>Mexico coffee description</p>
+						<p>신맛과 단맛이 우수하고 강한 바디감으로 균형잡힌 맛</p>
 					</div>
 				</MexicoSpot>
 				<IndoSpot className="coffee-spot">
@@ -184,7 +184,7 @@ export default function Section3 () {
 					</div>
 					<div className="indo-label label">
 						<h4>Indo-Monsooned Malabar</h4>
-						<p>Indo coffee description</p>
+						<p>부드러우면서 구수한 향미, 은은하게 느껴지는 다크 초콜릿의 단맛을 느낄 수 있는 커피</p>
 					</div>
 				</IndoSpot>
 		</Map>
