@@ -47,18 +47,15 @@ module.exports = {
   },
 
   updatePost: (req, res) => {
-    console.log(req.body);
     const { postId, title, content, water, waterTemp, beanList } = req.body;
     post.findOne({
       where: { postId },
     }).then((result) => {
-      post.update({
+      result.update({
         title,
         content,
         water,
         waterTemp,
-      },{
-        where :{postId}
       }).then(async (result) => {
         await postBean.destroy({
           where: { postId },
@@ -185,8 +182,10 @@ module.exports = {
     }
     
     postOne.dataValues['beans'] = beans;
-    postOne.dataValues['imageUrl'] = postImageOne.dataValues['imageUrl'];
-
+    if(postImageOne){
+      postOne.dataValues['imageUrl'] = postImageOne.dataValues['imageUrl'];
+    }
+    
     res.status(200).json({
       post: postOne,
     });
