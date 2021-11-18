@@ -92,11 +92,13 @@ module.exports = {
     post.findOne({
       where: { postId },
     }).then((result) => {
-      result.update({
+      post.update({
         title,
         content,
         water,
         waterTemp,
+      },{
+        where :{postId}
       }).then(async (result) => {
         await postBean.destroy({
           where: { postId },
