@@ -3,7 +3,7 @@
 ## **당신의 취향이 될 커피**
 
 - Design UR Coffee /
-  <a href="https://practice.beanus.tk/" target="_blank"> &nbsp;🏠 <span> &nbsp; Bean-us Homepage </span></a>
+  <a href="https://cafe.beanus.tk/" target="_blank"> &nbsp;🏠 <span> &nbsp; Bean-us Homepage </span></a>
 
 <br/>
 <br/>
@@ -27,22 +27,13 @@
 
 ## Frontend
 
-<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white"/>
-<img src="https://img.shields.io/badge/-React%20Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white"/>
-<img src="https://img.shields.io/badge/Styled%20Components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/>
-<img src="https://img.shields.io/badge/Axios-5a3ce3?style=for-the-badge&logo=styled-component&logoColor=white"/>
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white"/> <img src="https://img.shields.io/badge/-React%20Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white"/> <img src="https://img.shields.io/badge/Styled%20Components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/> <img src="https://img.shields.io/badge/Axios-5a3ce3?style=for-the-badge&logo=styled-component&logoColor=white"/>
   
 <br/>
     
 ## Backend
 
-<img src="https://img.shields.io/badge/node.js-228B22?style=for-the-badge&logo=node.js&logoColor=white"> 
-<img src="https://img.shields.io/badge/express-555555?style=for-the-badge&logo=express&logoColor=white">
-<img src="https://img.shields.io/badge/json%20web%20tokens-8A2BE2?style=for-the-badge&logo=json%20web%20tokens&logoColor=white">
-<img src="https://img.shields.io/badge/amazon%20AWS-232F3E?style=for-the-badge&logo=amazon%20AWS&logoColor=white">
-<img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white"> 
-<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+<img src="https://img.shields.io/badge/node.js-228B22?style=for-the-badge&logo=node.js&logoColor=white"><img src="https://img.shields.io/badge/express-555555?style=for-the-badge&logo=express&logoColor=white"> <img src="https://img.shields.io/badge/json%20web%20tokens-8A2BE2?style=for-the-badge&logo=json%20web%20tokens&logoColor=white"> <img src="https://img.shields.io/badge/amazon%20AWS-232F3E?style=for-the-badge&logo=amazon%20AWS&logoColor=white"> <img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
 
 <br />
 <br />
