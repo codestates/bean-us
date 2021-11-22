@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingPage from './LoadingPage';
 
-export default function KakaoCallback({ loginHandler, saveLoginId }) {
+export default function GithubCallback({ loginHandler, saveLoginId }) {
   const navigate = useNavigate();
   const getGithubAccessToken = () => {
     const http = process.env.REACT_APP_HTTPURL;
