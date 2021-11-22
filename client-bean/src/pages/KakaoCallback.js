@@ -15,7 +15,6 @@ export default function KakaoCallback({ loginHandler, saveLoginId }) {
 
   useEffect(() => {
     getKakaoAccessToken().then((res) => {
-      console.log(res.data);
       saveLoginId(res.data.userId);
       loginHandler(true);
       navigate('/', { replace: true });
