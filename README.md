@@ -23,7 +23,7 @@
 
 ## Architecture
 
-<img src="https://cdn.discordapp.com/attachments/878163623376195595/910491233292529724/2021-11-17_8.26.47.png" />
+<img src="https://cdn.discordapp.com/attachments/878163623376195595/910791114951393300/Web_App_Reference_Architecture_4.png" />
 
 ## Frontend
 
